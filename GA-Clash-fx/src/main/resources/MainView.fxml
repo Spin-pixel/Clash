@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- Questa è la pagina di selezione delle caratteristiche base -->
+
+
+    <BorderPane fx:id="root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+                fx:controller="org.progettoFIA.gaclashfx.MainViewController">
+        <top>
+            <HBox spacing="10" style="-fx-padding:10;">
+                <MenuButton text="☰" fx:id="hamburger">
+                    <items>
+                        <MenuItem text="Carte possedute" onAction="#openOwnedCards"/>
+                    </items>
+                </MenuButton>
+                <Label text="Royal Configurator"/>
+            </HBox>
+        </top>
+
+        <center>
+            <Label text="Schermata principale (placeholder)"/>
+        </center>
+    <bottom>
+        <Button onMouseClicked="#GA">GA</Button>
+    </bottom>
+    </BorderPane>
+

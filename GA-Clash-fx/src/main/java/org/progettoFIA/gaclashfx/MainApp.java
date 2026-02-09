@@ -6,14 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class MainApp extends Application {
 
     @Override
-    public void start(Stage stage) {
-        var view = new MainView();
-        Scene scene = new Scene(view.root(), 980, 640);
-        //scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        stage.setTitle("Mini GA + JavaFX (OneMax)");
+    public void start(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/MainView.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root, 1000, 650);
+        stage.setTitle("GA Clash FX");
         stage.setScene(scene);
         stage.show();
     }
