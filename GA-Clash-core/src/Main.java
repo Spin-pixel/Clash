@@ -1,3 +1,6 @@
+import main.java.org.ProgettoFIA.gacore.individuals.Deck;
+import main.java.org.ProgettoFIA.gacore.individuals.DeckConstraints;
+import main.java.org.ProgettoFIA.gacore.initializer.Initializer;
 import main.java.service.CardService;
 import main.java.model.*;
 
@@ -12,21 +15,25 @@ public class Main {
         CardService service = new CardService();
 
         final String path = "GA-Clash-core/src/cardList.json";
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        // Assicurati che il path sia corretto rispetto alla root del tuo progetto
-        // In IntelliJ solitamente la root è fuori da 'src', quindi: "src/cardList.json"
+        // 1. Carica le carte (usa il tuo CardService fatto prima)
+        CardService cardService = new CardService();
+        List<Card> allCards = cardService.loadCards(path);
 
-        List<Card> deck = service.loadCards(path);
+        // 2. Definisci i vincoli
+        DeckConstraints myConstraints = new DeckConstraints();
+        myConstraints.mandatoryCardId = "t09";
+        myConstraints.minSpells = 2;
+        myConstraints.minAirTarget = 2;
+        myConstraints.minBuildingTarget = 1;
 
-        System.out.println("Carte caricate con successo: " + deck.size());
-        System.out.println("-------------------------------------------------");
+        // 3. Inizializza popolazione
+        Initializer initializer = new Initializer();
+        List<Deck> population = initializer.createPopulation(allCards, 20, myConstraints);
 
-        for (Card card : deck) {
-            // Usa il polimorfismo: Java chiamerà il toString() della classe specifica
-            System.out.println(card);
-
-            // Esempio di calcolo efficienza
-            System.out.printf("   -> Efficiency Score: %.2f%n", card.getEfficiencyScore());
+        // Stampa risultato
+        System.out.println("Popolazione generata: " + population.size());
+        for (Deck d : population) {
+            System.out.println(d);
         }
     }
 }
