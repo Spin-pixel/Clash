@@ -1,476 +1,95 @@
 [
-  {
-    "class_type": "TROOP",
-    "id": "t01", "name": "Knight", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 1766, "attackScope": "GROUND", "movementSpeed": "MEDIUM",
-    "damage": 202, "hitSpeed": 1.2, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t02", "name": "Archers", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 304, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 107, "hitSpeed": 0.9, "range": 5.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 2
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t03", "name": "Goblins", "elixirCost": 2, "type": "TROOP",
-    "hitpoints": 202, "attackScope": "GROUND", "movementSpeed": "VERY_FAST",
-    "damage": 120, "hitSpeed": 1.1, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 4
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t04", "name": "Giant", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 4091, "attackScope": "GROUND", "movementSpeed": "SLOW",
-    "damage": 254, "hitSpeed": 1.5, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": true, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t05", "name": "P.E.K.K.A", "elixirCost": 7, "type": "TROOP",
-    "hitpoints": 3760, "attackScope": "GROUND", "movementSpeed": "SLOW",
-    "damage": 816, "hitSpeed": 1.8, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t06", "name": "Minions", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 230, "attackScope": "AIR_GROUND", "movementSpeed": "FAST",
-    "damage": 102, "hitSpeed": 1.0, "range": 2.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 3
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t07", "name": "Balloon", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 1680, "attackScope": "GROUND", "movementSpeed": "MEDIUM",
-    "damage": 960, "hitSpeed": 2.0, "range": 0, "radius": 2.0,
-    "targetsOnlyBuildings": true, "groupSize": 1
-  },
-  {
-    "class_type": "SPAWN_TROOP",
-    "id": "st01", "name": "Witch", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 838, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 134, "hitSpeed": 0.7, "range": 5.0, "radius": 1.0,
-    "targetsOnlyBuildings": false, "groupSize": 1,
-    "idSpawnedTroop": "Skeleton", "spawnInterval": 7.0, "spawnCount": 4
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t08", "name": "Valkyrie", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 1908, "attackScope": "GROUND", "movementSpeed": "MEDIUM",
-    "damage": 267, "hitSpeed": 1.5, "range": 0, "radius": 2.0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t09", "name": "Musketeer", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 720, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 218, "hitSpeed": 1.0, "range": 6.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t10", "name": "Baby Dragon", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 1152, "attackScope": "AIR_GROUND", "movementSpeed": "FAST",
-    "damage": 160, "hitSpeed": 1.5, "range": 3.5, "radius": 1.2,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t11", "name": "Skeleton Army", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 81, "attackScope": "GROUND", "movementSpeed": "FAST",
-    "damage": 81, "hitSpeed": 1.0, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 15
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t12", "name": "Prince", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 1920, "attackScope": "GROUND", "movementSpeed": "MEDIUM",
-    "damage": 392, "hitSpeed": 1.4, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t13", "name": "Spear Goblins", "elixirCost": 2, "type": "TROOP",
-    "hitpoints": 133, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST",
-    "damage": 81, "hitSpeed": 1.7, "range": 5.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 3
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t14", "name": "Goblin Barrel", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 202, "attackScope": "GROUND", "movementSpeed": "VERY_FAST",
-    "damage": 120, "hitSpeed": 1.1, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 3
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t15", "name": "Barbarians", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 670, "attackScope": "GROUND", "movementSpeed": "MEDIUM",
-    "damage": 192, "hitSpeed": 1.3, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 5
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t16", "name": "Minion Horde", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 230, "attackScope": "AIR_GROUND", "movementSpeed": "FAST",
-    "damage": 102, "hitSpeed": 1.0, "range": 2.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 6
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t17", "name": "Hog Rider", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 1696, "attackScope": "GROUND", "movementSpeed": "VERY_FAST",
-    "damage": 318, "hitSpeed": 1.6, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": true, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t18", "name": "Mini P.E.K.K.A", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 1361, "attackScope": "GROUND", "movementSpeed": "FAST",
-    "damage": 720, "hitSpeed": 1.6, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t19", "name": "Wizard", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 720, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 281, "hitSpeed": 1.4, "range": 5.5, "radius": 1.5,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t20", "name": "Ice Wizard", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 688, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 90, "hitSpeed": 1.7, "range": 5.5, "radius": 1.5,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t21", "name": "Golem", "elixirCost": 8, "type": "TROOP",
-    "hitpoints": 5120, "attackScope": "GROUND", "movementSpeed": "SLOW",
-    "damage": 312, "hitSpeed": 2.5, "range": 0, "radius": 2.0,
-    "targetsOnlyBuildings": true, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t22", "name": "Lava Hound", "elixirCost": 7, "type": "TROOP",
-    "hitpoints": 3840, "attackScope": "GROUND", "movementSpeed": "SLOW",
-    "damage": 54, "hitSpeed": 2.0, "range": 3.5, "radius": 0,
-    "targetsOnlyBuildings": true, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t23", "name": "Miner", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 1200, "attackScope": "GROUND", "movementSpeed": "FAST",
-    "damage": 192, "hitSpeed": 1.2, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t24", "name": "Princess", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 261, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 169, "hitSpeed": 3.0, "range": 9.0, "radius": 2.5,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t25", "name": "Sparky", "elixirCost": 6, "type": "TROOP",
-    "hitpoints": 1452, "attackScope": "GROUND", "movementSpeed": "SLOW",
-    "damage": 1331, "hitSpeed": 4.0, "range": 5.0, "radius": 1.2,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t26", "name": "Bowler", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 2080, "attackScope": "GROUND", "movementSpeed": "SLOW",
-    "damage": 288, "hitSpeed": 2.5, "range": 5.0, "radius": 1.5,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t27", "name": "Lumberjack", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 1260, "attackScope": "GROUND", "movementSpeed": "VERY_FAST",
-    "damage": 240, "hitSpeed": 0.8, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t28", "name": "Electro Wizard", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 713, "attackScope": "AIR_GROUND", "movementSpeed": "FAST",
-    "damage": 230, "hitSpeed": 1.8, "range": 5.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t29", "name": "Executioner", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 1280, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 336, "hitSpeed": 2.4, "range": 4.5, "radius": 1.0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t30", "name": "Bandit", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 907, "attackScope": "GROUND", "movementSpeed": "FAST",
-    "damage": 193, "hitSpeed": 1.0, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t31", "name": "Royal Giant", "elixirCost": 6, "type": "TROOP",
-    "hitpoints": 3072, "attackScope": "GROUND", "movementSpeed": "SLOW",
-    "damage": 307, "hitSpeed": 1.7, "range": 5.0, "radius": 0,
-    "targetsOnlyBuildings": true, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t32", "name": "Elite Barbarians", "elixirCost": 6, "type": "TROOP",
-    "hitpoints": 1341, "attackScope": "GROUND", "movementSpeed": "VERY_FAST",
-    "damage": 384, "hitSpeed": 1.4, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 2
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t33", "name": "Dart Goblin", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 260, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST",
-    "damage": 131, "hitSpeed": 0.7, "range": 6.5, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "SPAWN_TROOP",
-    "id": "st02", "name": "Night Witch", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 900, "attackScope": "GROUND", "movementSpeed": "MEDIUM",
-    "damage": 315, "hitSpeed": 1.3, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1,
-    "idSpawnedTroop": "Bat", "spawnInterval": 7.0, "spawnCount": 2
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t34", "name": "Bats", "elixirCost": 2, "type": "TROOP",
-    "hitpoints": 81, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST",
-    "damage": 81, "hitSpeed": 1.1, "range": 1.2, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 5
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t35", "name": "Royal Ghost", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 1210, "attackScope": "GROUND", "movementSpeed": "FAST",
-    "damage": 261, "hitSpeed": 1.8, "range": 0, "radius": 1.0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t36", "name": "Magic Archer", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 532, "attackScope": "AIR_GROUND", "movementSpeed": "FAST",
-    "damage": 134, "hitSpeed": 1.1, "range": 7.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t37", "name": "Mega Minion", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 838, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 307, "hitSpeed": 1.6, "range": 2.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t38", "name": "Three Musketeers", "elixirCost": 9, "type": "TROOP",
-    "hitpoints": 720, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 218, "hitSpeed": 1.0, "range": 6.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 3
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t39", "name": "Dark Prince", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 1243, "attackScope": "GROUND", "movementSpeed": "MEDIUM",
-    "damage": 246, "hitSpeed": 1.3, "range": 0, "radius": 1.2,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t40", "name": "Guards", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 108, "attackScope": "GROUND", "movementSpeed": "FAST",
-    "damage": 124, "hitSpeed": 1.0, "range": 2.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 3
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t41", "name": "Hunter", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 838, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 84, "hitSpeed": 2.2, "range": 4.0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t42", "name": "Rascals", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 1826, "attackScope": "GROUND", "movementSpeed": "MEDIUM",
-    "damage": 133, "hitSpeed": 1.5, "range": 0, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 3
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t43", "name": "Electro Dragon", "elixirCost": 5, "type": "TROOP",
-    "hitpoints": 950, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 192, "hitSpeed": 2.1, "range": 3.5, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "TROOP",
-    "id": "t44", "name": "Firecracker", "elixirCost": 3, "type": "TROOP",
-    "hitpoints": 304, "attackScope": "AIR_GROUND", "movementSpeed": "FAST",
-    "damage": 64, "hitSpeed": 3.0, "range": 6.0, "radius": 2.0,
-    "targetsOnlyBuildings": false, "groupSize": 1
-  },
-  {
-    "class_type": "SPAWN_TROOP",
-    "id": "st03", "name": "Mother Witch", "elixirCost": 4, "type": "TROOP",
-    "hitpoints": 532, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM",
-    "damage": 133, "hitSpeed": 1.1, "range": 5.5, "radius": 0,
-    "targetsOnlyBuildings": false, "groupSize": 1,
-    "idSpawnedTroop": "CursedHog", "spawnInterval": 0, "spawnCount": 1
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s01", "name": "Arrows", "elixirCost": 3, "type": "SPELL",
-    "damage": 403, "crownTowerDamage": 121, "radius": 4.0
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s02", "name": "Fireball", "elixirCost": 4, "type": "SPELL",
-    "damage": 689, "crownTowerDamage": 207, "radius": 2.5
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s03", "name": "Zap", "elixirCost": 2, "type": "SPELL",
-    "damage": 192, "crownTowerDamage": 58, "radius": 2.5
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s04", "name": "Lightning", "elixirCost": 6, "type": "SPELL",
-    "damage": 1056, "crownTowerDamage": 317, "radius": 3.5
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s05", "name": "Rocket", "elixirCost": 6, "type": "SPELL",
-    "damage": 1484, "crownTowerDamage": 371, "radius": 2.0
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s06", "name": "The Log", "elixirCost": 2, "type": "SPELL",
-    "damage": 290, "crownTowerDamage": 58, "radius": 3.9
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s07", "name": "Poison", "elixirCost": 4, "type": "SPELL",
-    "damage": 728, "crownTowerDamage": 216, "radius": 3.5
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s08", "name": "Tornado", "elixirCost": 3, "type": "SPELL",
-    "damage": 168, "crownTowerDamage": 58, "radius": 5.5
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s09", "name": "Freeze", "elixirCost": 4, "type": "SPELL",
-    "damage": 115, "crownTowerDamage": 35, "radius": 3.0
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s10", "name": "Earthquake", "elixirCost": 3, "type": "SPELL",
-    "damage": 204, "crownTowerDamage": 153, "radius": 3.5
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s11", "name": "Barbarian Barrel", "elixirCost": 2, "type": "SPELL",
-    "damage": 241, "crownTowerDamage": 0, "radius": 2.6
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s12", "name": "Giant Snowball", "elixirCost": 2, "type": "SPELL",
-    "damage": 192, "crownTowerDamage": 58, "radius": 2.5
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s13", "name": "Royal Delivery", "elixirCost": 3, "type": "SPELL",
-    "damage": 462, "crownTowerDamage": 0, "radius": 3.0
-  },
-  {
-    "class_type": "SPELL",
-    "id": "s14", "name": "Void", "elixirCost": 3, "type": "SPELL",
-    "damage": 540, "crownTowerDamage": 216, "radius": 2.5
-  },
-  {
-    "class_type": "DEF_BUILDING",
-    "id": "b01", "name": "Cannon", "elixirCost": 3, "type": "BUILDING",
-    "hitpoints": 824, "attackScope": "GROUND", "damage": 212,
-    "hitSpeed": 0.9, "range": 5.0, "radius": 0
-  },
-  {
-    "class_type": "DEF_BUILDING",
-    "id": "b02", "name": "Tesla", "elixirCost": 4, "type": "BUILDING",
-    "hitpoints": 1152, "attackScope": "AIR_GROUND", "damage": 230,
-    "hitSpeed": 1.1, "range": 5.5, "radius": 0
-  },
-  {
-    "class_type": "DEF_BUILDING",
-    "id": "b03", "name": "Inferno Tower", "elixirCost": 5, "type": "BUILDING",
-    "hitpoints": 1704, "attackScope": "AIR_GROUND", "damage": 42,
-    "hitSpeed": 0.4, "range": 6.0, "radius": 0
-  },
-  {
-    "class_type": "DEF_BUILDING",
-    "id": "b04", "name": "Bomb Tower", "elixirCost": 4, "type": "BUILDING",
-    "hitpoints": 1356, "attackScope": "GROUND", "damage": 222,
-    "hitSpeed": 1.6, "range": 6.0, "radius": 1.5
-  },
-  {
-    "class_type": "DEF_BUILDING",
-    "id": "b05", "name": "Mortar", "elixirCost": 4, "type": "BUILDING",
-    "hitpoints": 1472, "attackScope": "GROUND", "damage": 266,
-    "hitSpeed": 5.0, "range": 11.5, "radius": 2.0
-  },
-  {
-    "class_type": "DEF_BUILDING",
-    "id": "b06", "name": "X-Bow", "elixirCost": 6, "type": "BUILDING",
-    "hitpoints": 1600, "attackScope": "GROUND", "damage": 41,
-    "hitSpeed": 0.3, "range": 11.5, "radius": 0
-  },
-  {
-    "class_type": "DEF_BUILDING",
-    "id": "b07", "name": "Goblin Cage", "elixirCost": 4, "type": "BUILDING",
-    "hitpoints": 880, "attackScope": "GROUND", "damage": 0,
-    "hitSpeed": 0, "range": 0, "radius": 0
-  },
-  {
-    "class_type": "SPAWN_BUILDING",
-    "id": "sb01", "name": "Goblin Hut", "elixirCost": 5, "type": "BUILDING",
-    "hitpoints": 1021, "idSpawnedTroop": "SpearGoblin",
-    "spawnInterval": 4.5, "spawnCount": 1
-  },
-  {
-    "class_type": "SPAWN_BUILDING",
-    "id": "sb02", "name": "Tombstone", "elixirCost": 3, "type": "BUILDING",
-    "hitpoints": 536, "idSpawnedTroop": "Skeleton",
-    "spawnInterval": 3.1, "spawnCount": 1
-  },
-  {
-    "class_type": "SPAWN_BUILDING",
-    "id": "sb03", "name": "Barbarian Hut", "elixirCost": 7, "type": "BUILDING",
-    "hitpoints": 1395, "idSpawnedTroop": "Barbarian",
-    "spawnInterval": 12.0, "spawnCount": 2
-  },
-  {
-    "class_type": "SPAWN_BUILDING",
-    "id": "sb04", "name": "Furnace", "elixirCost": 4, "type": "BUILDING",
-    "hitpoints": 848, "idSpawnedTroop": "FireSpirit",
-    "spawnInterval": 6.0, "spawnCount": 1
-  },
-  {
-    "class_type": "SPAWN_BUILDING",
-    "id": "sb05", "name": "Goblin Drill", "elixirCost": 4, "type": "BUILDING",
-    "hitpoints": 1350, "idSpawnedTroop": "Goblin",
-    "spawnInterval": 3.0, "spawnCount": 1
-  }
+  { "class_type": "TROOP", "id": "knight", "name": "Knight", "elixirCost": 3, "type": "TROOP", "tag": "MINI_TANK", "hitpoints": 1766, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 202, "hitSpeed": 1.2, "range": 1.2, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "archers", "name": "Archers", "elixirCost": 3, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 304, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 107, "hitSpeed": 0.9, "range": 5.0, "radius": 0.4, "targetsOnlyBuildings": false, "groupSize": 2, "isFlying": false },
+  { "class_type": "TROOP", "id": "goblins", "name": "Goblins", "elixirCost": 2, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 202, "attackScope": "GROUND", "movementSpeed": "VERY_FAST", "damage": 120, "hitSpeed": 1.1, "range": 0.5, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 3, "isFlying": false },
+  { "class_type": "TROOP", "id": "spear_goblins", "name": "Spear Goblins", "elixirCost": 2, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 133, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST", "damage": 80, "hitSpeed": 1.7, "range": 5.0, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 3, "isFlying": false },
+  { "class_type": "TROOP", "id": "giant", "name": "Giant", "elixirCost": 5, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 4091, "attackScope": "GROUND", "movementSpeed": "SLOW", "damage": 254, "hitSpeed": 1.5, "range": 1.2, "radius": 1.0, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "hog_rider", "name": "Hog Rider", "elixirCost": 4, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 1696, "attackScope": "GROUND", "movementSpeed": "VERY_FAST", "damage": 318, "hitSpeed": 1.6, "range": 0.8, "radius": 0.8, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "mini_pekka", "name": "Mini P.E.K.K.A", "elixirCost": 4, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 1361, "attackScope": "GROUND", "movementSpeed": "FAST", "damage": 720, "hitSpeed": 1.8, "range": 0.8, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "musketeer", "name": "Musketeer", "elixirCost": 4, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 720, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 218, "hitSpeed": 1.1, "range": 6.0, "radius": 0.4, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "baby_dragon", "name": "Baby Dragon", "elixirCost": 4, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 1152, "attackScope": "AIR_GROUND", "movementSpeed": "FAST", "damage": 160, "hitSpeed": 1.5, "range": 3.5, "radius": 0.8, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": true },
+  { "class_type": "TROOP", "id": "skeleton_army", "name": "Skeleton Army", "elixirCost": 3, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 81, "attackScope": "GROUND", "movementSpeed": "FAST", "damage": 81, "hitSpeed": 1.0, "range": 0.5, "radius": 0.2, "targetsOnlyBuildings": false, "groupSize": 15, "isFlying": false },
+  { "class_type": "TROOP", "id": "prince", "name": "Prince", "elixirCost": 5, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 1920, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 392, "hitSpeed": 1.4, "range": 1.6, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "pekka", "name": "P.E.K.K.A", "elixirCost": 7, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 3760, "attackScope": "GROUND", "movementSpeed": "SLOW", "damage": 816, "hitSpeed": 1.8, "range": 1.2, "radius": 1.0, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "wizard", "name": "Wizard", "elixirCost": 5, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 720, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 281, "hitSpeed": 1.4, "range": 5.5, "radius": 0.4, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "valkyrie", "name": "Valkyrie", "elixirCost": 4, "type": "TROOP", "tag": "MINI_TANK", "hitpoints": 1908, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 260, "hitSpeed": 1.5, "range": 1.2, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "golem", "name": "Golem", "elixirCost": 8, "type": "TROOP", "tag": "TANK", "hitpoints": 5120, "attackScope": "GROUND", "movementSpeed": "SLOW", "damage": 312, "hitSpeed": 2.5, "range": 0.75, "radius": 1.4, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "lava_hound", "name": "Lava Hound", "elixirCost": 7, "type": "TROOP", "tag": "TANK", "hitpoints": 3800, "attackScope": "GROUND", "movementSpeed": "SLOW", "damage": 55, "hitSpeed": 1.3, "range": 3.5, "radius": 1.2, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": true },
+  { "class_type": "TROOP", "id": "balloon", "name": "Balloon", "elixirCost": 5, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 1680, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 960, "hitSpeed": 3.0, "range": 0.1, "radius": 1.0, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": true },
+  { "class_type": "TROOP", "id": "minions", "name": "Minions", "elixirCost": 3, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 230, "attackScope": "AIR_GROUND", "movementSpeed": "FAST", "damage": 102, "hitSpeed": 1.0, "range": 2.0, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 3, "isFlying": true },
+  { "class_type": "TROOP", "id": "minion_horde", "name": "Minion Horde", "elixirCost": 5, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 230, "attackScope": "AIR_GROUND", "movementSpeed": "FAST", "damage": 102, "hitSpeed": 1.0, "range": 2.0, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 6, "isFlying": true },
+  { "class_type": "TROOP", "id": "miner", "name": "Miner", "elixirCost": 3, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 1200, "attackScope": "GROUND", "movementSpeed": "FAST", "damage": 190, "hitSpeed": 1.2, "range": 1.2, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "ice_wizard", "name": "Ice Wizard", "elixirCost": 3, "type": "TROOP", "tag": "CROWD_CONTROL", "hitpoints": 688, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 90, "hitSpeed": 1.7, "range": 5.5, "radius": 0.4, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "electro_wizard", "name": "Electro Wizard", "elixirCost": 4, "type": "TROOP", "tag": "CROWD_CONTROL", "hitpoints": 713, "attackScope": "AIR_GROUND", "movementSpeed": "FAST", "damage": 220, "hitSpeed": 1.8, "range": 5.0, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "inferno_dragon", "name": "Inferno Dragon", "elixirCost": 4, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 1264, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 350, "hitSpeed": 0.4, "range": 3.5, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": true },
+  { "class_type": "TROOP", "id": "mega_minion", "name": "Mega Minion", "elixirCost": 3, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 834, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 305, "hitSpeed": 1.3, "range": 2.0, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": true },
+  { "class_type": "TROOP", "id": "bats", "name": "Bats", "elixirCost": 2, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 81, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST", "damage": 81, "hitSpeed": 1.1, "range": 1.2, "radius": 0.2, "targetsOnlyBuildings": false, "groupSize": 5, "isFlying": true },
+  { "class_type": "TROOP", "id": "royal_giant", "name": "Royal Giant", "elixirCost": 6, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 3072, "attackScope": "GROUND", "movementSpeed": "SLOW", "damage": 307, "hitSpeed": 1.7, "range": 5.0, "radius": 1.2, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "elite_barbarians", "name": "Elite Barbarians", "elixirCost": 6, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 1341, "attackScope": "GROUND", "movementSpeed": "VERY_FAST", "damage": 384, "hitSpeed": 1.4, "range": 1.2, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 2, "isFlying": false },
+  { "class_type": "TROOP", "id": "royal_hogs", "name": "Royal Hogs", "elixirCost": 5, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 836, "attackScope": "GROUND", "movementSpeed": "VERY_FAST", "damage": 88, "hitSpeed": 1.2, "range": 0.8, "radius": 0.6, "targetsOnlyBuildings": true, "groupSize": 4, "isFlying": false },
+  { "class_type": "TROOP", "id": "three_musketeers", "name": "Three Musketeers", "elixirCost": 9, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 720, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 218, "hitSpeed": 1.1, "range": 6.0, "radius": 0.4, "targetsOnlyBuildings": false, "groupSize": 3, "isFlying": false },
+  { "class_type": "TROOP", "id": "dark_prince", "name": "Dark Prince", "elixirCost": 4, "type": "TROOP", "tag": "MINI_TANK", "hitpoints": 1200, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 260, "hitSpeed": 1.3, "range": 1.2, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "guards", "name": "Guards", "elixirCost": 3, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 100, "attackScope": "GROUND", "movementSpeed": "FAST", "damage": 120, "hitSpeed": 1.0, "range": 1.6, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 3, "isFlying": false },
+  { "class_type": "TROOP", "id": "ice_golem", "name": "Ice Golem", "elixirCost": 2, "type": "TROOP", "tag": "MINI_TANK", "hitpoints": 1197, "attackScope": "GROUND", "movementSpeed": "SLOW", "damage": 84, "hitSpeed": 2.5, "range": 0.5, "radius": 0.6, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "mega_knight", "name": "Mega Knight", "elixirCost": 7, "type": "TROOP", "tag": "TANK", "hitpoints": 3993, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 268, "hitSpeed": 1.7, "range": 1.2, "radius": 1.2, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "bandit", "name": "Bandit", "elixirCost": 3, "type": "TROOP", "tag": "MINI_TANK", "hitpoints": 907, "attackScope": "GROUND", "movementSpeed": "FAST", "damage": 193, "hitSpeed": 1.0, "range": 0.8, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "magic_archer", "name": "Magic Archer", "elixirCost": 4, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 532, "attackScope": "AIR_GROUND", "movementSpeed": "FAST", "damage": 127, "hitSpeed": 1.1, "range": 7.0, "radius": 0.4, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "lumberjack", "name": "Lumberjack", "elixirCost": 4, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 1260, "attackScope": "GROUND", "movementSpeed": "VERY_FAST", "damage": 240, "hitSpeed": 0.8, "range": 0.8, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "bowler", "name": "Bowler", "elixirCost": 5, "type": "TROOP", "tag": "CROWD_CONTROL", "hitpoints": 1900, "attackScope": "GROUND", "movementSpeed": "SLOW", "damage": 288, "hitSpeed": 2.5, "range": 4.0, "radius": 1.0, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "executioner", "name": "Executioner", "elixirCost": 5, "type": "TROOP", "tag": "CROWD_CONTROL", "hitpoints": 1280, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 336, "hitSpeed": 2.4, "range": 4.5, "radius": 0.7, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "hunter", "name": "Hunter", "elixirCost": 4, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 838, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 84, "hitSpeed": 2.2, "range": 4.0, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "giant_skeleton", "name": "Giant Skeleton", "elixirCost": 6, "type": "TROOP", "tag": "TANK", "hitpoints": 3300, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 260, "hitSpeed": 1.5, "range": 1.2, "radius": 1.0, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "goblin_gang", "name": "Goblin Gang", "elixirCost": 3, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 202, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST", "damage": 120, "hitSpeed": 1.1, "range": 0.5, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 5, "isFlying": false },
+  { "class_type": "TROOP", "id": "sparky", "name": "Sparky", "elixirCost": 6, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 1452, "attackScope": "GROUND", "movementSpeed": "SLOW", "damage": 1331, "hitSpeed": 4.0, "range": 5.0, "radius": 1.0, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "electro_dragon", "name": "Electro Dragon", "elixirCost": 5, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 950, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 192, "hitSpeed": 2.1, "range": 3.5, "radius": 0.8, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": true },
+  { "class_type": "TROOP", "id": "flying_machine", "name": "Flying Machine", "elixirCost": 4, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 598, "attackScope": "AIR_GROUND", "movementSpeed": "FAST", "damage": 169, "hitSpeed": 1.1, "range": 6.0, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": true },
+  { "class_type": "TROOP", "id": "wall_breakers", "name": "Wall Breakers", "elixirCost": 2, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 331, "attackScope": "GROUND", "movementSpeed": "VERY_FAST", "damage": 392, "hitSpeed": 1.0, "range": 0.5, "radius": 0.5, "targetsOnlyBuildings": true, "groupSize": 2, "isFlying": false },
+  { "class_type": "TROOP", "id": "ram_rider", "name": "Ram Rider", "elixirCost": 5, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 1716, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 266, "hitSpeed": 1.8, "range": 0.8, "radius": 0.8, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "battle_ram", "name": "Battle Ram", "elixirCost": 4, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 907, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 286, "hitSpeed": 1.0, "range": 0.5, "radius": 0.8, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "royal_ghost", "name": "Royal Ghost", "elixirCost": 3, "type": "TROOP", "tag": "MINI_TANK", "hitpoints": 1210, "attackScope": "GROUND", "movementSpeed": "FAST", "damage": 261, "hitSpeed": 1.8, "range": 1.2, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "fisherman", "name": "Fisherman", "elixirCost": 3, "type": "TROOP", "tag": "CROWD_CONTROL", "hitpoints": 871, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 190, "hitSpeed": 1.3, "range": 4.5, "radius": 0.7, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "ice_spirit", "name": "Ice Spirit", "elixirCost": 1, "type": "TROOP", "tag": "CROWD_CONTROL", "hitpoints": 230, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST", "damage": 110, "hitSpeed": 1.0, "range": 2.5, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "electro_spirit", "name": "Electro Spirit", "elixirCost": 1, "type": "TROOP", "tag": "CROWD_CONTROL", "hitpoints": 230, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST", "damage": 99, "hitSpeed": 1.0, "range": 2.5, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "fire_spirit", "name": "Fire Spirit", "elixirCost": 1, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 230, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST", "damage": 207, "hitSpeed": 1.0, "range": 2.0, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "heal_spirit", "name": "Heal Spirit", "elixirCost": 1, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 230, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST", "damage": 0, "hitSpeed": 1.0, "range": 2.5, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "skeletons", "name": "Skeletons", "elixirCost": 1, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 81, "attackScope": "GROUND", "movementSpeed": "FAST", "damage": 81, "hitSpeed": 1.0, "range": 0.5, "radius": 0.2, "targetsOnlyBuildings": false, "groupSize": 3, "isFlying": false },
+  { "class_type": "TROOP", "id": "princess", "name": "Princess", "elixirCost": 3, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 261, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 169, "hitSpeed": 3.0, "range": 9.0, "radius": 0.4, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "dart_goblin", "name": "Dart Goblin", "elixirCost": 3, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 260, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST", "damage": 131, "hitSpeed": 0.7, "range": 6.5, "radius": 0.4, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "goblin_giant", "name": "Goblin Giant", "elixirCost": 6, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 3115, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 169, "hitSpeed": 1.5, "range": 1.2, "radius": 1.2, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "electro_giant", "name": "Electro Giant", "elixirCost": 7, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 4180, "attackScope": "GROUND", "movementSpeed": "SLOW", "damage": 192, "hitSpeed": 2.1, "range": 1.2, "radius": 1.4, "targetsOnlyBuildings": true, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "firecracker", "name": "Firecracker", "elixirCost": 3, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 304, "attackScope": "AIR_GROUND", "movementSpeed": "FAST", "damage": 64, "hitSpeed": 3.0, "range": 6.0, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "barbarians", "name": "Barbarians", "elixirCost": 5, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 670, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 192, "hitSpeed": 1.3, "range": 0.8, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 5, "isFlying": false },
+  { "class_type": "TROOP", "id": "elite_barbarians", "name": "Elite Barbarians", "elixirCost": 6, "type": "TROOP", "tag": "TANK_KILLER", "hitpoints": 1341, "attackScope": "GROUND", "movementSpeed": "VERY_FAST", "damage": 384, "hitSpeed": 1.4, "range": 1.2, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 2, "isFlying": false },
+  { "class_type": "TROOP", "id": "bomber", "name": "Bomber", "elixirCost": 2, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 398, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 222, "hitSpeed": 1.8, "range": 5.0, "radius": 0.4, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "rascals", "name": "Rascals", "elixirCost": 5, "type": "TROOP", "tag": "MINI_TANK", "hitpoints": 1850, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 133, "hitSpeed": 1.3, "range": 1.2, "radius": 0.8, "targetsOnlyBuildings": false, "groupSize": 3, "isFlying": false },
+  { "class_type": "TROOP", "id": "zappies", "name": "Zappies", "elixirCost": 4, "type": "TROOP", "tag": "CROWD_CONTROL", "hitpoints": 530, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 84, "hitSpeed": 2.0, "range": 4.5, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 3, "isFlying": false },
+  { "class_type": "TROOP", "id": "royal_recruits", "name": "Royal Recruits", "elixirCost": 7, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 532, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 127, "hitSpeed": 1.3, "range": 1.6, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 6, "isFlying": false },
+  { "class_type": "TROOP", "id": "skeleton_dragons", "name": "Skeleton Dragons", "elixirCost": 4, "type": "TROOP", "tag": "GLASS_CANNON", "hitpoints": 532, "attackScope": "AIR_GROUND", "movementSpeed": "FAST", "damage": 160, "hitSpeed": 1.5, "range": 3.5, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 2, "isFlying": true },
+  { "class_type": "TROOP", "id": "electro_spirit", "name": "Electro Spirit", "elixirCost": 1, "type": "TROOP", "tag": "CROWD_CONTROL", "hitpoints": 230, "attackScope": "AIR_GROUND", "movementSpeed": "VERY_FAST", "damage": 99, "hitSpeed": 1.0, "range": 2.5, "radius": 0.3, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false },
+  { "class_type": "TROOP", "id": "goblin_barrel", "name": "Goblin Barrel", "elixirCost": 3, "type": "TROOP", "tag": "WIN_CONDITION", "hitpoints": 202, "attackScope": "GROUND", "movementSpeed": "VERY_FAST", "damage": 120, "hitSpeed": 1.1, "range": 1.5, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 3, "isFlying": false },
+  { "class_type": "SPELL", "id": "fireball", "name": "Fireball", "elixirCost": 4, "type": "SPELL", "tag": "SUPPORT", "damage": 689, "crownTowerDamage": 207, "radius": 2.5 },
+  { "class_type": "SPELL", "id": "zap", "name": "Zap", "elixirCost": 2, "type": "SPELL", "tag": "CROWD_CONTROL", "damage": 192, "crownTowerDamage": 58, "radius": 2.5 },
+  { "class_type": "SPELL", "id": "the_log", "name": "The Log", "elixirCost": 2, "type": "SPELL", "tag": "CROWD_CONTROL", "damage": 290, "crownTowerDamage": 87, "radius": 3.9 },
+  { "class_type": "SPELL", "id": "rocket", "name": "Rocket", "elixirCost": 6, "type": "SPELL", "tag": "SUPPORT", "damage": 1484, "crownTowerDamage": 446, "radius": 2.0 },
+  { "class_type": "SPELL", "id": "arrows", "name": "Arrows", "elixirCost": 3, "type": "SPELL", "tag": "SUPPORT", "damage": 366, "crownTowerDamage": 109, "radius": 4.0 },
+  { "class_type": "SPELL", "id": "lightning", "name": "Lightning", "elixirCost": 6, "type": "SPELL", "tag": "SUPPORT", "damage": 1056, "crownTowerDamage": 317, "radius": 3.5 },
+  { "class_type": "SPELL", "id": "poison", "name": "Poison", "elixirCost": 4, "type": "SPELL", "tag": "SUPPORT", "damage": 728, "crownTowerDamage": 216, "radius": 3.5 },
+  { "class_type": "SPELL", "id": "tornado", "name": "Tornado", "elixirCost": 3, "type": "SPELL", "tag": "CROWD_CONTROL", "damage": 168, "crownTowerDamage": 58, "radius": 5.5 },
+  { "class_type": "SPELL", "id": "freeze", "name": "Freeze", "elixirCost": 4, "type": "SPELL", "tag": "CROWD_CONTROL", "damage": 115, "crownTowerDamage": 35, "radius": 3.0 },
+  { "class_type": "SPELL", "id": "barbarian_barrel", "name": "Barbarian Barrel", "elixirCost": 2, "type": "SPELL", "tag": "CROWD_CONTROL", "damage": 241, "crownTowerDamage": 0, "radius": 2.6 },
+  { "class_type": "SPELL", "id": "snowball", "name": "Giant Snowball", "elixirCost": 2, "type": "SPELL", "tag": "CROWD_CONTROL", "damage": 192, "crownTowerDamage": 58, "radius": 2.5 },
+  { "class_type": "SPELL", "id": "earthquake", "name": "Earthquake", "elixirCost": 3, "type": "SPELL", "tag": "SUPPORT", "damage": 267, "crownTowerDamage": 171, "radius": 3.5 },
+  { "class_type": "SPELL", "id": "royal_delivery", "name": "Royal Delivery", "elixirCost": 3, "type": "SPELL", "tag": "SUPPORT", "damage": 438, "crownTowerDamage": 0, "radius": 3.0 },
+  { "class_type": "DEF_BUILDING", "id": "cannon", "name": "Cannon", "elixirCost": 3, "type": "BUILDING", "tag": "SUPPORT", "hitpoints": 824, "attackScope": "GROUND", "damage": 212, "hitSpeed": 0.9, "range": 5.5, "radius": 1.0 },
+  { "class_type": "DEF_BUILDING", "id": "inferno_tower", "name": "Inferno Tower", "elixirCost": 5, "type": "BUILDING", "tag": "TANK_KILLER", "hitpoints": 1704, "attackScope": "AIR_GROUND", "damage": 40, "hitSpeed": 0.4, "range": 6.0, "radius": 1.0 },
+  { "class_type": "DEF_BUILDING", "id": "tesla", "name": "Tesla", "elixirCost": 4, "type": "BUILDING", "tag": "SUPPORT", "hitpoints": 1152, "attackScope": "AIR_GROUND", "damage": 230, "hitSpeed": 1.1, "range": 5.5, "radius": 1.0 },
+  { "class_type": "DEF_BUILDING", "id": "x_bow", "name": "X-Bow", "elixirCost": 6, "type": "BUILDING", "tag": "WIN_CONDITION", "hitpoints": 1600, "attackScope": "GROUND", "damage": 41, "hitSpeed": 0.25, "range": 11.5, "radius": 1.5 },
+  { "class_type": "DEF_BUILDING", "id": "mortar", "name": "Mortar", "elixirCost": 4, "type": "BUILDING", "tag": "WIN_CONDITION", "hitpoints": 1219, "attackScope": "GROUND", "damage": 266, "hitSpeed": 5.0, "range": 11.5, "radius": 1.5 },
+  { "class_type": "DEF_BUILDING", "id": "bomb_tower", "name": "Bomb Tower", "elixirCost": 4, "type": "BUILDING", "tag": "SUPPORT", "hitpoints": 1356, "attackScope": "GROUND", "damage": 222, "hitSpeed": 1.6, "range": 6.0, "radius": 1.5 },
+  { "class_type": "SPAWN_BUILDING", "id": "tombstone", "name": "Tombstone", "elixirCost": 3, "type": "BUILDING", "tag": "SUPPORT", "hitpoints": 530, "idSpawnedTroop": "skeleton", "spawnInterval": 3.8, "spawnCount": 1 },
+  { "class_type": "SPAWN_BUILDING", "id": "goblin_hut", "name": "Goblin Hut", "elixirCost": 5, "type": "BUILDING", "tag": "SUPPORT", "hitpoints": 1000, "idSpawnedTroop": "spear_goblin", "spawnInterval": 4.5, "spawnCount": 1 },
+  { "class_type": "SPAWN_BUILDING", "id": "furnace", "name": "Furnace", "elixirCost": 4, "type": "BUILDING", "tag": "SUPPORT", "hitpoints": 848, "idSpawnedTroop": "fire_spirit", "spawnInterval": 6.0, "spawnCount": 1 },
+  { "class_type": "SPAWN_BUILDING", "id": "barbarian_hut", "name": "Barbarian Hut", "elixirCost": 7, "type": "BUILDING", "tag": "SUPPORT", "hitpoints": 1362, "idSpawnedTroop": "barbarian", "spawnInterval": 12.0, "spawnCount": 2 },
+  { "class_type": "SPAWN_TROOP", "id": "witch", "name": "Witch", "elixirCost": 5, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 838, "attackScope": "AIR_GROUND", "movementSpeed": "MEDIUM", "damage": 134, "hitSpeed": 1.1, "range": 5.0, "radius": 0.6, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false, "idSpawnedTroop": "skeleton", "spawnInterval": 7.0, "spawnCount": 4 },
+  { "class_type": "SPAWN_TROOP", "id": "night_witch", "name": "Night Witch", "elixirCost": 4, "type": "TROOP", "tag": "SUPPORT", "hitpoints": 900, "attackScope": "GROUND", "movementSpeed": "MEDIUM", "damage": 300, "hitSpeed": 1.3, "range": 1.2, "radius": 0.5, "targetsOnlyBuildings": false, "groupSize": 1, "isFlying": false, "idSpawnedTroop": "bat", "spawnInterval": 7.0, "spawnCount": 2 }
 ]

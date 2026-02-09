@@ -6,9 +6,9 @@ public class SpawnerBuilding extends Card {
     private double spawnInterval;
     private int spawnCount;
 
-    public SpawnerBuilding(String id, String name, int elixirCost, int hitpoints,
+    public SpawnerBuilding(String id, String name, int elixirCost, CardTag tag, int hitpoints,
                            String idSpawnedTroop, double spawnInterval, int spawnCount) {
-        super(id, name, elixirCost, CardType.BUILDING);
+        super(id, name, elixirCost, CardType.BUILDING, tag);
         this.hitpoints = hitpoints;
         this.idSpawnedTroop = idSpawnedTroop;
         this.spawnInterval = spawnInterval;

@@ -10,11 +10,12 @@ public class Troop extends Card {
     private double radius;
     private boolean targetsOnlyBuildings;
     private int groupSize;
+    private boolean isFlying;
 
-    public Troop(String id, String name, int elixirCost, int hitpoints, AttackScope attackScope,
+    public Troop(String id, String name, int elixirCost, CardTag tag, int hitpoints, AttackScope attackScope,
                  MovementSpeed movementSpeed, int damage, double hitSpeed, double range,
-                 double radius, boolean targetsOnlyBuildings, int groupSize) {
-        super(id, name, elixirCost, CardType.TROOP);
+                 double radius, boolean targetsOnlyBuildings, int groupSize, boolean isFlying ) {
+        super(id, name, elixirCost, CardType.TROOP, tag);
         this.hitpoints = hitpoints;
         this.attackScope = attackScope;
         this.movementSpeed = movementSpeed;
@@ -24,6 +25,7 @@ public class Troop extends Card {
         this.radius = radius;
         this.targetsOnlyBuildings = targetsOnlyBuildings;
         this.groupSize = groupSize;
+        this.isFlying = isFlying;
     }
 
     @Override
@@ -39,6 +41,7 @@ public class Troop extends Card {
     public double getHitSpeed() { return hitSpeed; }
     public double getRange() { return range; }
     public double getRadius() { return radius; }
+    public boolean isFlying() { return this.isFlying; }
     public boolean isTargetsOnlyBuildings() { return targetsOnlyBuildings; }
     public int getGroupSize() { return groupSize; }
 
@@ -55,6 +58,7 @@ public class Troop extends Card {
                 ", radius=" + radius +
                 ", targetsOnlyBuildings=" + targetsOnlyBuildings +
                 ", groupSize=" + groupSize +
+                ", isFlying=" + isFlying +
                 '}';
     }
 }

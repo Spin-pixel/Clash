@@ -5,8 +5,8 @@ public class Spell extends Card {
     private int crownTowerDamage;
     private double radius;
 
-    public Spell(String id, String name, int elixirCost, int damage, int crownTowerDamage, double radius) {
-        super(id, name, elixirCost, CardType.SPELL);
+    public Spell(String id, String name, int elixirCost, CardTag tag, int damage, int crownTowerDamage, double radius) {
+        super(id, name, elixirCost, CardType.SPELL, tag);
         this.damage = damage;
         this.crownTowerDamage = crownTowerDamage;
         this.radius = radius;

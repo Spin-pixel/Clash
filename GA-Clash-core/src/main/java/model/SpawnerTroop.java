@@ -5,13 +5,13 @@ public class SpawnerTroop extends Troop {
     private double spawnInterval;
     private int spawnCount;
 
-    public SpawnerTroop(String id, String name, int elixirCost, int hitpoints, AttackScope attackScope,
+    public SpawnerTroop(String id, String name, int elixirCost,  CardTag tag, int hitpoints, AttackScope attackScope,
                         MovementSpeed movementSpeed, int damage, double hitSpeed, double range,
-                        double radius, boolean targetsOnlyBuildings, int groupSize,
+                        double radius, boolean targetsOnlyBuildings, int groupSize, boolean isFlying,
                         String idSpawnedTroop, double spawnInterval, int spawnCount) {
 
-        super(id, name, elixirCost, hitpoints, attackScope, movementSpeed, damage, hitSpeed,
-                range, radius, targetsOnlyBuildings, groupSize);
+        super(id, name, elixirCost, tag, hitpoints, attackScope, movementSpeed, damage, hitSpeed,
+                range, radius, targetsOnlyBuildings, groupSize, isFlying);
 
         this.idSpawnedTroop = idSpawnedTroop;
         this.spawnInterval = spawnInterval;

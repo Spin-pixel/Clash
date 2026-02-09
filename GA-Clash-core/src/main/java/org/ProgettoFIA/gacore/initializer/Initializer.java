@@ -60,24 +60,28 @@ public class Initializer {
     private boolean isValid(Deck deck, DeckConstraints constraints) {
         List<Card> cards = deck.getCards();
 
-        // 1. Vincolo Carta Obbligatoria
-        if (constraints.mandatoryCardId != null) {
-            boolean hasCard = cards.stream()
-                    .anyMatch(c -> c.getId().equals(constraints.mandatoryCardId));
-            if (!hasCard) return false;
+        // 1. Vincolo Carte Escluse (Blacklist)
+        if (constraints.mandatoryCardsId != null && !constraints.mandatoryCardsId.isEmpty()) {
+
+            // Controlla se una qualsiasi (anyMatch) delle carte attuali è contenuta nella lista di quelle escluse
+            boolean hasForbiddenCard = cards.stream()
+                    .anyMatch(c -> constraints.mandatoryCardsId.contains(c));
+
+            // Se ne ha trovata almeno una vietata, il controllo fallisce
+            if (hasForbiddenCard) return false;
         }
 
         // Contatori
-        int troopCount = 0;
         int buildingCount = 0;
         int spellCount = 0;
         int airTargetCount = 0;
         int buildingTargetCount = 0;
 
+
+        //TODO: Post modifica classi, adatta i metodi
         for (Card c : cards) {
             // Conta Tipi
-            if (c.getType() == CardType.TROOP) troopCount++;
-            else if (c.getType() == CardType.BUILDING) buildingCount++;
+            if (c.getType() == CardType.BUILDING) buildingCount++;
             else if (c.getType() == CardType.SPELL) spellCount++;
 
             // Conta Air Target
@@ -105,11 +109,10 @@ public class Initializer {
         }
 
         // Verifica conteggi
-        if (constraints.minTroops != null && troopCount < constraints.minTroops) return false;
-        if (constraints.minBuildings != null && buildingCount < constraints.minBuildings) return false;
-        if (constraints.minSpells != null && spellCount < constraints.minSpells) return false;
-        if (constraints.minAirTarget != null && airTargetCount < constraints.minAirTarget) return false;
-        if (constraints.minBuildingTarget != null && buildingTargetCount < constraints.minBuildingTarget) return false;
+        if (constraints.nBuildings != null && buildingCount < constraints.nBuildings) return false;
+        if (constraints.nSpells != null && spellCount < constraints.nSpells) return false;
+//        if (constraints. != null && airTargetCount < constraints.nAirTarget) return false;
+        if (constraints.nBuildingTarget != null && buildingTargetCount < constraints.nBuildingTarget) return false;
 
         return true;
     }

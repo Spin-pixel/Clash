@@ -33,6 +33,7 @@ public class Deck {
         return Collections.unmodifiableList(cards);
     }
 
+    //TODO: DEFINIRE FITNESS @FRA
     public double getFitness() {
         return fitness;
     }

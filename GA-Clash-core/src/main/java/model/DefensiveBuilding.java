@@ -8,9 +8,9 @@ public class DefensiveBuilding extends Card {
     private double range;
     private double radius;
 
-    public DefensiveBuilding(String id, String name, int elixirCost, int hitpoints, AttackScope attackScope,
+    public DefensiveBuilding(String id, String name, int elixirCost, CardTag tag, int hitpoints, AttackScope attackScope,
                              int damage, double hitSpeed, double range, double radius) {
-        super(id, name, elixirCost, CardType.BUILDING);
+        super(id, name, elixirCost, CardType.BUILDING, tag);
         this.hitpoints = hitpoints;
         this.attackScope = attackScope;
         this.damage = damage;

@@ -2,6 +2,10 @@ package main.java.model;
 
 public abstract class Card {
 
+    public enum CardTag {
+        WIN_CONDITION, TANK_KILLER, TANK, MINI_TANK, GLASS_CANNON, CROWD_CONTROL, SUPPORT
+    }
+
     public enum CardType {
         TROOP, BUILDING, SPELL
     }
@@ -18,12 +22,14 @@ public abstract class Card {
     private String name;
     private int elixirCost;
     private CardType type;
+    private CardTag tag;
 
-    public Card(String id, String name, int elixirCost, CardType type) {
+    public Card(String id, String name, int elixirCost, CardType type, CardTag tag) {
         this.id = id;
         this.name = name;
         this.elixirCost = elixirCost;
         this.type = type;
+        this.tag = tag;
     }
 
     // Metodo astratto richiesto dall'UML
@@ -42,6 +48,7 @@ public abstract class Card {
                 ", name='" + name + '\'' +
                 ", elixirCost=" + elixirCost +
                 ", type=" + type +
+                ", tag=" + tag +
                 '}';
     }
 }

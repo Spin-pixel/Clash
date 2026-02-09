@@ -48,44 +48,17 @@ public class CardService {
         String name = node.get("name").asText();
         int cost = node.get("elixirCost").asInt();
         CardType type = CardType.valueOf(node.get("type").asText());
+        CardTag tag = CardTag.valueOf(node.get("tag").asText());
 
         switch (classType) {
             case "SPELL":
-                return new Spell(id, name, cost,
+                return new Spell(id, name, cost, tag,
                         node.get("damage").asInt(),
                         node.get("crownTowerDamage").asInt(),
                         node.get("radius").asDouble());
 
             case "TROOP":
-                return new Troop(id, name, cost,
-                        node.get("hitpoints").asInt(),
-                        AttackScope.valueOf(node.get("attackScope").asText()),
-                        MovementSpeed.valueOf(node.get("movementSpeed").asText()),
-                        node.get("damage").asInt(),
-                        node.get("hitSpeed").asDouble(),
-                        node.get("range").asDouble(),
-                        node.get("radius").asDouble(),
-                        node.get("targetsOnlyBuildings").asBoolean(),
-                        node.get("groupSize").asInt());
-
-            case "DEF_BUILDING":
-                return new DefensiveBuilding(id, name, cost,
-                        node.get("hitpoints").asInt(),
-                        AttackScope.valueOf(node.get("attackScope").asText()),
-                        node.get("damage").asInt(),
-                        node.get("hitSpeed").asDouble(),
-                        node.get("range").asDouble(),
-                        node.get("radius").asDouble());
-
-            case "SPAWN_BUILDING":
-                return new SpawnerBuilding(id, name, cost,
-                        node.get("hitpoints").asInt(),
-                        node.get("idSpawnedTroop").asText(),
-                        node.get("spawnInterval").asDouble(),
-                        node.get("spawnCount").asInt());
-
-            case "SPAWN_TROOP":
-                return new SpawnerTroop(id, name, cost,
+                return new Troop(id, name, cost, tag,
                         node.get("hitpoints").asInt(),
                         AttackScope.valueOf(node.get("attackScope").asText()),
                         MovementSpeed.valueOf(node.get("movementSpeed").asText()),
@@ -95,6 +68,36 @@ public class CardService {
                         node.get("radius").asDouble(),
                         node.get("targetsOnlyBuildings").asBoolean(),
                         node.get("groupSize").asInt(),
+                        node.get("isFlying").asBoolean());
+
+            case "DEF_BUILDING":
+                return new DefensiveBuilding(id, name, cost, tag,
+                        node.get("hitpoints").asInt(),
+                        AttackScope.valueOf(node.get("attackScope").asText()),
+                        node.get("damage").asInt(),
+                        node.get("hitSpeed").asDouble(),
+                        node.get("range").asDouble(),
+                        node.get("radius").asDouble());
+
+            case "SPAWN_BUILDING":
+                return new SpawnerBuilding(id, name, cost, tag,
+                        node.get("hitpoints").asInt(),
+                        node.get("idSpawnedTroop").asText(),
+                        node.get("spawnInterval").asDouble(),
+                        node.get("spawnCount").asInt());
+
+            case "SPAWN_TROOP":
+                return new SpawnerTroop(id, name, cost, tag,
+                        node.get("hitpoints").asInt(),
+                        AttackScope.valueOf(node.get("attackScope").asText()),
+                        MovementSpeed.valueOf(node.get("movementSpeed").asText()),
+                        node.get("damage").asInt(),
+                        node.get("hitSpeed").asDouble(),
+                        node.get("range").asDouble(),
+                        node.get("radius").asDouble(),
+                        node.get("targetsOnlyBuildings").asBoolean(),
+                        node.get("groupSize").asInt(),
+                        node.get("isFlying").asBoolean(),
                         node.get("idSpawnedTroop").asText(),
                         node.get("spawnInterval").asDouble(),
                         node.get("spawnCount").asInt());
