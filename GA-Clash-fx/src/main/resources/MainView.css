@@ -1,0 +1,204 @@
+/* Sfondo pagina */
+.app-root {
+    -fx-background-color: white;
+}
+
+/* Top bar blu scuro */
+.top-bar {
+    -fx-padding: 14 18 14 18;
+    -fx-background-color: #15366A;
+}
+
+.top-title {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+}
+
+/* MenuButton “castello” (immagine) */
+.castle-menu {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-min-width: 44px;
+    -fx-min-height: 44px;
+    -fx-pref-width: 44px;
+    -fx-pref-height: 44px;
+    -fx-cursor: hand;
+
+    -fx-background-image: url("img/castle_closed.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+}
+
+/* Quando il menu è aperto -> castello aperto */
+.castle-menu:showing {
+    -fx-background-image: url("img/castle_open.png");
+}
+
+/* nasconde freccetta */
+.castle-menu > .arrow-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+.castle-menu > .arrow-button > .arrow {
+    -fx-background-color: transparent;
+}
+
+.page {
+    -fx-padding: 22 0 22 0;
+}
+
+/* Pannello principale: ora BLU SCURO (come la top bar) */
+.content-panel {
+    -fx-background-color: #15366A;
+    -fx-background-radius: 18;
+    -fx-padding: 22;
+    -fx-min-width: 900px;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 16, 0.2, 0, 6);
+}
+
+/* Cornice deck (blu clash + bordo 3D) */
+.deck-frame {
+    -fx-padding: 18;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-background-color: linear-gradient(to bottom, #1B78C7, #155B9A);
+    -fx-border-width: 5;
+    -fx-border-color: #7AD8FF #0E2F57 #0E2F57 #7AD8FF;
+}
+
+/* 8 carte su una riga */
+.deck-row {
+    -fx-padding: 2;
+}
+
+/* Slot carta con bordo 3D e blu diverso */
+.card-slot {
+    -fx-min-width: 78px;
+    -fx-min-height: 98px;
+    -fx-pref-width: 78px;
+    -fx-pref-height: 98px;
+
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+
+    -fx-background-color: linear-gradient(to bottom, #156DAF, #15366A);
+    -fx-border-width: 4;
+    -fx-border-color: #6FD0FF #0F2D52 #0F2D52 #6FD0FF;
+}
+
+.card-plus {
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: 900;
+}
+
+/* Checkbox e slider su pannello scuro -> testo chiaro */
+.checks-row .check-box {
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+}
+
+.side-label {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+}
+
+/* Form */
+.field-label {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+}
+
+.field-input {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.25);
+    -fx-background-color: rgba(255,255,255,0.95);
+}
+
+/* Placeholder “foto” (solo testo per ora) */
+.photo-holder {
+    -fx-min-width: 180px;
+    -fx-min-height: 160px;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-border-color: rgba(255,255,255,0.35);
+    -fx-border-width: 3;
+}
+
+.photo-text {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
+}
+
+/* Pulsante elisir */
+.generate-btn {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+
+    -fx-padding: 12 54 12 54;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+
+    -fx-background-color: linear-gradient(to bottom, #B04BFF, #7A2BFF);
+    -fx-border-width: 4;
+    -fx-border-color: rgba(255,255,255,0.45) rgba(0,0,0,0.25) rgba(0,0,0,0.25) rgba(255,255,255,0.45);
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.28), 14, 0.25, 0, 6);
+    -fx-cursor: hand;
+}
+
+.generate-btn:pressed {
+    -fx-translate-y: 1;
+}
+
+/* Label in basso a destra */
+.bottom-bar {
+    -fx-padding: 8 14 10 14;
+    -fx-background-color: transparent;
+}
+
+.bottom-right-label {
+    -fx-text-fill: rgba(21,54,106,0.65);
+    -fx-font-weight: 800;
+}
+
+
+/* Slot carta come Button (stesso look dello slot) */
+.card-slot-btn {
+    -fx-padding: 0;
+    -fx-content-display: center;
+    -fx-alignment: center;
+
+    -fx-min-width: 78px;
+    -fx-min-height: 98px;
+    -fx-pref-width: 78px;
+    -fx-pref-height: 98px;
+
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+
+    -fx-background-color: linear-gradient(to bottom, #156DAF, #15366A);
+    -fx-border-width: 4;
+    -fx-border-color: #6FD0FF #0F2D52 #0F2D52 #6FD0FF;
+
+    -fx-cursor: hand;
+}
+
+.card-slot-btn:pressed {
+    -fx-translate-y: 1;
+}
+
+/* testo quando metto il nome della carta nello slot */
+.card-name {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-font-size: 11px;
+    -fx-alignment: center;
+}

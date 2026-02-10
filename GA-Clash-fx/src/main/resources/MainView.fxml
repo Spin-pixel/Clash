@@ -2,27 +2,151 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<!-- Questa è la pagina di selezione delle caratteristiche base -->
+<BorderPane fx:id="root"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.progettoFIA.gaclashfx.MainViewController"
+            stylesheets="@MainView.css"
+            styleClass="app-root">
+
+    <!-- TOP BAR blu scuro -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+            <MenuButton fx:id="hamburger" styleClass="castle-menu">
+                <items>
+                    <MenuItem text="Carte possedute" onAction="#openOwnedCards"/>
+                </items>
+            </MenuButton>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="ROYAL GENERATOR" styleClass="top-title"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" styleClass="page">
+
+            <!-- Pannello principale: ora BLU SCURO -->
+            <VBox spacing="18" styleClass="content-panel">
+
+                <!-- BOX MAZZO (centrato) - 8 carte su UNA riga -->
+                <!-- BOX MAZZO (centrato) - 8 carte su UNA riga -->
+                <StackPane styleClass="deck-frame">
+                    <HBox spacing="10" alignment="CENTER" styleClass="deck-row">
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="0">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="1">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="2">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="3">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="4">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="5">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="6">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="7">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                    </HBox>
+                </StackPane>
 
 
-    <BorderPane fx:id="root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-                fx:controller="org.progettoFIA.gaclashfx.MainViewController">
-        <top>
-            <HBox spacing="10" style="-fx-padding:10;">
-                <MenuButton text="☰" fx:id="hamburger">
-                    <items>
-                        <MenuItem text="Carte possedute" onAction="#openOwnedCards"/>
-                    </items>
-                </MenuButton>
-                <Label text="Royal Configurator"/>
-            </HBox>
-        </top>
+                <!-- Checkbox (come nello sketch) -->
+                <HBox spacing="22" alignment="CENTER" styleClass="checks-row">
+                    <CheckBox text="TEXT-1"/>
+                    <CheckBox text="TEXT-2"/>
+                    <CheckBox text="TEXT-3"/>
+                    <CheckBox text="TEXT-4"/>
+                </HBox>
 
-        <center>
-            <Label text="Schermata principale (placeholder)"/>
-        </center>
+                <!-- Slider Difensivo/Offensivo -->
+                <HBox spacing="12" alignment="CENTER" styleClass="slider-row">
+                    <Label text="DIFENSIVO" styleClass="side-label"/>
+                    <Slider min="-5" max="5" value="0"
+                            majorTickUnit="1" minorTickCount="0"
+                            snapToTicks="true"
+                            showTickMarks="true" showTickLabels="true"
+                            prefWidth="520"
+                            styleClass="aggr-slider"/>
+                    <Label text="OFFENSIVO" styleClass="side-label"/>
+                </HBox>
+
+                <!-- Form: Campo 1..4 a sinistra, struttura + foto a destra -->
+                <HBox spacing="22" alignment="TOP_CENTER" styleClass="form-row">
+
+                    <GridPane hgap="10" vgap="12" styleClass="left-form">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="95"/>
+                            <ColumnConstraints prefWidth="230" hgrow="ALWAYS"/>
+                        </columnConstraints>
+
+                        <Label text="CAMPO 1" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
+                        <TextField GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="field-input"/>
+
+                        <Label text="CAMPO 2" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="field-label"/>
+                        <TextField GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="field-input"/>
+
+                        <Label text="CAMPO 3" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="field-label"/>
+                        <TextField GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="field-input"/>
+
+                        <Label text="CAMPO 4" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="field-label"/>
+                        <TextField GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="field-input"/>
+                    </GridPane>
+
+                    <VBox spacing="14" styleClass="right-form">
+                        <GridPane hgap="10">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="140"/>
+                                <ColumnConstraints prefWidth="320" hgrow="ALWAYS"/>
+                            </columnConstraints>
+                            <Label text="LA STRUTTURA" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
+                            <TextField GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="field-input"/>
+                        </GridPane>
+
+                        <StackPane styleClass="photo-holder" alignment="CENTER">
+                            <!-- placeholder: solo cerchio “FOTO” per ora -->
+                            <Label text="FOTO" styleClass="photo-text"/>
+                        </StackPane>
+                    </VBox>
+                </HBox>
+
+                <!-- Bottone GENERA (ovale elisir) -->
+                <HBox alignment="CENTER">
+                    <Button text="GENERA" styleClass="generate-btn"/>
+                </HBox>
+
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Label basso a destra -->
     <bottom>
-        <Button onMouseClicked="#GA">GA</Button>
+        <HBox styleClass="bottom-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="v0.1" styleClass="bottom-right-label"/>
+        </HBox>
     </bottom>
-    </BorderPane>
 
+</BorderPane>

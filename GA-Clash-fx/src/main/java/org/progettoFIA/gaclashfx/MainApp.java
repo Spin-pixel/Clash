@@ -15,7 +15,7 @@ public class MainApp extends Application {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/MainView.fxml"));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 1000, 650);
+        Scene scene = new Scene(root, 1000, 800);
         stage.setTitle("GA Clash FX");
         stage.setScene(scene);
         stage.show();
