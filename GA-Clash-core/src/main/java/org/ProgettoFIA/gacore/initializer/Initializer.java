@@ -20,10 +20,10 @@ public class Initializer {
     public List<Deck> createPopulation(List<Card> allCards, int populationSize, DeckConstraints constraints) {
         List<Deck> population = new ArrayList<>();
         int attempts = 0;
-        int maxAttempts = populationSize * 1000; // Evita loop infiniti se i vincoli sono impossibili
+        int maxAttempts = populationSize * 3000; // Evita loop infiniti se i vincoli sono impossibili
 
         while (population.size() < populationSize && attempts < maxAttempts) {
-            Deck candidate = generateRandomDeck(allCards);
+            Deck candidate = generateRandomDeck(allCards, constraints);
 
             if (isValid(candidate, constraints)) {
                 population.add(candidate);
@@ -38,43 +38,79 @@ public class Initializer {
         return population;
     }
 
+
     /**
-     * Crea un deck di 8 carte casuali uniche.
+     * Crea un deck di 8 carte casuali uniche (Versione per ID Stringa).
      */
-    private Deck generateRandomDeck(List<Card> pool) {
+    private Deck generateRandomDeck(List<Card> pool, DeckConstraints constraints) {
+        List<Card> selectedCards = new ArrayList<>();
+        // Usiamo un Set di Stringhe per tracciare gli ID presi
+        java.util.Set<String> takenIds = new java.util.HashSet<>();
+
+        // 1. Gestione Carte Obbligatorie
+        // Assumo che constraints.mandatoryCardsId sia List<String>
+        if (constraints.mandatoryCardsId != null) {
+            for (String mandatoryId : constraints.mandatoryCardsId) {
+                // Cerchiamo la carta nel pool
+                for (Card c : pool) {
+                    // ATTENZIONE: Usa .equals() per le stringhe, mai ==
+                    if (c.getId().equals(mandatoryId) && !takenIds.contains(mandatoryId)) {
+                        selectedCards.add(c);
+                        takenIds.add(mandatoryId);
+                        break; // Presa! Passiamo al prossimo ID obbligatorio
+                    }
+                }
+            }
+        }
+
+        // 2. Mescoliamo una copia del pool per pescare le rimanenti
         List<Card> shuffledPool = new ArrayList<>(pool);
         Collections.shuffle(shuffledPool, random);
 
-        // Prende le prime 8 carte
-        List<Card> selectedCards = new ArrayList<>();
-        for (int i = 0; i < Deck.DECK_SIZE; i++) {
-            selectedCards.add(shuffledPool.get(i));
+        // 3. Riempiamo fino a 8 carte
+        for (Card candidate : shuffledPool) {
+            // Stop se siamo arrivati a 8
+            if (selectedCards.size() >= Deck.DECK_SIZE) {
+                break;
+            }
+
+            // Aggiungiamo SOLO se l'ID non è già nel set
+            String cId = candidate.getId();
+            if (!takenIds.contains(cId)) {
+                selectedCards.add(candidate);
+                takenIds.add(cId);
+            }
         }
 
         return new Deck(selectedCards);
     }
-
     /**
      * Verifica se un deck rispetta TUTTI i vincoli impostati.
      */
     private boolean isValid(Deck deck, DeckConstraints constraints) {
         List<Card> cards = deck.getCards();
 
-        // 1. Vincolo Carte Escluse (Blacklist)
+        // 1. Vincolo Carte Obbligatorie (Mandatory)
         if (constraints.mandatoryCardsId != null && !constraints.mandatoryCardsId.isEmpty()) {
 
-            // Controlla se una qualsiasi (anyMatch) delle carte attuali è contenuta nella lista di quelle escluse
-            boolean hasForbiddenCard = cards.stream()
-                    .anyMatch(c -> constraints.mandatoryCardsId.contains(c));
+            // SOLUZIONE:
+            // Estraiamo prima tutti gli ID dalle carte presenti nel mazzo corrente.
+            // Usiamo .map(Card::getId) per trasformare la lista di oggetti Card in una lista di Stringhe.
+            List<String> deckIds = cards.stream()
+                    .map(Card::getId)
+                    .toList(); // Usa .collect(Collectors.toList()) se sei su Java < 16
 
-            // Se ne ha trovata almeno una vietata, il controllo fallisce
-            if (hasForbiddenCard) return false;
+            // Ora possiamo usare containsAll perché stiamo confrontando String con String
+            boolean hasAllMandatoryCards = deckIds.containsAll(constraints.mandatoryCardsId);
+
+            // Se manca anche solo una delle carte obbligatorie, il controllo fallisce
+            if (!hasAllMandatoryCards) return false;
         }
 
         // Contatori
         int buildingCount = 0;
         int spellCount = 0;
-        int airTargetCount = 0;
+        int flyingTroopCount = 0;
         int buildingTargetCount = 0;
 
 
@@ -88,15 +124,8 @@ public class Initializer {
             // Attenzione: Valido solo per Troop e DefensiveBuilding
             if (c instanceof Troop) {
                 Troop t = (Troop) c;
-                if (t.getAttackScope() == AttackScope.AIR_GROUND) {
-                    airTargetCount++;
-                }
-            }
-            // Oppure controlliamo se è un Edificio Difensivo
-            else if (c instanceof DefensiveBuilding) {
-                DefensiveBuilding db = (DefensiveBuilding) c;
-                if (db.getAttackScope() == AttackScope.AIR_GROUND) {
-                    airTargetCount++;
+                if (t.isFlying()) {
+                    flyingTroopCount++;
                 }
             }
 
@@ -109,10 +138,10 @@ public class Initializer {
         }
 
         // Verifica conteggi
-        if (constraints.nBuildings != null && buildingCount < constraints.nBuildings) return false;
-        if (constraints.nSpells != null && spellCount < constraints.nSpells) return false;
-//        if (constraints. != null && airTargetCount < constraints.nAirTarget) return false;
-        if (constraints.nBuildingTarget != null && buildingTargetCount < constraints.nBuildingTarget) return false;
+        if (constraints.nBuildings != null && buildingCount != constraints.nBuildings) return false;
+        if (constraints.nSpells != null && spellCount != constraints.nSpells) return false;
+        if (constraints.nFlyingTroop != null && flyingTroopCount != constraints.nFlyingTroop) return false;
+        if (constraints.nBuildingTarget != null && buildingTargetCount != constraints.nBuildingTarget) return false;
 
         return true;
     }

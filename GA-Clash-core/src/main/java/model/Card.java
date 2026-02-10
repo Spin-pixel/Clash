@@ -51,4 +51,19 @@ public abstract class Card {
                 ", tag=" + tag +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        // Usa Objects.equals per evitare NullPointerException se l'id fosse null
+        return java.util.Objects.equals(id, card.id);
+    }
+
+    @Override
+    public int hashCode() {
+        // Importante: delega l'hash alla stringa dell'ID
+        return java.util.Objects.hash(id);
+    }
 }
