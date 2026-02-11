@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Clash.iml" filepath="$PROJECT_DIR$/.idea/Clash.iml" />
       <module fileurl="file://$PROJECT_DIR$/GA-Clash-core/GA-Clash-core.iml" filepath="$PROJECT_DIR$/GA-Clash-core/GA-Clash-core.iml" />
     </modules>
   </component>
