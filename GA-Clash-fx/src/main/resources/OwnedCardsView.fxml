@@ -3,19 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" style="-fx-padding:10;"
+<VBox spacing="12"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.progettoFIA.gaclashfx.OwnedCardsController">
+      fx:controller="org.progettoFIA.gaclashfx.OwnedCardsController"
+      stylesheets="@OwnedCardsView.css"
+      styleClass="owned-root">
 
-    <HBox spacing="10" alignment="CENTER_LEFT">
-        <Button text="← Indietro" onAction="#back"/>
-        <Label text="Carte possedute"/>
+    <HBox spacing="10" alignment="CENTER_LEFT" styleClass="owned-top-bar">
+        <Button text="← Indietro" onAction="#back" styleClass="owned-back-btn"/>
+        <Label text="CARTE POSSEDUTE" styleClass="owned-title"/>
         <Region HBox.hgrow="ALWAYS"/>
     </HBox>
 
-    <TextField fx:id="searchField" promptText="Cerca carta..."/>
+    <VBox spacing="12" styleClass="owned-content-panel">
 
-    <!-- la lista con celle "grandi" -->
-    <ListView fx:id="cardsList" prefHeight="520"/>
+        <TextField fx:id="searchField"
+                   promptText="Cerca carta..."
+                   styleClass="owned-search"/>
+
+        <ListView fx:id="cardsList" prefHeight="520" styleClass="owned-list"/>
+    </VBox>
+
 </VBox>
