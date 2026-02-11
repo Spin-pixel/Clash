@@ -36,35 +36,6 @@ public class Main {
         Crossover crossover=new Crossover();
         Crossover.setLogging(false);
 
-        System.out.println("[1° GEN]");
-        for (Deck d:deckList){
-            System.out.print("DECK [ ");
-            for(Card c: d.getCards())
-                System.out.print(c.getName() + ",");
-            System.out.print(" ]\n");
-        }
 
-//        int nNewGen = 3;
-//        for(int i=0;i<1;i++){
-//            deckList=crossover.newGeneration(deckList,5,constraints);
-//            System.out.println("["+(i+2)+"° GEN]");
-//            for (Deck d:deckList){
-//                System.out.print("DECK [ ");
-//                for(Card c: d.getCards())
-//                    System.out.print(c.getName() + ",");
-//                System.out.print(" ]\n");
-//            }
-//        }
-
-        Mutation mutation=new Mutation(allCards);
-        mutation.mutateGeneration(deckList,0.5,2,constraints);
-
-        System.out.println("[MUTATION]");
-        for (Deck d:deckList){
-            System.out.print("DECK [ ");
-            for(Card c: d.getCards())
-                System.out.print(c.getName() + ",");
-            System.out.print(" ]\n");
-        }
     }
 }
