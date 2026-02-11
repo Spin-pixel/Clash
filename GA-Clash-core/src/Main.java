@@ -2,6 +2,7 @@ import main.java.org.ProgettoFIA.gacore.individuals.Deck;
 import main.java.org.ProgettoFIA.gacore.individuals.DeckConstraints;
 import main.java.org.ProgettoFIA.gacore.initializer.Initializer;
 import main.java.org.ProgettoFIA.gacore.operatori_genetici.Crossover;
+import main.java.org.ProgettoFIA.gacore.operatori_genetici.Mutation;
 import main.java.service.CardService;
 import main.java.model.*;
 
@@ -16,9 +17,10 @@ public class Main {
 
         CardService service = new CardService();
 
-        final String path = "GA-Clash-core/src/cardList.json";
         // 1. Carica le carte (usa il tuo CardService fatto prima)
+        final String path = "GA-Clash-core/src/cardList.json";
         CardService cardService = new CardService();
+        List<Card> allCards = cardService.loadCards(path);
 
         DeckConstraints constraints = new DeckConstraints();
         constraints.nFlyingTroop=3;
@@ -29,34 +31,40 @@ public class Main {
         constraints.mandatoryCardsId.add("bats");
 
 
-        List<Card> allCards = cardService.loadCards(path);
         Initializer initializer = new Initializer();
-        List<Deck> deckList = initializer.createPopulation(allCards,20, constraints);
+        List<Deck> deckList = initializer.createPopulation(allCards,4, constraints);
         Crossover crossover=new Crossover();
-        Crossover.setLogging(true);
-        for (int i=1; i<deckList.size();i++){
-            Deck dad = deckList.get(i-1);
-            Deck mom = deckList.get(i);
+        Crossover.setLogging(false);
 
-            System.out.print("PARENT_N."+(i-1)+" [ ");
-            for(Card c: dad.getCards())
+        System.out.println("[1° GEN]");
+        for (Deck d:deckList){
+            System.out.print("DECK [ ");
+            for(Card c: d.getCards())
                 System.out.print(c.getName() + ",");
             System.out.print(" ]\n");
-
-            System.out.print("PARENT_N."+(i)+" [ ");
-            for(Card c: mom.getCards())
-                System.out.print(c.getName() + ",");
-            System.out.print(" ]\n");
-
-            Deck son = (crossover.performCrossover(dad,mom,constraints));
-
-            System.out.print("SON [ ");
-            for(Card c: son.getCards())
-                System.out.print(c.getName() + ",");
-            System.out.print(" ]\n---------------------------------------------\n");
-
-
         }
 
+//        int nNewGen = 3;
+//        for(int i=0;i<1;i++){
+//            deckList=crossover.newGeneration(deckList,5,constraints);
+//            System.out.println("["+(i+2)+"° GEN]");
+//            for (Deck d:deckList){
+//                System.out.print("DECK [ ");
+//                for(Card c: d.getCards())
+//                    System.out.print(c.getName() + ",");
+//                System.out.print(" ]\n");
+//            }
+//        }
+
+        Mutation mutation=new Mutation(allCards);
+        mutation.mutateGeneration(deckList,0.5,2,constraints);
+
+        System.out.println("[MUTATION]");
+        for (Deck d:deckList){
+            System.out.print("DECK [ ");
+            for(Card c: d.getCards())
+                System.out.print(c.getName() + ",");
+            System.out.print(" ]\n");
+        }
     }
 }

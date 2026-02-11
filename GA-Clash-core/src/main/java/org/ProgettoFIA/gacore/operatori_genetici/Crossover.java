@@ -15,7 +15,65 @@ public class Crossover {
     private static final Logger LOGGER = Logger.getLogger(Crossover.class.getName());
     private final Random random = new Random();
 
-    public Deck performCrossover(Deck parent1, Deck parent2, DeckConstraints constraints) {
+    /**
+     * Genera una nuova popolazione di deck.
+     * Garantisce che una specifica coppia di genitori (es. Deck A e Deck B)
+     * non venga mai selezionata più di una volta per il crossover.
+     *
+     * @param population La lista dei deck della generazione corrente (genitori).
+     * @param generationSize La dimensione desiderata della nuova popolazione.
+     * @return La lista dei nuovi deck figli.
+     */
+    public List<Deck> newGeneration(List<Deck> population, int generationSize, DeckConstraints constraints) {
+        List<Deck> nextGeneration = new ArrayList<>();
+
+        // 1. Generiamo TUTTE le possibili coppie di indici univoche (Combinazioni semplici)
+        // Se population ha size 4 (0,1,2,3), le coppie saranno: 0-1, 0-2, 0-3, 1-2, 1-3, 2-3.
+        List<int[]> uniquePairs = new ArrayList<>();
+        for (int i = 0; i < population.size(); i++) {
+            for (int j = i + 1; j < population.size(); j++) {
+                uniquePairs.add(new int[]{i, j});
+            }
+        }
+
+        // 2. Mescoliamo la lista delle coppie.
+        // Questo garantisce che l'ordine di estrazione sia CASUALE.
+        Collections.shuffle(uniquePairs);
+
+        // 3. Creiamo i figli scorrendo la lista mescolata
+        int pairIndex = 0;
+
+        while (nextGeneration.size() < generationSize) {
+
+            // Sicurezza: Se la generationSize richiesta è enorme e finiamo le coppie uniche possibili
+            if (pairIndex >= uniquePairs.size()) {
+                System.out.println("Attenzione: Combinazioni uniche di genitori esaurite. " +
+                        "Generati " + nextGeneration.size() + " deck su " + generationSize);
+                break; // Usciamo per evitare crash. In alternativa potresti rimescolare e ricominciare.
+            }
+
+            // Prende gli indici della coppia corrente
+            int[] pairIndices = uniquePairs.get(pairIndex);
+
+            Deck parent1 = population.get(pairIndices[0]);
+            Deck parent2 = population.get(pairIndices[1]);
+
+            // Esegue il crossover
+            Deck child = performCrossover(parent1, parent2, constraints);
+
+            // (Opzionale) Se hai dei vincoli da controllare sul figlio appena nato:
+            // if (checkConstraints(child)) { nextGeneration.add(child); }
+            // Per ora lo aggiungiamo direttamente:
+            nextGeneration.add(child);
+
+            // Passa alla prossima coppia univoca
+            pairIndex++;
+        }
+
+        return nextGeneration;
+    }
+
+    private Deck performCrossover(Deck parent1, Deck parent2, DeckConstraints constraints) {
         // Log Iniziale
         LOGGER.info(">>> INIZIO CROSSOVER <<<");
         LOGGER.fine("Parent 1: " + getIds(parent1.getCards()));
