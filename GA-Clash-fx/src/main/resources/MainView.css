@@ -1,9 +1,17 @@
-/* Sfondo pagina */
+/* =========================
+   BASE
+   ========================= */
 .app-root {
-    -fx-background-color: white;
+    -fx-background-color: #7A2BFF;
 }
 
-/* Top bar blu scuro */
+.page {
+    -fx-padding: 22 0 22 0;
+}
+
+/* =========================
+   TOP BAR
+   ========================= */
 .top-bar {
     -fx-padding: 14 18 14 18;
     -fx-background-color: #15366A;
@@ -15,51 +23,64 @@
     -fx-font-weight: 900;
 }
 
-/* MenuButton “castello” (immagine) */
+/* =========================
+   CASTLE MENU (MenuButton)
+   ========================= */
 .castle-menu {
     -fx-background-color: transparent;
     -fx-padding: 0;
-    -fx-min-width: 44px;
-    -fx-min-height: 44px;
-    -fx-pref-width: 44px;
-    -fx-pref-height: 44px;
     -fx-cursor: hand;
+}
+
+/* Mettiamo l'immagine sul nodo interno che viene sempre disegnato */
+.castle-menu > .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
 
     -fx-background-image: url("img/castle_closed.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: contain;
+
+    -fx-min-width: 44px;
+    -fx-min-height: 44px;
+    -fx-pref-width: 44px;
+    -fx-pref-height: 44px;
 }
 
 /* Quando il menu è aperto -> castello aperto */
-.castle-menu:showing {
+.castle-menu:showing > .arrow-button {
     -fx-background-image: url("img/castle_open.png");
 }
 
-/* nasconde freccetta */
-.castle-menu > .arrow-button {
-    -fx-padding: 0;
-    -fx-background-color: transparent;
-}
+/* Nascondi il triangolino */
 .castle-menu > .arrow-button > .arrow {
     -fx-background-color: transparent;
+    -fx-padding: 0;
 }
 
-.page {
-    -fx-padding: 22 0 22 0;
+/* (Fallback) anche sul root, nel caso la skin cambi */
+.castle-menu {
+    -fx-min-width: 44px;
+    -fx-min-height: 44px;
+    -fx-pref-width: 44px;
+    -fx-pref-height: 44px;
 }
 
-/* Pannello principale: ora BLU SCURO (come la top bar) */
+/* =========================
+   CONTENT PANEL
+   ========================= */
 .content-panel {
     -fx-background-color: #15366A;
     -fx-background-radius: 18;
     -fx-padding: 22;
     -fx-min-width: 900px;
-
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 16, 0.2, 0, 6);
 }
 
-/* Cornice deck (blu clash + bordo 3D) */
+/* =========================
+   DECK FRAME
+   ========================= */
 .deck-frame {
     -fx-padding: 18;
     -fx-background-radius: 16;
@@ -69,108 +90,13 @@
     -fx-border-color: #7AD8FF #0E2F57 #0E2F57 #7AD8FF;
 }
 
-/* 8 carte su una riga */
 .deck-row {
     -fx-padding: 2;
 }
 
-/* Slot carta con bordo 3D e blu diverso */
-.card-slot {
-    -fx-min-width: 78px;
-    -fx-min-height: 98px;
-    -fx-pref-width: 78px;
-    -fx-pref-height: 98px;
-
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-
-    -fx-background-color: linear-gradient(to bottom, #156DAF, #15366A);
-    -fx-border-width: 4;
-    -fx-border-color: #6FD0FF #0F2D52 #0F2D52 #6FD0FF;
-}
-
-.card-plus {
-    -fx-text-fill: white;
-    -fx-font-size: 30px;
-    -fx-font-weight: 900;
-}
-
-/* Checkbox e slider su pannello scuro -> testo chiaro */
-.checks-row .check-box {
-    -fx-text-fill: white;
-    -fx-font-weight: 800;
-}
-
-.side-label {
-    -fx-text-fill: white;
-    -fx-font-weight: 900;
-}
-
-/* Form */
-.field-label {
-    -fx-text-fill: white;
-    -fx-font-weight: 900;
-}
-
-.field-input {
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-    -fx-border-color: rgba(255,255,255,0.25);
-    -fx-background-color: rgba(255,255,255,0.95);
-}
-
-/* Placeholder “foto” (solo testo per ora) */
-.photo-holder {
-    -fx-min-width: 180px;
-    -fx-min-height: 160px;
-    -fx-background-radius: 999;
-    -fx-border-radius: 999;
-    -fx-background-color: rgba(255,255,255,0.15);
-    -fx-border-color: rgba(255,255,255,0.35);
-    -fx-border-width: 3;
-}
-
-.photo-text {
-    -fx-text-fill: white;
-    -fx-font-weight: 900;
-    -fx-font-size: 18px;
-}
-
-/* Pulsante elisir */
-.generate-btn {
-    -fx-text-fill: white;
-    -fx-font-size: 22px;
-    -fx-font-weight: 900;
-
-    -fx-padding: 12 54 12 54;
-    -fx-background-radius: 999;
-    -fx-border-radius: 999;
-
-    -fx-background-color: linear-gradient(to bottom, #B04BFF, #7A2BFF);
-    -fx-border-width: 4;
-    -fx-border-color: rgba(255,255,255,0.45) rgba(0,0,0,0.25) rgba(0,0,0,0.25) rgba(255,255,255,0.45);
-
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.28), 14, 0.25, 0, 6);
-    -fx-cursor: hand;
-}
-
-.generate-btn:pressed {
-    -fx-translate-y: 1;
-}
-
-/* Label in basso a destra */
-.bottom-bar {
-    -fx-padding: 8 14 10 14;
-    -fx-background-color: transparent;
-}
-
-.bottom-right-label {
-    -fx-text-fill: rgba(21,54,106,0.65);
-    -fx-font-weight: 800;
-}
-
-
-/* Slot carta come Button (stesso look dello slot) */
+/* =========================
+   CARD SLOT BUTTONS
+   ========================= */
 .card-slot-btn {
     -fx-padding: 0;
     -fx-content-display: center;
@@ -195,10 +121,253 @@
     -fx-translate-y: 1;
 }
 
-/* testo quando metto il nome della carta nello slot */
+.card-plus {
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: 900;
+}
+
 .card-name {
     -fx-text-fill: white;
     -fx-font-weight: 900;
     -fx-font-size: 11px;
     -fx-alignment: center;
+}
+
+/* =========================
+   SLIDER LABELS
+   ========================= */
+.side-label {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+}
+
+/* =========================
+   FORM
+   ========================= */
+.field-label {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+}
+
+.field-input {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.25);
+    -fx-background-color: rgba(255,255,255,0.95);
+}
+
+/* =========================
+   ADVANCED TOGGLE + BOX
+   ========================= */
+.advanced-toggle {
+    -fx-text-fill: white;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-font-weight: 900;
+}
+
+.advanced-box {
+    -fx-padding: 10;
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: rgba(255,255,255,0.22);
+}
+
+/* =========================
+   GENERATE BUTTON
+   ========================= */
+.generate-btn {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+
+    -fx-padding: 12 54 12 54;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+
+    -fx-background-color: linear-gradient(to bottom, #B04BFF, #7A2BFF);
+    -fx-border-width: 4;
+    -fx-border-color: rgba(255,255,255,0.45) rgba(0,0,0,0.25) rgba(0,0,0,0.25) rgba(255,255,255,0.45);
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.28), 14, 0.25, 0, 6);
+    -fx-cursor: hand;
+}
+
+.generate-btn:pressed {
+    -fx-translate-y: 1;
+}
+
+/* =========================
+   BOTTOM
+   ========================= */
+.bottom-bar {
+    -fx-padding: 8 14 10 14;
+    -fx-background-color: transparent;
+}
+
+.bottom-right-label {
+    -fx-text-fill: rgba(255,255,255,0.85); /* su viola si legge meglio */
+    -fx-font-weight: 800;
+}
+
+/* =========================================================
+   POPUP / DIALOG: "Scegli una carta" (omologato alla pagina)
+   ========================================================= */
+
+/* DialogPane quando ha class "cr-dialog" */
+.dialog-pane.cr-dialog {
+    -fx-background-color: #15366A;
+    -fx-background-radius: 18;
+    -fx-padding: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 22, 0.25, 0, 10);
+}
+
+/* header */
+.dialog-pane.cr-dialog .header-panel {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 10 0;
+}
+
+.dialog-pane.cr-dialog .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
+}
+
+/* area contenuto */
+.cr-dialog-content {
+    -fx-background-color: transparent;
+}
+
+/* label sopra search */
+.cr-dialog-hint {
+    -fx-text-fill: rgba(255,255,255,0.92);
+    -fx-font-weight: 900;
+}
+
+/* TextField coerente */
+.dialog-pane.cr-dialog .text-field.cr-dialog-search {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: rgba(255,255,255,0.22);
+    -fx-background-color: rgba(255,255,255,0.96);
+    -fx-font-weight: 700;
+}
+
+/* ListView stile "panel" */
+.cr-dialog-list {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-padding: 6;
+}
+
+/* celle list */
+.cr-dialog-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+}
+
+.cr-dialog-list .list-cell:filled:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-background-radius: 12;
+}
+
+.cr-dialog-list .list-cell:filled:selected {
+    -fx-background-color: rgba(122,216,255,0.20);
+    -fx-background-radius: 12;
+}
+
+/* button bar */
+.dialog-pane.cr-dialog .button-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 12 0 0 0;
+}
+
+/* Bottoni popup coerenti */
+.dialog-pane.cr-dialog .cr-primary-btn {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+
+    -fx-background-color: linear-gradient(to bottom, #B04BFF, #7A2BFF);
+    -fx-border-width: 3;
+    -fx-border-color: rgba(255,255,255,0.35) rgba(0,0,0,0.22) rgba(0,0,0,0.22) rgba(255,255,255,0.30);
+
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+
+.dialog-pane.cr-dialog .cr-secondary-btn {
+    -fx-text-fill: rgba(255,255,255,0.92);
+    -fx-font-weight: 900;
+
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-border-color: rgba(255,255,255,0.20);
+    -fx-border-width: 1;
+
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+
+/* =========================================================
+   CASTLE DROPDOWN MENU (ContextMenu / MenuItem)
+   Solo stile del menu che si apre cliccando il castello
+   ========================================================= */
+
+/* pannello menu */
+.castle-menu .context-menu {
+    -fx-background-color: rgba(21,54,106,0.98);
+    -fx-background-radius: 12;
+    -fx-padding: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 18, 0.22, 0, 8);
+
+    /* bordino sottile tipo "card" */
+    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+/* lista interna */
+.castle-menu .context-menu .menu-item {
+    -fx-padding: 10 14 10 14;
+    -fx-background-color: transparent;
+}
+
+/* testo item */
+.castle-menu .context-menu .menu-item .label {
+    -fx-text-fill: rgba(255,255,255,0.92);
+    -fx-font-weight: 900;
+    -fx-font-size: 13px;
+}
+
+/* hover: highlight */
+.castle-menu .context-menu .menu-item:focused,
+.castle-menu .context-menu .menu-item:hovered {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-background-radius: 10;
+}
+
+/* pressed */
+.castle-menu .context-menu .menu-item:pressed {
+    -fx-background-color: rgba(122,216,255,0.18);
+    -fx-background-radius: 10;
+}
+
+/* separatore (se lo userai) */
+.castle-menu .context-menu .separator .line {
+    -fx-border-color: rgba(255,255,255,0.16);
+    -fx-border-width: 1 0 0 0;
+}
+
+/* disabilitato */
+.castle-menu .context-menu .menu-item:disabled .label {
+    -fx-text-fill: rgba(255,255,255,0.45);
 }

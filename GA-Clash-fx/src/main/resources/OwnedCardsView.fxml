@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox spacing="10" style="-fx-padding:10;"
-      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.progettoFIA.gaclashfx.OwnedCardsController">
-    <HBox spacing="10">
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
         <Button text="← Indietro" onAction="#back"/>
         <Label text="Carte possedute"/>
+        <Region HBox.hgrow="ALWAYS"/>
     </HBox>
 
     <TextField fx:id="searchField" promptText="Cerca carta..."/>
-    <ListView fx:id="cardsList"/>
-</VBox>
 
+    <!-- la lista con celle "grandi" -->
+    <ListView fx:id="cardsList" prefHeight="520"/>
+</VBox>

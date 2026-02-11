@@ -1,23 +1,23 @@
 package org.progettoFIA.gaclashfx.temp;
 
-
 import java.util.Objects;
 
-/** Mock minimale per la GUI (id + name). */
 public class Card {
     private final String id;
     private final String name;
+    private final String imagePath; // es: "/cards/c01.png"
 
-    public Card(String id, String name) {
+    public Card(String id, String name, String imagePath) {
         this.id = id;
         this.name = name;
+        this.imagePath = imagePath;
     }
 
     public String getId() { return id; }
     public String getName() { return name; }
+    public String getImagePath() { return imagePath; }
 
-    @Override
-    public String toString() { return name; }
+    @Override public String toString() { return name; }
 
     @Override
     public boolean equals(Object o) {
@@ -28,8 +28,5 @@ public class Card {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    public int hashCode() { return Objects.hash(id); }
 }
-
