@@ -1,0 +1,125 @@
+/* =========================
+   BASE (come app-root)
+   ========================= */
+.owned-root {
+    -fx-background-color: #7A2BFF;   /* stesso viola */
+    -fx-padding: 14;
+    -fx-font-family: "System";
+}
+
+/* =========================
+   TOP BAR (come .top-bar)
+   ========================= */
+.owned-top-bar {
+    -fx-padding: 14 18 14 18;
+    -fx-background-color: #15366A;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 16, 0.2, 0, 6);
+}
+
+.owned-title {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: 900;
+}
+
+/* bottone indietro in stile “pill” */
+.owned-back-btn {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-border-color: rgba(255,255,255,0.20);
+    -fx-border-width: 1;
+
+    -fx-padding: 8 14 8 14;
+    -fx-cursor: hand;
+}
+
+.owned-back-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.18);
+}
+
+.owned-back-btn:pressed {
+    -fx-translate-y: 1;
+}
+
+/* =========================
+   CONTENT PANEL (come .content-panel)
+   ========================= */
+.owned-content-panel {
+    -fx-background-color: #15366A;
+    -fx-background-radius: 18;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 16, 0.2, 0, 6);
+}
+
+/* =========================
+   SEARCH FIELD (coerente con field-input)
+   ========================= */
+.owned-search {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.25);
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-padding: 8 12 8 12;
+    -fx-font-weight: 800;
+}
+
+/* =========================
+   LIST VIEW (panel + celle curate)
+   ========================= */
+.owned-list {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-padding: 6;
+}
+
+/* rendo trasparente la viewport interna */
+.owned-list .virtual-flow {
+    -fx-background-color: transparent;
+}
+.owned-list .virtual-flow .clipped-container {
+    -fx-background-color: transparent;
+}
+.owned-list .virtual-flow .clipped-container .sheet {
+    -fx-background-color: transparent;
+}
+
+/* celle */
+.owned-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+/* hover */
+.owned-list .list-cell:filled:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-background-radius: 12;
+}
+
+/* selezione */
+.owned-list .list-cell:filled:selected {
+    -fx-background-color: rgba(122,216,255,0.20);
+    -fx-background-radius: 12;
+}
+
+/* scrollbar coerente */
+.owned-list .scroll-bar:vertical,
+.owned-list .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.owned-list .scroll-bar .track {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-background-radius: 999;
+}
+
+.owned-list .scroll-bar .thumb {
+    -fx-background-color: rgba(255,255,255,0.25);
+    -fx-background-radius: 999;
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="12"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="grafica.OwnedCardsController"
+      stylesheets="@OwnedCardsView.css"
+      styleClass="owned-root">
+
+    <HBox spacing="10" alignment="CENTER_LEFT" styleClass="owned-top-bar">
+        <Button text="← Indietro" onAction="#back" styleClass="owned-back-btn"/>
+        <Label text="CARTE POSSEDUTE" styleClass="owned-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <VBox spacing="12" styleClass="owned-content-panel">
+
+        <TextField fx:id="searchField"
+                   promptText="Cerca carta..."
+                   styleClass="owned-search"/>
+
+        <ListView fx:id="cardsList" prefHeight="520" styleClass="owned-list"/>
+    </VBox>
+
+</VBox>

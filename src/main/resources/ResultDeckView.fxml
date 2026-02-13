@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="grafica.ResultDeckController"
+            styleClass="app-root">
+
+    <stylesheets>
+        <URL value="@MainView.css"/>
+        <URL value="@ResultDeckView.css"/>
+    </stylesheets>
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+            <Button text="← Indietro" onAction="#back" styleClass="res-back-btn"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="RISULTATO" styleClass="top-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" styleClass="page">
+            <VBox spacing="18" styleClass="content-panel">
+
+                <!-- DECK -->
+                <StackPane styleClass="deck-frame">
+                    <HBox spacing="10" alignment="CENTER" styleClass="deck-row">
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="card0Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="card0Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="card1Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="card1Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="card2Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="card2Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="card3Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="card3Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="card4Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="card4Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="card5Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="card5Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="card6Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="card6Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="card7Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="card7Label" styleClass="card-name"/>
+                        </StackPane>
+
+                    </HBox>
+                </StackPane>
+
+                <!-- TESTI -->
+                <Label text="Dettagli" styleClass="res-section-title"/>
+                <TextArea fx:id="detailsArea"
+                          editable="false"
+                          wrapText="true"
+                          prefRowCount="7"
+                          styleClass="field-input res-area"/>
+
+                <Label text="Appunti" styleClass="res-section-title"/>
+                <TextArea fx:id="notesArea"
+                          wrapText="true"
+                          prefRowCount="5"
+                          promptText="Scrivi qui le tue note..."
+                          styleClass="field-input res-area"/>
+
+            </VBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox styleClass="bottom-bar">
+            <Label fx:id="statusLabel" text="" styleClass="bottom-right-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="v0.1" styleClass="bottom-right-label"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

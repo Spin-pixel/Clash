@@ -1,0 +1,26 @@
+.res-back-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-padding: 0 10 0 0;
+    -fx-cursor: hand;
+}
+
+.res-section-title {
+    -fx-text-fill: rgba(255,255,255,0.95);
+    -fx-font-weight: 900;
+    -fx-font-size: 16px;
+}
+
+/* TextArea: mantiene lo stile base, ma rende bene il contenuto */
+.text-area.res-area {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.text-area.res-area .content {
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}

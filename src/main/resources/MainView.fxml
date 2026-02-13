@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+<?import java.lang.String?>
+
+<BorderPane fx:id="root"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="grafica.MainViewController"
+            stylesheets="@MainView.css"
+            styleClass="app-root">
+
+    <!-- TOP BAR blu scuro -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+            <MenuButton fx:id="hamburger" styleClass="castle-menu">
+                <items>
+                    <MenuItem text="Carte possedute" onAction="#openOwnedCards"/>
+                </items>
+            </MenuButton>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="ROYAL GENERATOR" styleClass="top-title"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" styleClass="page">
+            <VBox spacing="18" styleClass="content-panel">
+
+                <!-- BOX MAZZO: 8 carte su una riga -->
+                <StackPane styleClass="deck-frame">
+                    <HBox spacing="10" alignment="CENTER" styleClass="deck-row">
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="0">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="1">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="2">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="3">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="4">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="5">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="6">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                        <Button styleClass="card-slot-btn" onAction="#pickCard" userData="7">
+                            <graphic><Label text="+" styleClass="card-plus"/></graphic>
+                        </Button>
+
+                    </HBox>
+                </StackPane>
+
+                <!-- Form -->
+                <HBox spacing="22" alignment="TOP_CENTER" styleClass="form-row">
+
+                    <!-- sinistra: 4 select -->
+                    <GridPane hgap="10" vgap="12" styleClass="left-form">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="95"/>
+                            <ColumnConstraints prefWidth="230" hgrow="ALWAYS"/>
+                        </columnConstraints>
+
+                        <Label text="Numero di truppe aeeree" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
+                        <ComboBox fx:id="airTroopsSelect"
+                                  value="-"
+                                  promptText="Seleziona..."
+                                  GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                  styleClass="field-input">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="-"/>
+                                    <String fx:value="0"/><String fx:value="1"/><String fx:value="2"/><String fx:value="3"/>
+                                    <String fx:value="4"/><String fx:value="5"/><String fx:value="6"/><String fx:value="7"/><String fx:value="8"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+
+                        <Label text="numero di strutture" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="field-label"/>
+                        <ComboBox fx:id="buildingsSelect"
+                                  value="-"
+                                  promptText="Seleziona..."
+                                  GridPane.rowIndex="1" GridPane.columnIndex="1"
+                                  styleClass="field-input">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="-"/>
+                                    <String fx:value="0"/><String fx:value="1"/><String fx:value="2"/><String fx:value="3"/>
+                                    <String fx:value="4"/><String fx:value="5"/><String fx:value="6"/><String fx:value="7"/><String fx:value="8"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+
+                        <Label text="Numero di spell" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="field-label"/>
+                        <ComboBox fx:id="spellsSelect"
+                                  value="-"
+                                  promptText="Seleziona..."
+                                  GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                  styleClass="field-input">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="-"/>
+                                    <String fx:value="0"/><String fx:value="1"/><String fx:value="2"/><String fx:value="3"/>
+                                    <String fx:value="4"/><String fx:value="5"/><String fx:value="6"/><String fx:value="7"/><String fx:value="8"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+
+                        <Label text="Numero truppe che tirano dritto alla torre" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="field-label"/>
+                        <ComboBox fx:id="winconSelect"
+                                  value="-"
+                                  promptText="Seleziona..."
+                                  GridPane.rowIndex="3" GridPane.columnIndex="1"
+                                  styleClass="field-input">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="-"/>
+                                    <String fx:value="0"/><String fx:value="1"/><String fx:value="2"/><String fx:value="3"/>
+                                    <String fx:value="4"/><String fx:value="5"/><String fx:value="6"/><String fx:value="7"/><String fx:value="8"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </GridPane>
+
+                    <!-- destra: toggle + avanzate + immagine -->
+                    <VBox spacing="10" styleClass="right-form">
+
+                        <Label fx:id="advancedToggle"
+                               text="impostazioni avanzate ↓"
+                               onMouseClicked="#toggleAdvanced"
+                               styleClass="advanced-toggle"/>
+
+                        <VBox fx:id="advancedBox"
+                              spacing="10"
+                              visible="false"
+                              managed="false"
+                              styleClass="advanced-box">
+
+                            <GridPane hgap="10" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="170"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="Delta [0..1]" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
+                                <Spinner fx:id="deltaSpinner" editable="true" styleClass="field-input"
+                                         GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                    <valueFactory>
+                                        <SpinnerValueFactory.DoubleSpinnerValueFactory
+                                                min="0.0" max="1.0" amountToStepBy="0.1" initialValue="1.0"/>
+                                    </valueFactory>
+                                </Spinner>
+
+                                <Label text="Media Elisir [3..4]" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="field-label"/>
+                                <Spinner fx:id="avgElixirSpinner" editable="true" styleClass="field-input"
+                                         GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                    <valueFactory>
+                                        <SpinnerValueFactory.DoubleSpinnerValueFactory
+                                                min="3.0" max="4.0" amountToStepBy="0.1" initialValue="3.4"/>
+                                    </valueFactory>
+                                </Spinner>
+                            </GridPane>
+
+                        </VBox>
+
+                        <ImageView fx:id="kingExpertImage"
+                                   fitWidth="240"
+                                   preserveRatio="true"/>
+                    </VBox>
+
+                </HBox>
+
+                <!-- Bottone GENERA -->
+                <HBox alignment="CENTER">
+                    <Button text="GENERA" styleClass="generate-btn" onAction="#GA"/>
+                </HBox>
+
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Label basso a destra -->
+    <bottom>
+        <HBox styleClass="bottom-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="v0.1" styleClass="bottom-right-label"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
