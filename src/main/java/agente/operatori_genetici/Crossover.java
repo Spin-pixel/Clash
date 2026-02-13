@@ -4,6 +4,7 @@ package agente.operatori_genetici;
 import agente.individuals.Deck;
 import agente.individuals.DeckConstraints;
 import model.Card;
+import model.SpawnerTroop;
 import model.Troop;
 
 import java.util.*;
@@ -14,199 +15,136 @@ import java.util.stream.Collectors;
 
 public class Crossover {
 
-    // 1. Definiamo il Logger
     private static final Logger LOGGER = Logger.getLogger(Crossover.class.getName());
     private final Random random = new Random();
 
     /**
-     * Genera una nuova popolazione di deck.
-     * Garantisce che una specifica coppia di genitori (es. Deck A e Deck B)
-     * non venga mai selezionata più di una volta per il crossover.
-     *
-     * @param population La lista dei deck della generazione corrente (genitori).
-     * @param generationSize La dimensione desiderata della nuova popolazione.
-     * @return La lista dei nuovi deck figli.
+     * Genera una nuova popolazione di deck incrociando coppie uniche di genitori.
      */
     public List<Deck> newGeneration(List<Deck> population, int generationSize, DeckConstraints constraints) {
         List<Deck> nextGeneration = new ArrayList<>();
+        List<int[]> uniquePairs = generateUniquePairs(population.size());
 
-        // 1. Generiamo TUTTE le possibili coppie di indici univoche (Combinazioni semplici)
-        // Se population ha size 4 (0,1,2,3), le coppie saranno: 0-1, 0-2, 0-3, 1-2, 1-3, 2-3.
-        List<int[]> uniquePairs = new ArrayList<>();
-        for (int i = 0; i < population.size(); i++) {
-            for (int j = i + 1; j < population.size(); j++) {
-                uniquePairs.add(new int[]{i, j});
-            }
-        }
-
-        // 2. Mescoliamo la lista delle coppie.
-        // Questo garantisce che l'ordine di estrazione sia CASUALE.
-        Collections.shuffle(uniquePairs);
-
-        // 3. Creiamo i figli scorrendo la lista mescolata
         int pairIndex = 0;
-
         while (nextGeneration.size() < generationSize) {
-
-            // Sicurezza: Se la generationSize richiesta è enorme e finiamo le coppie uniche possibili
             if (pairIndex >= uniquePairs.size()) {
-                System.out.println("Attenzione: Combinazioni uniche di genitori esaurite. " +
-                        "Generati " + nextGeneration.size() + " deck su " + generationSize);
-                break; // Usciamo per evitare crash. In alternativa potresti rimescolare e ricominciare.
+                LOGGER.warning("Combinazioni uniche esaurite. Generati " + nextGeneration.size() + "/" + generationSize);
+                break;
             }
 
-            // Prende gli indici della coppia corrente
-            int[] pairIndices = uniquePairs.get(pairIndex);
-
-            Deck parent1 = population.get(pairIndices[0]);
-            Deck parent2 = population.get(pairIndices[1]);
-
-            // Esegue il crossover
-            Deck child = performCrossover(parent1, parent2, constraints);
-
-            // (Opzionale) Se hai dei vincoli da controllare sul figlio appena nato:
-            // if (checkConstraints(child)) { nextGeneration.add(child); }
-            // Per ora lo aggiungiamo direttamente:
+            int[] pair = uniquePairs.get(pairIndex++);
+            Deck child = performCrossover(population.get(pair[0]), population.get(pair[1]), constraints);
             nextGeneration.add(child);
-
-            // Passa alla prossima coppia univoca
-            pairIndex++;
         }
 
         return nextGeneration;
     }
 
+    /**
+     * Logica principale del Crossover.
+     */
     private Deck performCrossover(Deck parent1, Deck parent2, DeckConstraints constraints) {
-        // Log Iniziale
-        LOGGER.info(">>> INIZIO CROSSOVER <<<");
-        LOGGER.fine("Parent 1: " + getIds(parent1.getCards()));
-        LOGGER.fine("Parent 2: " + getIds(parent2.getCards()));
-
         Set<Card> childCards = new HashSet<>();
 
-        // --- FASE 1: INTERSEZIONE ---
+        // --- 1. EREDITARIETÀ CARTE COMUNI ---
         Set<Card> commonCards = new HashSet<>(parent1.getCards());
         commonCards.retainAll(parent2.getCards());
         childCards.addAll(commonCards);
 
-        LOGGER.info("[1] Carte Comuni (ereditate automaticamente): " + getIds(commonCards));
+        // --- 2. CLASSIFICAZIONE (BUCKETS) ---
+        // Distribuisce le carte NON comuni nei bucket specifici per soddisfare i vincoli
+        Map<String, List<Card>> p1Buckets = classifyCards(parent1, commonCards);
+        Map<String, List<Card>> p2Buckets = classifyCards(parent2, commonCards);
 
-        // --- FASE 2: CLASSIFICAZIONE (BUCKETS) ---
-        Map<String, List<Card>> p1Buckets = classifyCards(parent1, commonCards, constraints);
-        Map<String, List<Card>> p2Buckets = classifyCards(parent2, commonCards, constraints);
+        // --- 3. SODDISFACIMENTO VINCOLI ---
+        // Preleva dai bucket specifici finché i requisiti non sono soddisfatti
+        fillConstraint(childCards, p1Buckets, p2Buckets, "BUILDINGS", constraints.nBuildings);
+        fillConstraint(childCards, p1Buckets, p2Buckets, "SPELLS", constraints.nSpells);
+        fillConstraint(childCards, p1Buckets, p2Buckets, "FLYING", constraints.nFlyingTroop);
+        fillConstraint(childCards, p1Buckets, p2Buckets, "TARGET_TOWER", constraints.nBuildingTarget);
 
-        // Logghiamo cosa c'è nei bucket per capire le disponibilità
-        logBucketAvailability("P1", p1Buckets);
-        logBucketAvailability("P2", p2Buckets);
+        // --- 4. CONSOLIDAMENTO SCARTI (OPZIONE A - FIX) ---
+        // Uniamo tutto ciò che è rimasto nei vari bucket in un unico pool per il riempimento finale
+        List<Card> p1Leftovers = consolidateLeftovers(p1Buckets);
+        List<Card> p2Leftovers = consolidateLeftovers(p2Buckets);
 
-        // --- FASE 3: VINCOLI SPECIFICI ---
-        LOGGER.info("[2] Gestione Vincoli:");
-        handleConstraintCategory(childCards, p1Buckets, p2Buckets, "BUILDINGS", constraints.nBuildings);
-        handleConstraintCategory(childCards, p1Buckets, p2Buckets, "SPELLS", constraints.nSpells);
-        handleConstraintCategory(childCards, p1Buckets, p2Buckets, "FLYING", constraints.nFlyingTroop);
-        handleConstraintCategory(childCards, p1Buckets, p2Buckets, "TARGET_TOWER", constraints.nBuildingTarget);
+        // --- 5. FILLER (RIEMPIMENTO FINALE) ---
+        int slotsNeeded = 8 - childCards.size();
 
-        // --- FASE 4: FILLER ---
-        int remainingSlots = 8 - childCards.size();
-        LOGGER.info("[3] Riempimento Filler (" + remainingSlots + " slot rimasti):");
-
-        List<Card> p1Rest = p1Buckets.get("OTHERS");
-        List<Card> p2Rest = p2Buckets.get("OTHERS");
-
-        for (int i = 0; i < remainingSlots; i++) {
-            Card selected = null;
-            String source = "";
-
-            if (random.nextBoolean() && !p1Rest.isEmpty()) {
-                selected = p1Rest.removeFirst();
-                source = "P1";
-            } else if (!p2Rest.isEmpty()) {
-                selected = p2Rest.removeFirst();
-                source = "P2";
-            } else if (!p1Rest.isEmpty()) {
-                selected = p1Rest.removeFirst();
-                source = "P1 (Fallback)";
-            }
-
-            if (selected != null) {
-                childCards.add(selected);
-                LOGGER.info("   -> Filler aggiunto: " + selected.getId() + " da " + source);
-            } else {
-                LOGGER.warning("   -> Impossibile trovare carta filler! I genitori sono vuoti?");
-            }
-        }
-
-        Deck child = new Deck(new ArrayList<>(childCards));
-        LOGGER.info(">>> FINE CROSSOVER. Figlio generato: " + getIds(child.getCards()) + " (Size: " + child.getCards().size() + ")");
-        LOGGER.info("--------------------------------------------------");
-
-        return child;
-    }
-
-    private void handleConstraintCategory(Set<Card> childCards,
-                                          Map<String, List<Card>> p1Buckets,
-                                          Map<String, List<Card>> p2Buckets,
-                                          String bucketKey,
-                                          Integer requiredTotal) {
-        if (requiredTotal == null || requiredTotal == 0) return;
-
-        long alreadyPresent = childCards.stream().filter(c -> checkCategory(c, bucketKey)).count();
-        int slotsToFill = requiredTotal - (int)alreadyPresent;
-
-        LOGGER.info("   Cat: " + bucketKey + " | Richiesti: " + requiredTotal +
-                " | Presenti: " + alreadyPresent + " | Da riempire: " + slotsToFill);
-
-        List<Card> p1Candidates = p1Buckets.getOrDefault(bucketKey, new ArrayList<>());
-        List<Card> p2Candidates = p2Buckets.getOrDefault(bucketKey, new ArrayList<>());
-
-        for (int i = 0; i < slotsToFill; i++) {
-            Card chosen = null;
-            String parent = "";
-
-            if (random.nextBoolean()) {
-                if (!p1Candidates.isEmpty()) { chosen = p1Candidates.remove(0); parent = "P1"; }
-                else if (!p2Candidates.isEmpty()) { chosen = p2Candidates.remove(0); parent = "P2"; }
-            } else {
-                if (!p2Candidates.isEmpty()) { chosen = p2Candidates.remove(0); parent = "P2"; }
-                else if (!p1Candidates.isEmpty()) { chosen = p1Candidates.remove(0); parent = "P1"; }
-            }
-
+        for (int i = 0; i < slotsNeeded; i++) {
+            Card chosen = pickRandomCard(p1Leftovers, p2Leftovers);
             if (chosen != null) {
                 childCards.add(chosen);
-                LOGGER.info("      + Aggiunto " + chosen.getId() + " da " + parent);
             } else {
-                LOGGER.warning("      ! Impossibile soddisfare vincolo " + bucketKey + ": genitori a secco.");
+                // Questo accade solo se i genitori hanno meno di 8 carte totali uniche combinate (improbabile)
+                LOGGER.warning("Impossibile riempire il mazzo: genitori a secco!");
+            }
+        }
+
+        return new Deck(new ArrayList<>(childCards));
+    }
+
+    // -------------------------------------------------------------------------
+    //                              HELPER METHODS
+    // -------------------------------------------------------------------------
+
+    /**
+     * Tenta di soddisfare un vincolo specifico prelevando dai bucket corrispondenti.
+     */
+    private void fillConstraint(Set<Card> childCards,
+                                Map<String, List<Card>> p1Buckets,
+                                Map<String, List<Card>> p2Buckets,
+                                String category,
+                                Integer required) {
+        if (required == null || required <= 0) return;
+
+        // Conta quante ne abbiamo già (ereditate dalle comuni)
+        long currentCount = childCards.stream().filter(c -> isType(c, category)).count();
+        int needed = required - (int) currentCount;
+
+        List<Card> p1List = p1Buckets.get(category);
+        List<Card> p2List = p2Buckets.get(category);
+
+        for (int i = 0; i < needed; i++) {
+            Card picked = pickRandomCard(p1List, p2List);
+            if (picked != null) {
+                childCards.add(picked);
             }
         }
     }
 
-    // --- METODI HELPER E LOGGING ---
-
-    // Stampa ID delle carte per leggibilità (es. [Zap, Hog, Cannon])
-    private String getIds(Collection<Card> cards) {
-        return "[" + cards.stream().map(Card::getId).collect(Collectors.joining(", ")) + "]";
+    /**
+     * (OPZIONE A) Raccoglie tutte le carte rimaste in tutti i bucket in un'unica lista.
+     */
+    private List<Card> consolidateLeftovers(Map<String, List<Card>> buckets) {
+        List<Card> pool = new ArrayList<>();
+        // Aggiunge il contenuto di TUTTE le liste (Buildings, Spells, Others, ecc.)
+        buckets.values().forEach(pool::addAll);
+        Collections.shuffle(pool); // Mischia per garantire casualità nel filler
+        return pool;
     }
 
-    // Logga il contenuto dei bucket
-    private void logBucketAvailability(String parentName, Map<String, List<Card>> buckets) {
-        StringBuilder sb = new StringBuilder(parentName + " Disponibilità: ");
-        buckets.forEach((k, v) -> {
-            if(!v.isEmpty()) sb.append(k).append("=").append(v.size()).append(" ");
-        });
-        LOGGER.fine(sb.toString());
+    /**
+     * Seleziona una carta a caso tra due liste. Rimuove la carta selezionata dalla lista d'origine.
+     */
+    private Card pickRandomCard(List<Card> list1, List<Card> list2) {
+        if (list1.isEmpty() && list2.isEmpty()) return null;
+
+        boolean pickFrom1;
+        if (!list1.isEmpty() && !list2.isEmpty()) {
+            pickFrom1 = random.nextBoolean();
+        } else {
+            pickFrom1 = !list1.isEmpty();
+        }
+
+        return pickFrom1 ? list1.remove(0) : list2.remove(0);
     }
 
-    // Include la tua fix per il ClassCastException
-    private boolean checkCategory(Card c, String key) {
-        if (key.equals("BUILDINGS")) return c.getType() == Card.CardType.BUILDING;
-        if (key.equals("SPELLS")) return c.getType() == Card.CardType.SPELL;
-        if (key.equals("FLYING")) return (c instanceof Troop) && ((Troop)c).isFlying();
-        if (key.equals("TARGET_TOWER")) return (c instanceof Troop) && ((Troop)c).isTargetsOnlyBuildings();
-        return false;
-    }
-
-    // classifyCards rimane uguale alla tua versione precedente...
-    private Map<String, List<Card>> classifyCards(Deck deck, Set<Card> commonCards, DeckConstraints constraints) {
+    /**
+     * Classifica le carte di un genitore nei bucket.
+     * Ordine di priorità: Building > Spell > Flying > Target Tower > Others.
+     */
+    private Map<String, List<Card>> classifyCards(Deck deck, Set<Card> excludeCards) {
         Map<String, List<Card>> buckets = new HashMap<>();
         buckets.put("BUILDINGS", new ArrayList<>());
         buckets.put("SPELLS", new ArrayList<>());
@@ -215,54 +153,70 @@ public class Crossover {
         buckets.put("OTHERS", new ArrayList<>());
 
         for (Card c : deck.getCards()) {
-            if (commonCards.contains(c)) continue;
+            if (excludeCards.contains(c)) continue;
 
-            if (c.getType() == Card.CardType.BUILDING) {
+            if (isType(c, "BUILDINGS")) {
                 buckets.get("BUILDINGS").add(c);
-            } else if (c.getType() == Card.CardType.SPELL) {
+            } else if (isType(c, "SPELLS")) {
                 buckets.get("SPELLS").add(c);
-            } else if (c.getType() == Card.CardType.TROOP && ((Troop)c).isFlying()) {
+            } else if (isType(c, "FLYING")) {
                 buckets.get("FLYING").add(c);
-            } else if (c.getType() == Card.CardType.TROOP && ((Troop)c).isTargetsOnlyBuildings()) {
+            } else if (isType(c, "TARGET_TOWER")) {
                 buckets.get("TARGET_TOWER").add(c);
             } else {
                 buckets.get("OTHERS").add(c);
             }
         }
+        // Mischiamo subito i bucket per non prendere sempre le carte nello stesso ordine
         buckets.values().forEach(Collections::shuffle);
         return buckets;
     }
 
-    static {
-        LOGGER.setUseParentHandlers(false);
-
-        java.util.logging.Handler handler = new java.util.logging.StreamHandler(System.out, new java.util.logging.Formatter() {
-            @Override
-            public String format(java.util.logging.LogRecord record) {
-                return record.getMessage() + "\n";
-            }
-        }) {
-            // Forza flush() a ogni messaggio per vederlo in tempo reale.
-            @Override
-            public synchronized void publish(java.util.logging.LogRecord record) {
-                super.publish(record);
-                flush();
-            }
-        };
-
-        // Imposta il livello di logging (INFO mostra tutto quello che hai scritto)
-        handler.setLevel(java.util.logging.Level.INFO);
-        LOGGER.addHandler(handler);
-    }
-
-    public static void setLogging(boolean active) {
-        if (active) {
-            LOGGER.setLevel(java.util.logging.Level.INFO);
-            System.out.println("--- LOGGING CROSSOVER ATTIVATO ---");
-        } else {
-            LOGGER.setLevel(java.util.logging.Level.OFF);
-            // Non stampiamo nulla quando disattiviamo
+    /**
+     * Controllo centralizzato e sicuro sui tipi di carte.
+     */
+    private boolean isType(Card c, String category) {
+        switch (category) {
+            case "BUILDINGS":
+                return c.getType() == Card.CardType.BUILDING;
+            case "SPELLS":
+                return c.getType() == Card.CardType.SPELL;
+            case "FLYING":
+                // Controlla Troop e SpawnerTroop
+                if (c instanceof Troop) return ((Troop) c).isFlying();
+                if (c instanceof SpawnerTroop) return ((SpawnerTroop) c).isFlying();
+                return false;
+            case "TARGET_TOWER":
+                if (c instanceof Troop) return ((Troop) c).isTargetsOnlyBuildings();
+                if (c instanceof SpawnerTroop) return ((SpawnerTroop) c).isTargetsOnlyBuildings();
+                // Nota: Building che targettano building (XBow/Mortar) non sono "TargetOnlyBuilding" boolean property, ma Building type.
+                // Se nel tuo JSON XBow ha targetsOnlyBuildings=true, aggiungi il check qui.
+                return false;
+            default:
+                return false;
         }
     }
 
+    private List<int[]> generateUniquePairs(int size) {
+        List<int[]> pairs = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            for (int j = i + 1; j < size; j++) {
+                pairs.add(new int[]{i, j});
+            }
+        }
+        Collections.shuffle(pairs);
+        return pairs;
+    }
+
+    // Configurazione Logger (Invariata)
+    public static void setLogging(boolean active) {
+        LOGGER.setLevel(active ? java.util.logging.Level.INFO : java.util.logging.Level.OFF);
+    }
+
+    static {
+        LOGGER.setUseParentHandlers(false);
+        java.util.logging.Handler handler = new java.util.logging.StreamHandler(System.out, new java.util.logging.SimpleFormatter());
+        handler.setLevel(java.util.logging.Level.INFO);
+        LOGGER.addHandler(handler);
+    }
 }
