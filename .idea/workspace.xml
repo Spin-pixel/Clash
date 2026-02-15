@@ -4,96 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a81d5a1-8bc4-4621-ad3c-5ca03a753ffb" name="Changes" comment="Done:&#10;&gt;Correzione Json e fitness con @Marcello e @Francello &#10;&gt;Introduzione personalizzazione del delta e della media elisir&#10;TO-DO:&#10;&gt;Implementare il simulated annealing">
-      <change afterPath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/SA_core.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/GA/GA_core.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/GA_core.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/GA/fitness/Fitness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/fitness/Fitness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/GA/individuals/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/individuals/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/GA/individuals/DeckConstraints.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/individuals/DeckConstraints.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/GA/initializer/Initializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/initializer/Initializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/GA/operatori_genetici/Crossover.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/operatori_genetici/Crossover.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/GA/operatori_genetici/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/operatori_genetici/Mutation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/GA/operatori_genetici/Selection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/operatori_genetici/Selection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grafica/CardImageResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grafica/storeData/CardImageResolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grafica/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grafica/MainViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grafica/OwnedCardsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grafica/OwnedCardsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grafica/ResultDeck.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grafica/ResultDeckController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grafica/ResultDeckController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="CSS File" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Spin-pixel&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Spin-pixel/Clash.git&quot;,
-    &quot;accountId&quot;: &quot;bfa4a846-7102-4f18-95e3-cb478b00cda4&quot;
-  }
-}</component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
-  <component name="ProjectId" id="39Z5asXhjVc1RHMPVRMXzrcFe3w" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.JavaFX.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "Integrated",
-    "jdk.selected.JAVA_MODULE": "openjdk-23",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/igioi/Downloads/TravelingSalesmanProblemWithSimulatedAnnealing",
-    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\igioi\Documents\Clash\GA-Clash\GA-Clash-Core\src\main\resources\img" />
-    </key>
-  </component>
   <component name="RunManager">
-    <configuration name="JavaFX" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="23" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="grafica.MainApp" />
       <module name="Royal-Generator" />
       <method v="2">
@@ -101,62 +29,7 @@
       </method>
     </configuration>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="6a81d5a1-8bc4-4621-ad3c-5ca03a753ffb" name="Changes" comment="" />
-      <created>1770890819014</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1770890819014</updated>
-      <workItem from="1770890820059" duration="2157000" />
-      <workItem from="1770979170940" duration="890000" />
-      <workItem from="1770982139922" duration="25000" />
-      <workItem from="1770982169794" duration="1017000" />
-      <workItem from="1771070515832" duration="31226000" />
-    </task>
-    <task id="LOCAL-00001" summary="Done:&#10;&gt;Corretta modularizzazione dei file&#10;&gt;Riorganizzazione dei package&#10;&gt;Applicazione delle classi definite nei branch @marcello @igino&#10;TO-DO:&#10;&gt;Applicazione delle classi di @francesco">
-      <option name="closed" value="true" />
-      <created>1770982551012</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1770982551012</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Done:&#10;&gt;Aggiunta la classe fitness di @francesco&#10;&gt;Definito la classe core che applica l'algoritmo genetico&#10;&gt;Modifica della view per usare  la classe core del GA &#10;TO-DO:&#10;&gt;Sistemare la fitness&#10;&gt;Implementare SA">
-      <option name="closed" value="true" />
-      <created>1771154463572</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1771154463572</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Done:&#10;&gt;Correzione Json e fitness con @Marcello e @Francello &#10;&gt;Introduzione personalizzazione del delta e della media elisir&#10;TO-DO:&#10;&gt;Implementare il simulated annealing">
-      <option name="closed" value="true" />
-      <created>1771159682749</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1771159682749</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Done:&#10;&gt;Corretta modularizzazione dei file&#10;&gt;Riorganizzazione dei package&#10;&gt;Applicazione delle classi definite nei branch @marcello @igino&#10;TO-DO:&#10;&gt;Applicazione delle classi di @francesco" />
-    <MESSAGE value="Done:&#10;&gt;Aggiunta la classe fitness di @francesco&#10;&gt;Definito la classe core che applica l'algoritmo genetico&#10;&gt;Modifica della view per usare  la classe core del GA &#10;TO-DO:&#10;&gt;Sistemare la fitness&#10;&gt;Implementare SA" />
-    <MESSAGE value="Done:&#10;&gt;Correzione Json e fitness con @Marcello e @Francello &#10;&gt;Introduzione personalizzazione del delta e della media elisir&#10;TO-DO:&#10;&gt;Implementare il simulated annealing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Done:&#10;&gt;Correzione Json e fitness con @Marcello e @Francello &#10;&gt;Introduzione personalizzazione del delta e della media elisir&#10;TO-DO:&#10;&gt;Implementare il simulated annealing" />
   </component>
 </project>

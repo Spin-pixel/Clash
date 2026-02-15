@@ -12,9 +12,9 @@ public class Fitness {
     private static  double T = 3.6;
 
     // Idea: scegliere valori che rappresentano "copertura buona" (es. percentile 75/85 su deck casuali)
-    private static final double TAU_AOE = 3200; // soglia per AoE power
-    private static final double TAU_DPS = 850;  // soglia per top1+top2 DPS
-    private static final double TAU_HP = 800;
+    private static final double TAU_AOE = 1200; // soglia per AoE power
+    private static final double TAU_DPS = 900;  // soglia per top1+top2 DPS
+    private static final double TAU_HP = 3000;
 
     public double FinalFitness(Deck deck,double Delta,double T) {
         this.Delta = Delta;
@@ -94,8 +94,9 @@ public class Fitness {
                 }
 
                 if (effectiveDPS > top1Dps){
+                    top2Dps = top1Dps;
                     top1Dps = effectiveDPS;
-                } else if (effectiveDPS < top2Dps) {
+                } else if (effectiveDPS > top2Dps) {
                     top2Dps = effectiveDPS;
                 }
             }
@@ -110,8 +111,9 @@ public class Fitness {
                     hasAnyAoe = true;
                 }
                 if ((defensiveBuilding.getDamage()/ defensiveBuilding.getHitSpeed()) > top1Dps){
+                    top2Dps = top1Dps;
                     top1Dps = (defensiveBuilding.getDamage() / defensiveBuilding.getHitSpeed());
-                } else if ((defensiveBuilding.getDamage() / defensiveBuilding.getHitSpeed()) < top2Dps) {
+                } else if ((defensiveBuilding.getDamage() / defensiveBuilding.getHitSpeed()) > top2Dps) {
                     top2Dps = (defensiveBuilding.getDamage() / defensiveBuilding.getHitSpeed());
                 }
             }
@@ -142,6 +144,7 @@ public class Fitness {
                 }
 
                 if(effectiveDps > top1Dps){
+                    top2Dps = top1Dps;
                     top1Dps = effectiveDps;
                 }
                 if (effectiveDps > top2Dps) {
