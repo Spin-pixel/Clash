@@ -4,6 +4,7 @@ package agente.Simulated_Annealing.Stato_corrente;
 import model.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class Stato implements Comparable<Stato> {
 
 
     public List<Card> getCards() {
-        return cards;
+        return  Collections.unmodifiableList(cards);
     }
 
     /**

@@ -3,7 +3,6 @@ package agente.Simulated_Annealing.Stato_corrente;
 
 
 import agente.Genetic_Algoritm.individuals.Deck;
-import agente.Genetic_Algoritm.individuals.DeckConstraints;
 import model.Card;
 import model.Troop;
 
@@ -20,6 +19,9 @@ import java.util.Random;
 public class stato_iniziale {
 
     private Random random = new Random();
+
+    //mi permette di evitare loop infiniti
+    private int flag = 0;
 
     public Stato createDeck(List<Card> pool,Vincoli vincoli) {
         List<Card> cards = new ArrayList<Card>();
@@ -61,10 +63,18 @@ public class stato_iniziale {
             }
         }
         Stato stato = new Stato(cards);
-        if(isValid(stato,vincoli))
+        if(isValid(stato,vincoli)) {
+            flag=0;
             return stato;
-        else
-            return createDeck(cards, vincoli);
+        }
+        else {
+            if(flag == 5) {
+                flag=0;
+                return null;
+            }
+            flag++;
+            return createDeck(pool, vincoli);
+        }
     }
 
     private boolean isValid(Stato stato, Vincoli vincoli) {
