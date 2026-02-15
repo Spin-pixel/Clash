@@ -83,6 +83,7 @@ public class Deck implements Comparable<Object> {
 
     @Override
     public int compareTo(Object o) {
-        return Double.compare(this.fitness, ((Deck) o).fitness);
+        Deck d = (Deck) o;
+        return Double.compare(this.fitness, d.getFitness());
     }
 }

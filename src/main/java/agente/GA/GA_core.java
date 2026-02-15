@@ -69,10 +69,10 @@ public class GA_core {
 
         List<Deck> population = initializer.createPopulation(pool, Params.defaults().populationSize,constraints);
         for(Deck d : population) {
-            d.setFitness(fitness.FinalFitness(d));
+            d.setFitness(fitness.FinalFitness(d,delta,desiredAvgElixir));
         }
         Collections.sort(population);
-        population.reversed();
+        population =population.reversed();
         log.append("Init bestFitness=")
                 .append(fmt(population.getFirst().getFitness()))
                 .append('\n');
@@ -86,12 +86,12 @@ public class GA_core {
             List<Deck> newGen = crossover.newGeneration(selected,Params.defaults().populationSize()-Params.defaults().elitarism(),constraints);
             mutation.mutateGeneration(newGen,Params.defaults().mutationRate(), Params.defaults().genesToMutate(), constraints);
             for(Deck d : newGen) {
-                d.setFitness(fitness.FinalFitness(d));
+                d.setFitness(fitness.FinalFitness(d,delta,desiredAvgElixir));
             }
             population.clear();
             population= Stream.concat(elitarism.stream(),newGen.stream()).collect(Collectors.toList());
             Collections.sort(population);
-            population.reversed();
+            population= population.reversed();
             elitarism.clear();
             newGen.clear();
             size=0;
