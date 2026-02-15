@@ -1,5 +1,6 @@
 package grafica;
 
+import grafica.storeData.CardImageResolver;
 import grafica.storeData.UserPrefs;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;

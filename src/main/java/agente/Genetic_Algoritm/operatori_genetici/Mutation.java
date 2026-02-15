@@ -1,14 +1,13 @@
-package agente.GA.operatori_genetici;
+package agente.Genetic_Algoritm.operatori_genetici;
 
 
 
-import agente.GA.individuals.Deck;
-import agente.GA.individuals.DeckConstraints;
+import agente.Genetic_Algoritm.individuals.Deck;
+import agente.Genetic_Algoritm.individuals.DeckConstraints;
 import model.Card;
 import model.Troop;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;

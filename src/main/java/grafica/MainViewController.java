@@ -1,6 +1,6 @@
 package grafica;
 
-import agente.GA.individuals.DeckConstraints;
+import agente.Genetic_Algoritm.individuals.DeckConstraints;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;

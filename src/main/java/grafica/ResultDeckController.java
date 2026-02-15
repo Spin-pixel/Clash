@@ -1,8 +1,8 @@
 package grafica;
 
-import agente.GA.GA_core;
-import agente.GA.individuals.Deck;
-import agente.GA.individuals.DeckConstraints;
+import agente.Genetic_Algoritm.GA_core;
+import agente.Genetic_Algoritm.individuals.Deck;
+import agente.Genetic_Algoritm.individuals.DeckConstraints;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

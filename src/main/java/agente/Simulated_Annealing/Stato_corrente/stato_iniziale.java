@@ -1,8 +1,9 @@
-package agente.GA.initializer;
+package agente.Simulated_Annealing.Stato_corrente;
 
 
-import agente.GA.individuals.Deck;
-import agente.GA.individuals.DeckConstraints;
+
+import agente.Genetic_Algoritm.individuals.Deck;
+import agente.Genetic_Algoritm.individuals.DeckConstraints;
 import model.Card;
 import model.Troop;
 
@@ -11,53 +12,29 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Initializer {
+/**
+ * Posso definirlo in modo randomico come per i Deck
+ * @see agente.Genetic_Algoritm.initializer.Initializer
+ *
+ * */
+public class stato_iniziale {
 
-    private final Random random = new Random();
+    private Random random = new Random();
 
-    /**
-     * Genera una popolazione iniziale di dimensione specificata rispettando i vincoli.
-     */
-    public List<Deck> createPopulation(List<Card> allCards, int populationSize, DeckConstraints constraints) {
-        List<Deck> population = new ArrayList<>();
-        int attempts = 0;
-        int maxAttempts = populationSize * 3000; // Evita loop infiniti se i vincoli sono impossibili
-
-        while (population.size() < populationSize && attempts < maxAttempts) {
-            Deck candidate = generateRandomDeck(allCards, constraints);
-
-            if (isValid(candidate, constraints)) {
-                population.add(candidate);
-            }
-            attempts++;
-        }
-
-        if (population.size() < populationSize) {
-            System.err.println("ATTENZIONE: Non sono riuscito a generare l'intera popolazione richiesta rispettando i vincoli stringenti.");
-        }
-
-        return population;
-    }
-
-
-    /**
-     * Crea un deck di 8 carte casuali uniche (Versione per ID Stringa).
-     *
-     */
-    private Deck generateRandomDeck(List<Card> pool, DeckConstraints constraints) {
-        List<Card> selectedCards = new ArrayList<>();
+    public Stato createDeck(List<Card> pool,Vincoli vincoli) {
+        List<Card> cards = new ArrayList<Card>();
         // Usiamo un Set di Stringhe per tracciare gli ID presi
         java.util.Set<String> takenIds = new java.util.HashSet<>();
 
         // 1. Gestione Carte Obbligatorie
         // Assumo che constraints.mandatoryCardsId sia List<String>
-        if (constraints.mandatoryCardsId != null) {
-            for (String mandatoryId : constraints.mandatoryCardsId) {
+        if (vincoli.mandatoryCardsId != null) {
+            for (String mandatoryId : vincoli.mandatoryCardsId) {
                 // Cerchiamo la carta nel pool
                 for (Card c : pool) {
 
                     if (c.getId().equals(mandatoryId) && !takenIds.contains(mandatoryId)) {
-                        selectedCards.add(c);
+                        cards.add(c);
                         takenIds.add(mandatoryId);
                         break; // Presa! Passiamo al prossimo ID obbligatorio
                     }
@@ -72,29 +49,29 @@ public class Initializer {
         // 3. Riempiamo fino a 8 carte
         for (Card candidate : shuffledPool) {
             // Stop se siamo arrivati a 8
-            if (selectedCards.size() >= Deck.DECK_SIZE) {
+            if (cards.size() >= Deck.DECK_SIZE) {
                 break;
             }
 
             // Aggiungiamo SOLO se l'ID non è già nel set
             String cId = candidate.getId();
             if (!takenIds.contains(cId)) {
-                selectedCards.add(candidate);
+                cards.add(candidate);
                 takenIds.add(cId);
             }
         }
-
-        return new Deck(selectedCards);
+        Stato stato = new Stato(cards);
+        if(isValid(stato,vincoli))
+            return stato;
+        else
+            return createDeck(cards, vincoli);
     }
 
-    /**
-     * Verifica se un deck rispetta TUTTI i vincoli impostati.
-     */
-    private boolean isValid(Deck deck, DeckConstraints constraints) {
-        List<Card> cards = deck.getCards();
+    private boolean isValid(Stato stato, Vincoli vincoli) {
+        List<Card> cards = stato.getCards();
 
         // 1. Vincolo Carte Obbligatorie (Mandatory)
-        if (constraints.mandatoryCardsId != null && !constraints.mandatoryCardsId.isEmpty()) {
+        if (vincoli.mandatoryCardsId != null && !vincoli.mandatoryCardsId.isEmpty()) {
 
             // SOLUZIONE:
             // Estraiamo prima tutti gli ID dalle carte presenti nel mazzo corrente.
@@ -104,7 +81,7 @@ public class Initializer {
                     .toList(); // Usa .collect(Collectors.toList()) se sei su Java < 16
 
             // Ora possiamo usare containsAll perché stiamo confrontando String con String
-            boolean hasAllMandatoryCards = deckIds.containsAll(constraints.mandatoryCardsId);
+            boolean hasAllMandatoryCards = deckIds.containsAll(vincoli.mandatoryCardsId);
 
             // Se manca anche solo una delle carte obbligatorie, il controllo fallisce
             if (!hasAllMandatoryCards) return false;
@@ -117,11 +94,6 @@ public class Initializer {
         int buildingTargetCount = 0;
 
 
-        //TODO: Post modifica classi, adatta i metodi
-
-        /**
-         * Va ancora fatto?
-         * */
         for (Card c : cards) {
             // Conta Tipi
             if (c.getType() == Card.CardType.BUILDING) buildingCount++;
@@ -145,10 +117,10 @@ public class Initializer {
         }
 
         // Verifica conteggi
-        if (constraints.nBuildings != null && buildingCount != constraints.nBuildings) return false;
-        if (constraints.nSpells != null && spellCount != constraints.nSpells) return false;
-        if (constraints.nFlyingTroop != null && flyingTroopCount != constraints.nFlyingTroop) return false;
-        if (constraints.nBuildingTarget != null && buildingTargetCount != constraints.nBuildingTarget) return false;
+        if (vincoli.nBuildings != null && buildingCount != vincoli.nBuildings) return false;
+        if (vincoli.nSpells != null && spellCount != vincoli.nSpells) return false;
+        if (vincoli.nFlyingTroop != null && flyingTroopCount != vincoli.nFlyingTroop) return false;
+        if (vincoli.nBuildingTarget != null && buildingTargetCount != vincoli.nBuildingTarget) return false;
 
         return true;
     }

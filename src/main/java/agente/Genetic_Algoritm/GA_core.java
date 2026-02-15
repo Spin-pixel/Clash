@@ -1,13 +1,12 @@
-package agente.GA;
+package agente.Genetic_Algoritm;
 
-import agente.GA.fitness.Fitness;
-import agente.GA.individuals.Deck;
-import agente.GA.individuals.DeckConstraints;
-import agente.GA.initializer.Initializer;
-import agente.GA.operatori_genetici.Crossover;
-import agente.GA.operatori_genetici.Mutation;
-import agente.GA.operatori_genetici.Selection;
-import grafica.ResultDeck;
+import agente.Genetic_Algoritm.fitness.Fitness;
+import agente.Genetic_Algoritm.individuals.Deck;
+import agente.Genetic_Algoritm.individuals.DeckConstraints;
+import agente.Genetic_Algoritm.initializer.Initializer;
+import agente.Genetic_Algoritm.operatori_genetici.Crossover;
+import agente.Genetic_Algoritm.operatori_genetici.Mutation;
+import agente.Genetic_Algoritm.operatori_genetici.Selection;
 import model.Card;
 import model.Troop;
 
@@ -27,7 +26,7 @@ public class GA_core {
         public static Params defaults() {
             return new Params(
                     40,   // population
-                    1000,   // generations
+                    100,   // generations
                     0.25, // mutationRate
                     2,    // genesToMutate
                     12 ,    // parentsToSelect (>=10 per evitare il limite di coppie uniche nel crossover)

@@ -1,4 +1,4 @@
-package agente.GA.individuals;
+package agente.Genetic_Algoritm.individuals;
 
 
 import java.util.List;

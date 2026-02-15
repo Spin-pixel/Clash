@@ -1,4 +1,4 @@
-package grafica;
+package grafica.storeData;
 
 import java.util.Locale;
 import java.util.Map;

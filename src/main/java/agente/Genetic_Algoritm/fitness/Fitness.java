@@ -1,6 +1,6 @@
-package agente.GA.fitness;
+package agente.Genetic_Algoritm.fitness;
 
-import agente.GA.individuals.Deck;
+import agente.Genetic_Algoritm.individuals.Deck;
 import model.*;
 import service.CardService;
 

@@ -1,4 +1,4 @@
-package agente.GA.individuals;
+package agente.Genetic_Algoritm.individuals;
 
 
 import model.Card;
@@ -66,7 +66,7 @@ public class Deck implements Comparable<Object> {
         // this.averageElixir = calculateAverageElixir();
     }
 
-    //TODO: DEFINIRE FITNESS @FRA
+
     public double getFitness() {
         return fitness;
     }
