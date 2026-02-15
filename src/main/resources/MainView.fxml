@@ -193,7 +193,7 @@
 
                 <!-- Bottone GENERA -->
                 <HBox alignment="CENTER">
-                    <Button text="GENERA" styleClass="generate-btn" onAction="#GA"/>
+                    <Button text="GENERA" styleClass="generate-btn" onAction="#Genera"/>
                 </HBox>
 
             </VBox>

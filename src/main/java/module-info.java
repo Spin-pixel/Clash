@@ -20,7 +20,7 @@ module org.progettofia.royalgenerator {
     exports service;
 
     // (facoltativi) esporta anche il core GA se lo vuoi usare da fuori modulo
-    exports agente.individuals;
-    exports agente.initializer;
-    exports agente.operatori_genetici;
+    exports agente.GA.individuals;
+    exports agente.GA.initializer;
+    exports agente.GA.operatori_genetici;
 }

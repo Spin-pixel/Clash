@@ -1,9 +1,9 @@
-package agente.operatori_genetici;
+package agente.GA.operatori_genetici;
 
 
 
-import agente.individuals.Deck;
-import agente.individuals.DeckConstraints;
+import agente.GA.individuals.Deck;
+import agente.GA.individuals.DeckConstraints;
 import model.Card;
 import model.Troop;
 

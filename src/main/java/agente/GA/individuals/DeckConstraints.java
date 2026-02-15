@@ -1,4 +1,4 @@
-package agente.individuals;
+package agente.GA.individuals;
 
 
 import java.util.List;

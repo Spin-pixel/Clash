@@ -1,11 +1,11 @@
 package grafica;
 
-import agente.individuals.Deck;
-import agente.individuals.DeckConstraints;
-import agente.initializer.Initializer;
-import agente.operatori_genetici.Crossover;
-import agente.operatori_genetici.Mutation;
-import agente.operatori_genetici.Selection;
+import agente.GA.individuals.Deck;
+import agente.GA.individuals.DeckConstraints;
+import agente.GA.initializer.Initializer;
+import agente.GA.operatori_genetici.Crossover;
+import agente.GA.operatori_genetici.Mutation;
+import agente.GA.operatori_genetici.Selection;
 import model.Card;
 import model.Troop;
 

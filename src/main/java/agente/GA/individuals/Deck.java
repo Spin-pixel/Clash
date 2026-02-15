@@ -1,4 +1,4 @@
-package agente.individuals;
+package agente.GA.individuals;
 
 
 import model.Card;
@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Deck {
+public class Deck implements Comparable<Object> {
     public static final int DECK_SIZE = 8;
     private final List<Card> cards;
     private double fitness = 0.0;
@@ -54,6 +54,13 @@ public class Deck {
         this.cards.clear();          // Svuota le vecchie carte
         this.cards.addAll(newCards); // Inserisce le nuove carte
 
+
+        /**
+         * Per ora lo ignoro, ma questo andrebbe rimosso perché
+         * 1) non lo usiamo
+         * 2) si vede che l'ha fatto chat
+         *
+         * */
         // 4. (Opzionale) Se hai variabili calcolate (es. costo medio elisir),
         // dovresti ricalcolarle qui.
         // this.averageElixir = calculateAverageElixir();
@@ -72,5 +79,10 @@ public class Deck {
     public String toString() {
         return "Deck [Fitness: " + String.format("%.2f", fitness) + "] Cards: " +
                 cards.stream().map(Card::getName).collect(Collectors.joining(", "));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return Double.compare(this.fitness, ((Deck) o).fitness);
     }
 }

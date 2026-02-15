@@ -1,6 +1,6 @@
 package grafica;
 
-import agente.individuals.DeckConstraints;
+import agente.GA.individuals.DeckConstraints;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -290,7 +290,7 @@ public class MainViewController {
     // BOTTONE: GA -> RISULTATO (PASSA PREFERENZE)
     // --------------------------
     @FXML
-    public void GA(ActionEvent e) {
+    public void Genera(ActionEvent e) {
         try {
             // 1) Preferenze UI
             DeckConstraints constraints = buildConstraintsFromUI();

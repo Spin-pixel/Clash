@@ -1,8 +1,8 @@
-package agente.initializer;
+package agente.GA.initializer;
 
 
-import agente.individuals.Deck;
-import agente.individuals.DeckConstraints;
+import agente.GA.individuals.Deck;
+import agente.GA.individuals.DeckConstraints;
 import model.Card;
 import model.Troop;
 
@@ -42,6 +42,7 @@ public class Initializer {
 
     /**
      * Crea un deck di 8 carte casuali uniche (Versione per ID Stringa).
+     *
      */
     private Deck generateRandomDeck(List<Card> pool, DeckConstraints constraints) {
         List<Card> selectedCards = new ArrayList<>();
@@ -54,7 +55,7 @@ public class Initializer {
             for (String mandatoryId : constraints.mandatoryCardsId) {
                 // Cerchiamo la carta nel pool
                 for (Card c : pool) {
-                    // ATTENZIONE: Usa .equals() per le stringhe, mai ==
+
                     if (c.getId().equals(mandatoryId) && !takenIds.contains(mandatoryId)) {
                         selectedCards.add(c);
                         takenIds.add(mandatoryId);
@@ -85,6 +86,7 @@ public class Initializer {
 
         return new Deck(selectedCards);
     }
+
     /**
      * Verifica se un deck rispetta TUTTI i vincoli impostati.
      */
@@ -116,6 +118,10 @@ public class Initializer {
 
 
         //TODO: Post modifica classi, adatta i metodi
+
+        /**
+         * Va ancora fatto?
+         * */
         for (Card c : cards) {
             // Conta Tipi
             if (c.getType() == Card.CardType.BUILDING) buildingCount++;

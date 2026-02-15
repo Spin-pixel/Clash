@@ -1,7 +1,7 @@
-package agente.operatori_genetici;
+package agente.GA.operatori_genetici;
 
 
-import agente.individuals.Deck;
+import agente.GA.individuals.Deck;
 
 import java.util.Comparator;
 import java.util.List;

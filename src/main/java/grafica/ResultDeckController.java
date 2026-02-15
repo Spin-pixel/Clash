@@ -1,7 +1,8 @@
 package grafica;
 
-import agente.individuals.Deck;
-import agente.individuals.DeckConstraints;
+import agente.GA.GA_core;
+import agente.GA.individuals.Deck;
+import agente.GA.individuals.DeckConstraints;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -67,15 +68,15 @@ public class ResultDeckController {
 
         if (statusLabel != null) statusLabel.setText("Genero il mazzo...");
 
-        Task<ResultDeck.Output> task = new Task<>() {
+        Task<GA_core.Output> task = new Task<>() {
             @Override
-            protected ResultDeck.Output call() {
-                return ResultDeck.run(pool, constraints, delta, desiredAvgElixir, ResultDeck.Params.defaults());
+            protected GA_core.Output call() {
+                return GA_core.run(pool, constraints, delta, desiredAvgElixir);
             }
         };
 
         task.setOnSucceeded(ev -> {
-            ResultDeck.Output out = task.getValue();
+            GA_core.Output out = task.getValue();
             if (out == null || out.bestDeck() == null) {
                 if (detailsArea != null) detailsArea.setText(out != null ? out.details() : "Errore: output nullo");
                 if (statusLabel != null) statusLabel.setText("Errore");
