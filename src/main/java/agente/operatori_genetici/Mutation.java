@@ -52,24 +52,24 @@ public class Mutation {
         List<Card> originalCards = new ArrayList<>(deck.getCards()); // Backup
 
         for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-            // 1. Crea una copia modificabile delle carte attuali
+            // Crea una copia modificabile delle carte attuali
             List<Card> candidateCards = new ArrayList<>(originalCards);
 
-            // 2. Identifica le carte che POSSONO essere rimosse (escludi le mandatory)
+            // Identifica le carte che POSSONO essere rimosse (escludi le mandatory)
             List<Card> removableCards = candidateCards.stream()
                     .filter(c -> constraints.mandatoryCardsId == null || !constraints.mandatoryCardsId.contains(c.getId()))
                     .collect(Collectors.toList());
 
             if (removableCards.size() < nGenes) break; // Sicurezza se non ci sono abbastanza carte da togliere
 
-            // 3. Rimuovi nGenes carte a caso
+            // Rimuovi nGenes carte a caso
             for (int k = 0; k < nGenes; k++) {
                 Card toRemove = removableCards.get(random.nextInt(removableCards.size()));
                 candidateCards.remove(toRemove);
                 removableCards.remove(toRemove); // Rimuovi dalla lista locale per non riselezionarla
             }
 
-            // 4. Aggiungi nGenes carte NUOVE
+            // Aggiungi nGenes carte NUOVE
             int cardsAdded = 0;
             while (cardsAdded < nGenes) {
                 Card randomCard = allCards.get(random.nextInt(allCards.size()));
@@ -81,7 +81,7 @@ public class Mutation {
                 }
             }
 
-            // 5. Verifica se il nuovo set di carte rispetta i vincoli
+            // Verifica se il nuovo set di carte rispetta i vincoli
             if (checkConstraints(candidateCards, constraints)) {
                 deck.setCards(candidateCards);
                 return;
@@ -94,21 +94,12 @@ public class Mutation {
      * Verifica i vincoli usando la logica dei bucket fornita.
      */
     private boolean checkConstraints(List<Card> cards, DeckConstraints constraints) {
-        // 1. Check Mandatory Cards (Fast fail)
-        if (constraints.mandatoryCardsId != null) {
-            List<String> currentIds = cards.stream().map(Card::getId).collect(Collectors.toList());
-            for (String mandatoryId : constraints.mandatoryCardsId) {
-                if (!currentIds.contains(mandatoryId)) return false;
-            }
-        }
 
-        // 2. Inizializza i contatori
         int countSpells = 0;
         int countBuildings = 0; // Difensivi + Spawner
         int countFlying = 0;
         int countBuildingTarget = 0; // Win conditions
 
-        // 3. Logica dei Bucket (Adattata dal tuo snippet per contare)
         for (Card c : cards) {
 
             // Logica Building
@@ -123,15 +114,15 @@ public class Mutation {
 
             // Logica Truppe
             else if (c.getType() == Card.CardType.TROOP) {
-                // Nota: In Java bisogna fare il cast o usare metodi getter se l'interfaccia Card non ha questi metodi.
-                // Assumo che tu abbia dei metodi getter comuni o che facciamo cast sicuri.
 
                 boolean isFlying = false;
                 boolean targetsOnlyBuildings = false;
 
-                // Controllo safely i tipi specifici per estrarre le proprietà
                 if (c instanceof Troop) {
+                    //Logica Truppe Volanti
                     isFlying = ((Troop) c).isFlying();
+
+                    //Logica Truppe Only Buildings
                     targetsOnlyBuildings = ((Troop) c).isTargetsOnlyBuildings();
                 }
 
