@@ -33,25 +33,12 @@ public class Mutation {
      * @param constraints I vincoli da rispettare.
      */
     public void mutateGeneration(List<Deck> population, double mutationRate, int nGenesToMutate, DeckConstraints constraints) {
-        int populationSize = population.size();
 
-        // Calcola quanti deck mutare in base al rate
-        int numberOfDecksToMutate = (int) (populationSize * mutationRate);
-
-        // Creiamo una lista di indici mescolati per scegliere a caso QUALI deck mutare
-        List<Integer> deckIndices = new ArrayList<>();
-        for (int i = 0; i < populationSize; i++) {
-            deckIndices.add(i);
-        }
-        Collections.shuffle(deckIndices);
-
-        // Muta i primi N deck della lista mescolata
-        for (int i = 0; i < numberOfDecksToMutate; i++) {
-            int indexToMutate = deckIndices.get(i);
-            Deck originalDeck = population.get(indexToMutate);
-
-            // Tenta di mutare il deck
-            mutateSingleDeck(originalDeck, nGenesToMutate, constraints);
+        Random rand = new Random();
+        //Ogni deck ha mutationeRate probabilità di essere mutato
+        for(Deck d: population){
+            if(rand.nextDouble() < mutationRate)
+                mutateSingleDeck(d,nGenesToMutate,constraints);
         }
     }
 
@@ -60,6 +47,8 @@ public class Mutation {
      * (non rispetta i constraints), riprova fino a MAX_ATTEMPTS.
      */
     private void mutateSingleDeck(Deck deck, int nGenes, DeckConstraints constraints) {
+
+        //Prendo le carte del deck
         List<Card> originalCards = new ArrayList<>(deck.getCards()); // Backup
 
         for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
@@ -94,14 +83,11 @@ public class Mutation {
 
             // 5. Verifica se il nuovo set di carte rispetta i vincoli
             if (checkConstraints(candidateCards, constraints)) {
-                // Se valido, applica la mutazione al Deck originale e esci
                 deck.setCards(candidateCards);
-                // System.out.println("Mutazione riuscita al tentativo " + (attempt + 1));
                 return;
             }
         }
 
-        // System.out.println("Mutazione fallita dopo " + MAX_ATTEMPTS + " tentativi. Deck invariato.");
     }
 
     /**
