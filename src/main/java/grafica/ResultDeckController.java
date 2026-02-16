@@ -79,7 +79,7 @@ public class ResultDeckController {
     @FXML private BarChart<String, Number> convChart; // Convergenza g*
     @FXML private BarChart<String, Number> cvChart;   // CardUsageCV
 
-    private static final double METRICS_ALPHA = 0.95;
+    private static final double METRICS_ALPHA = 0.98;
     private static final int METRICS_PATIENCE = 5;
 
     private Runnable onBack;
