@@ -26,10 +26,17 @@ public class stato_iniziale {
     //mi permette di evitare loop infiniti
     private int flag = 0;
 
-    public Stato createStato(List<Card> pool,Vincoli vincoli, int numeroTry) {
+    //variabili dell'utente per personalizzare la funzione di utilità
+    private double delta;
+    private double T;
+
+    public Stato createStato(List<Card> pool,Vincoli vincoli, int numeroTry,double delta,double T) {
         List<Card> cards = new ArrayList<Card>();
         // Usiamo un Set di Stringhe per tracciare gli ID presi
         java.util.Set<String> takenIds = new java.util.HashSet<>();
+
+        this.delta=delta;
+        this.T=T;
 
         // 1. Gestione Carte Obbligatorie
         // Assumo che constraints.mandatoryCardsId sia List<String>
@@ -68,7 +75,7 @@ public class stato_iniziale {
         Stato stato = new Stato(cards);
         if(isValid(stato,vincoli)) {
             flag=0;
-            stato.setUtility(funz.Totale_FU(stato));
+            stato.setUtility(funz.Totale_FU(stato,delta,T));
             return stato;
         }
         else {
@@ -77,7 +84,7 @@ public class stato_iniziale {
                 return null;
             }
             flag++;
-            return createStato(pool, vincoli,numeroTry);
+            return createStato(pool, vincoli,numeroTry,delta,T);
         }
     }
 

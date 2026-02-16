@@ -13,17 +13,24 @@ import java.util.stream.Stream;
 
 public class Azione {
 
-    private int flag = 0;
+
     private int numTry;
     private Random rand = new Random();
     private funzione_utilità funz=new funzione_utilità();
 
+    //variabili personalizzati dall'utente per gestire la funzione di utilità
+    private double delta;
+    private double T;
+
     /**
      * Individuo tutti i vicini di una data popolazione.
      * */
-    public List<Stato> findNeighborhood(List<Card> pool, Stato stato, Vincoli vincoli, int qty,int numTry) {
+    public List<Stato> findNeighborhood(List<Card> pool, Stato stato, Vincoli vincoli, int qty,int numTry,double delta, double T) {
         List<Stato> neighborhood = new ArrayList<>();
         this.numTry = numTry;
+        this.delta = delta;
+        this.T = T;
+
         for (int i = 0; i < 8; i++) {
             neighborhood = Stream.concat(neighborhood.stream(), replace(pool, stato, vincoli, qty, i).stream()).collect(Collectors.toList());
         }
@@ -44,7 +51,7 @@ public class Azione {
             for (String c : mandatoryCardsId) {
                 if (card.getId().equals(c)) {
                     Stato stato1 = new Stato(stato.getCards());
-                    stato1.setUtility(funz.Totale_FU(stato1));
+                    stato1.setUtility(funz.Totale_FU(stato1,delta,T));
                     neighborhood.add(stato1);
                     return neighborhood;
                 }
@@ -68,7 +75,7 @@ public class Azione {
                 }
                 if(checkConstraints(newSet,vincoli)) {
                     Stato stato1 = new Stato(newSet);
-                    stato1.setUtility(funz.Totale_FU(stato1));
+                    stato1.setUtility(funz.Totale_FU(stato1,delta,T));
                     neighborhood.add(stato1);
                     n++;
                 }else{

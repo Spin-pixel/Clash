@@ -28,7 +28,7 @@
         <VBox alignment="TOP_CENTER" styleClass="page">
             <VBox spacing="18" styleClass="content-panel">
 
-                <!-- DECK -->
+                <!-- DECK GA-->
                 <StackPane styleClass="deck-frame">
                     <HBox spacing="10" alignment="CENTER" styleClass="deck-row">
 
@@ -78,6 +78,61 @@
                 <!-- TESTI -->
                 <Label text="Dettagli" styleClass="res-section-title"/>
                 <TextArea fx:id="detailsArea"
+                          editable="false"
+                          wrapText="true"
+                          prefRowCount="7"
+                          styleClass="field-input res-area"/>
+
+                <!-- DECK SA-->
+                <StackPane styleClass="deck-frame">
+                    <HBox spacing="10" alignment="CENTER" styleClass="deck-row">
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="SAcard0Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="SAcard0Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="SAcard1Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="SAcard1Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="SAcard2Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="SAcard2Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="SAcard3Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="SAcard3Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="SAcard4Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="SAcard4Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="SAcard5Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="SAcard5Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="SAcard6Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="SAcard6Label" styleClass="card-name"/>
+                        </StackPane>
+
+                        <StackPane styleClass="card-slot-btn">
+                            <ImageView fx:id="SAcard7Img" fitWidth="74" fitHeight="94" preserveRatio="true"/>
+                            <Label fx:id="SAcard7Label" styleClass="card-name"/>
+                        </StackPane>
+
+                    </HBox>
+                </StackPane>
+
+                <!-- TESTI -->
+                <Label text="Dettagli" styleClass="res-section-title"/>
+                <TextArea fx:id="SAdetailsArea"
                           editable="false"
                           wrapText="true"
                           prefRowCount="7"
