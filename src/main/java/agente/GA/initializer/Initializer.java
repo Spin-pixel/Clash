@@ -47,7 +47,7 @@ public class Initializer {
     private Deck generateRandomDeck(List<Card> pool, DeckConstraints constraints) {
         List<Card> selectedCards = new ArrayList<>();
         // Usiamo un Set di Stringhe per tracciare gli ID presi
-        java.util.Set<String> takenIds = new java.util.HashSet<>();
+        List<String> takenIds = new ArrayList<>();
 
         // 1. Gestione Carte Obbligatorie
         // Assumo che constraints.mandatoryCardsId sia List<String>
@@ -117,11 +117,6 @@ public class Initializer {
         int buildingTargetCount = 0;
 
 
-        //TODO: Post modifica classi, adatta i metodi
-
-        /**
-         * Va ancora fatto?
-         * */
         for (Card c : cards) {
             // Conta Tipi
             if (c.getType() == Card.CardType.BUILDING) buildingCount++;

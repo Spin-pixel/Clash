@@ -1,199 +1,180 @@
 package agente.GA.operatori_genetici;
 
-
-import agente.GA.individuals.Deck;
-import agente.GA.individuals.DeckConstraints;
-import model.Card;
-import model.SpawnerTroop;
-import model.Troop;
+import agente.GA.individuals.*;
+import model.Card.*;
+import model.*;
 
 import java.util.*;
-
-
-import java.util.logging.Logger;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Crossover {
 
-    private static final Logger LOGGER = Logger.getLogger(Crossover.class.getName());
-    private final Random random = new Random();
+    private final List<Card> globalCardPool;
+    private final Random random;
 
-    /**
-     * Genera una nuova popolazione di deck incrociando coppie uniche di genitori.
-     */
+    public Crossover(List<Card> globalCardPool) {
+        this.globalCardPool = new ArrayList<>(globalCardPool);
+        this.random = new Random();
+    }
+
     public List<Deck> newGeneration(List<Deck> population, int generationSize, DeckConstraints constraints) {
         List<Deck> nextGeneration = new ArrayList<>();
         List<int[]> uniquePairs = generateUniquePairs(population.size());
+        Collections.shuffle(uniquePairs);
 
         int pairIndex = 0;
         while (nextGeneration.size() < generationSize) {
+
             if (pairIndex >= uniquePairs.size()) {
-                LOGGER.warning("Combinazioni uniche esaurite. Generati " + nextGeneration.size() + "/" + generationSize);
-                break;
+                pairIndex = 0;
+                Collections.shuffle(uniquePairs);
             }
 
             int[] pair = uniquePairs.get(pairIndex++);
             Deck child = performCrossover(population.get(pair[0]), population.get(pair[1]), constraints);
             nextGeneration.add(child);
         }
-
         return nextGeneration;
     }
 
     /**
-     * Logica principale del Crossover.
+     * Esegue il crossover garantendo il rispetto dei vincoli anche in casi boundary (es. vincoli a 0).
      */
-    private Deck performCrossover(Deck parent1, Deck parent2, DeckConstraints constraints) {
-        Set<Card> childCards = new HashSet<>();
+    public Deck performCrossover(Deck d1, Deck d2, DeckConstraints constraints) {
+        List<Card> childCards = new ArrayList<>();
+        Set<String> addedIds = new HashSet<>();
 
-        // --- 1. EREDITARIETÀ CARTE COMUNI ---
-        Set<Card> commonCards = new HashSet<>(parent1.getCards());
-        commonCards.retainAll(parent2.getCards());
-        childCards.addAll(commonCards);
+        // Pool temporaneo dai genitori mescolato
+        List<Card> parentsPool = new ArrayList<>(d1.getCards());
+        parentsPool.addAll(d2.getCards());
+        Collections.shuffle(parentsPool, random);
 
-        // --- 2. CLASSIFICAZIONE (BUCKETS) ---
-        // Distribuisce le carte NON comuni nei bucket specifici per soddisfare i vincoli
-        Map<String, List<Card>> p1Buckets = classifyCards(parent1, commonCards);
-        Map<String, List<Card>> p2Buckets = classifyCards(parent2, commonCards);
+        // --- FASE 1: Carte Comuni ---
+        // Aggiungiamo le comuni solo se rispettano i vincoli (importante se i genitori sono sporchi)
+        Set<String> d1Ids = d1.getCards().stream().map(Card::getId).collect(Collectors.toSet());
+        Set<String> d2Ids = d2.getCards().stream().map(Card::getId).collect(Collectors.toSet());
+        d1Ids.retainAll(d2Ids);
 
-        // --- 3. SODDISFACIMENTO VINCOLI ---
-        // Preleva dai bucket specifici finché i requisiti non sono soddisfatti
-        fillConstraint(childCards, p1Buckets, p2Buckets, "BUILDINGS", constraints.nBuildings);
-        fillConstraint(childCards, p1Buckets, p2Buckets, "SPELLS", constraints.nSpells);
-        fillConstraint(childCards, p1Buckets, p2Buckets, "FLYING", constraints.nFlyingTroop);
-        fillConstraint(childCards, p1Buckets, p2Buckets, "TARGET_TOWER", constraints.nBuildingTarget);
+        for (String id : d1Ids) {
+            Card card = d1.getCards().stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
+            if (card != null && canAdd(card, childCards, constraints)) {
+                addCardToChild(childCards, addedIds, card);
+            }
+        }
 
-        // --- 4. CONSOLIDAMENTO SCARTI (OPZIONE A - FIX) ---
-        // Uniamo tutto ciò che è rimasto nei vari bucket in un unico pool per il riempimento finale
-        List<Card> p1Leftovers = consolidateLeftovers(p1Buckets);
-        List<Card> p2Leftovers = consolidateLeftovers(p2Buckets);
+        // --- FASE 2: Carte Obbligatorie (Mandatory) ---
+        if (constraints.mandatoryCardsId != null) {
+            for (String id : constraints.mandatoryCardsId) {
+                if (!addedIds.contains(id)) {
+                    Card card = findCardById(parentsPool, id);
+                    if (card == null) card = findCardById(globalCardPool, id);
 
-        // --- 5. FILLER (RIEMPIMENTO FINALE) ---
-        int slotsNeeded = 8 - childCards.size();
+                    if (card != null) {
+                        addCardToChild(childCards, addedIds, card);
+                    } else {
+                        throw new RuntimeException("Carta obbligatoria non trovata: " + id);
+                    }
+                }
+            }
+        }
 
-        for (int i = 0; i < slotsNeeded; i++) {
-            Card chosen = pickRandomCard(p1Leftovers, p2Leftovers);
-            if (chosen != null) {
-                childCards.add(chosen);
+        // --- FASE 3: Soddisfacimento Minimi ---
+        // Se il vincolo è > 0, forziamo l'aggiunta di carte specifiche
+        if (constraints.nSpells != null && constraints.nSpells > 0)
+            ensureConstraint(childCards, addedIds, parentsPool, constraints.nSpells, c -> c.getType() == CardType.SPELL, constraints);
+
+        if (constraints.nBuildings != null && constraints.nBuildings > 0)
+            ensureConstraint(childCards, addedIds, parentsPool, constraints.nBuildings, c -> c.getType() == CardType.BUILDING, constraints);
+
+        if (constraints.nFlyingTroop != null && constraints.nFlyingTroop > 0)
+            ensureConstraint(childCards, addedIds, parentsPool, constraints.nFlyingTroop, c -> (c instanceof Troop && ((Troop) c).isFlying()), constraints);
+
+        if (constraints.nBuildingTarget != null && constraints.nBuildingTarget > 0)
+            ensureConstraint(childCards, addedIds, parentsPool, constraints.nBuildingTarget, c -> (c instanceof Troop && ((Troop) c).isTargetsOnlyBuildings()), constraints);
+
+        // --- FASE 4: Riempimento Finale ---
+        while (childCards.size() < Deck.DECK_SIZE) {
+            Predicate<Card> safeToPick = c -> canAdd(c, childCards, constraints);
+
+            // Prova dai genitori
+            Card candidate = findValidCard(parentsPool, addedIds, safeToPick);
+            // Fallback al pool globale
+            if (candidate == null) {
+                candidate = findValidCard(globalCardPool, addedIds, safeToPick);
+            }
+
+            if (candidate == null) {
+                throw new RuntimeException("Impossibile completare il deck: vincoli troppo restrittivi.");
+            }
+            addCardToChild(childCards, addedIds, candidate);
+        }
+
+        return new Deck(childCards);
+    }
+
+    /**
+     * Controlla se una carta può essere aggiunta senza superare i massimi definiti.
+     * Se un vincolo è 0, questa funzione ritornerà sempre false per quel tipo di carta.
+     */
+    private boolean canAdd(Card c, List<Card> currentDeck, DeckConstraints k) {
+        if (k.nSpells != null && c.getType() == CardType.SPELL) {
+            if (countMatches(currentDeck, x -> x.getType() == CardType.SPELL) >= k.nSpells) return false;
+        }
+        if (k.nBuildings != null && c.getType() == CardType.BUILDING) {
+            if (countMatches(currentDeck, x -> x.getType() == CardType.BUILDING) >= k.nBuildings) return false;
+        }
+        if (k.nFlyingTroop != null && (c instanceof Troop && ((Troop) c).isFlying())) {
+            if (countMatches(currentDeck, x -> (x instanceof Troop && ((Troop) x).isFlying())) >= k.nFlyingTroop) return false;
+        }
+        if (k.nBuildingTarget != null && (c instanceof Troop && ((Troop) c).isTargetsOnlyBuildings())) {
+            if (countMatches(currentDeck, x -> (x instanceof Troop && ((Troop) x).isTargetsOnlyBuildings())) >= k.nBuildingTarget) return false;
+        }
+        return true;
+    }
+
+    private void ensureConstraint(List<Card> currentDeck, Set<String> addedIds, List<Card> parentsPool, int target, Predicate<Card> condition, DeckConstraints k) {
+        long currentCount = currentDeck.stream().filter(condition).count();
+        while (currentCount < target) {
+            // Cerchiamo una carta che soddisfi la condizione E che sia aggiungibile secondo i vincoli generali
+            Card candidate = findValidCard(parentsPool, addedIds, c -> condition.test(c) && canAdd(c, currentDeck, k));
+
+            // Fallback globale se i genitori non hanno la carta richiesta
+            if (candidate == null) {
+                candidate = findValidCard(globalCardPool, addedIds, c -> condition.test(c) && canAdd(c, currentDeck, k));
+            }
+
+            if (candidate != null) {
+                addCardToChild(currentDeck, addedIds, candidate);
+                currentCount++;
             } else {
-                // Questo accade solo se i genitori hanno meno di 8 carte totali uniche combinate (improbabile)
-                LOGGER.warning("Impossibile riempire il mazzo: genitori a secco!");
-            }
-        }
-
-        return new Deck(new ArrayList<>(childCards));
-    }
-
-    // -------------------------------------------------------------------------
-    //                              HELPER METHODS
-    // -------------------------------------------------------------------------
-
-    /**
-     * Tenta di soddisfare un vincolo specifico prelevando dai bucket corrispondenti.
-     */
-    private void fillConstraint(Set<Card> childCards,
-                                Map<String, List<Card>> p1Buckets,
-                                Map<String, List<Card>> p2Buckets,
-                                String category,
-                                Integer required) {
-        if (required == null || required <= 0) return;
-
-        // Conta quante ne abbiamo già (ereditate dalle comuni)
-        long currentCount = childCards.stream().filter(c -> isType(c, category)).count();
-        int needed = required - (int) currentCount;
-
-        List<Card> p1List = p1Buckets.get(category);
-        List<Card> p2List = p2Buckets.get(category);
-
-        for (int i = 0; i < needed; i++) {
-            Card picked = pickRandomCard(p1List, p2List);
-            if (picked != null) {
-                childCards.add(picked);
+                throw new RuntimeException("Vincolo insoddisfacibile per la categoria richiesta.");
             }
         }
     }
 
-    /**
-     * (OPZIONE A) Raccoglie tutte le carte rimaste in tutti i bucket in un'unica lista.
-     */
-    private List<Card> consolidateLeftovers(Map<String, List<Card>> buckets) {
-        List<Card> pool = new ArrayList<>();
-        // Aggiunge il contenuto di TUTTE le liste (Buildings, Spells, Others, ecc.)
-        buckets.values().forEach(pool::addAll);
-        Collections.shuffle(pool); // Mischia per garantire casualità nel filler
-        return pool;
-    }
-
-    /**
-     * Seleziona una carta a caso tra due liste. Rimuove la carta selezionata dalla lista d'origine.
-     */
-    private Card pickRandomCard(List<Card> list1, List<Card> list2) {
-        if (list1.isEmpty() && list2.isEmpty()) return null;
-
-        boolean pickFrom1;
-        if (!list1.isEmpty() && !list2.isEmpty()) {
-            pickFrom1 = random.nextBoolean();
-        } else {
-            pickFrom1 = !list1.isEmpty();
+    private void addCardToChild(List<Card> list, Set<String> ids, Card c) {
+        if (c != null && !ids.contains(c.getId())) {
+            list.add(c);
+            ids.add(c.getId());
         }
-
-        return pickFrom1 ? list1.remove(0) : list2.remove(0);
     }
 
-    /**
-     * Classifica le carte di un genitore nei bucket.
-     * Ordine di priorità: Building > Spell > Flying > Target Tower > Others.
-     */
-    private Map<String, List<Card>> classifyCards(Deck deck, Set<Card> excludeCards) {
-        Map<String, List<Card>> buckets = new HashMap<>();
-        buckets.put("BUILDINGS", new ArrayList<>());
-        buckets.put("SPELLS", new ArrayList<>());
-        buckets.put("FLYING", new ArrayList<>());
-        buckets.put("TARGET_TOWER", new ArrayList<>());
-        buckets.put("OTHERS", new ArrayList<>());
+    private Card findCardById(List<Card> source, String id) {
+        return source.stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
+    }
 
-        for (Card c : deck.getCards()) {
-            if (excludeCards.contains(c)) continue;
-
-            if (isType(c, "BUILDINGS")) {
-                buckets.get("BUILDINGS").add(c);
-            } else if (isType(c, "SPELLS")) {
-                buckets.get("SPELLS").add(c);
-            } else if (isType(c, "FLYING")) {
-                buckets.get("FLYING").add(c);
-            } else if (isType(c, "TARGET_TOWER")) {
-                buckets.get("TARGET_TOWER").add(c);
-            } else {
-                buckets.get("OTHERS").add(c);
+    private Card findValidCard(List<Card> source, Set<String> excludeIds, Predicate<Card> condition) {
+        for (Card c : source) {
+            if (!excludeIds.contains(c.getId()) && condition.test(c)) {
+                return c;
             }
         }
-        // Mischiamo subito i bucket per non prendere sempre le carte nello stesso ordine
-        buckets.values().forEach(Collections::shuffle);
-        return buckets;
+        return null;
     }
 
-    /**
-     * Controllo centralizzato e sicuro sui tipi di carte.
-     */
-    private boolean isType(Card c, String category) {
-        switch (category) {
-            case "BUILDINGS":
-                return c.getType() == Card.CardType.BUILDING;
-            case "SPELLS":
-                return c.getType() == Card.CardType.SPELL;
-            case "FLYING":
-                // Controlla Troop e SpawnerTroop
-                if (c instanceof Troop) return ((Troop) c).isFlying();
-                if (c instanceof SpawnerTroop) return ((SpawnerTroop) c).isFlying();
-                return false;
-            case "TARGET_TOWER":
-                if (c instanceof Troop) return ((Troop) c).isTargetsOnlyBuildings();
-                if (c instanceof SpawnerTroop) return ((SpawnerTroop) c).isTargetsOnlyBuildings();
-                // Nota: Building che targettano building (XBow/Mortar) non sono "TargetOnlyBuilding" boolean property, ma Building type.
-                // Se nel tuo JSON XBow ha targetsOnlyBuildings=true, aggiungi il check qui.
-                return false;
-            default:
-                return false;
-        }
+    private long countMatches(List<Card> list, Predicate<Card> condition) {
+        return list.stream().filter(condition).count();
     }
 
     private List<int[]> generateUniquePairs(int size) {
@@ -203,19 +184,6 @@ public class Crossover {
                 pairs.add(new int[]{i, j});
             }
         }
-        Collections.shuffle(pairs);
         return pairs;
-    }
-
-    // Configurazione Logger (Invariata)
-    public static void setLogging(boolean active) {
-        LOGGER.setLevel(active ? java.util.logging.Level.INFO : java.util.logging.Level.OFF);
-    }
-
-    static {
-        LOGGER.setUseParentHandlers(false);
-        java.util.logging.Handler handler = new java.util.logging.StreamHandler(System.out, new java.util.logging.SimpleFormatter());
-        handler.setLevel(java.util.logging.Level.INFO);
-        LOGGER.addHandler(handler);
     }
 }

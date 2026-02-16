@@ -132,10 +132,10 @@ public class Mutation {
         }
 
         // 4. Confronto finale con i constraints (se il constraint è null, lo ignoriamo)
-        if (constraints.nSpells != null && countSpells < constraints.nSpells) return false;
-        if (constraints.nBuildings != null && countBuildings < constraints.nBuildings) return false;
-        if (constraints.nFlyingTroop != null && countFlying < constraints.nFlyingTroop) return false;
-        if (constraints.nBuildingTarget != null && countBuildingTarget < constraints.nBuildingTarget) return false;
+        if (constraints.nSpells != null && countSpells != constraints.nSpells) return false;
+        if (constraints.nBuildings != null && countBuildings != constraints.nBuildings) return false;
+        if (constraints.nFlyingTroop != null && countFlying != constraints.nFlyingTroop) return false;
+        if (constraints.nBuildingTarget != null && countBuildingTarget != constraints.nBuildingTarget) return false;
 
         return true;
     }

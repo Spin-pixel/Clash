@@ -26,7 +26,7 @@ public final class ResultDeck {
             return new Params(
                     40,   // population
                     35,   // generations
-                    0.25, // mutationRate
+                    0.4, // mutationRate
                     2,    // genesToMutate
                     12    // parentsToSelect (>=10 per evitare il limite di coppie uniche nel crossover)
             );
@@ -57,10 +57,9 @@ public final class ResultDeck {
 
         Initializer initializer = new Initializer();
         Selection selection = new Selection();
-        Crossover crossover = new Crossover();
+        Crossover crossover = new Crossover(pool);
         Mutation mutation = new Mutation(pool);
 
-        Crossover.setLogging(false);
 
         List<Deck> population = initializer.createPopulation(pool, params.populationSize, constraints);
         if (population.isEmpty()) {

@@ -58,14 +58,13 @@ public class GA_core {
 
         Initializer initializer = new Initializer();
         Selection selection = new Selection();
-        Crossover crossover = new Crossover();
+        Crossover crossover = new Crossover(pool);
         Mutation mutation = new Mutation(pool);
         Fitness fitness=new Fitness();
 
         List<Deck> elitarism =new ArrayList<>();
 
 
-        Crossover.setLogging(false);
 
         List<Deck> population = initializer.createPopulation(pool, Params.defaults().populationSize,constraints);
         for(Deck d : population) {
