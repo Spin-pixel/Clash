@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83930c55-9d0e-4f0e-acec-0dc30d0ae4d2" name="Changes" comment="Done:&#10;&gt;Finito Core per la funzione di utilità&#10;&gt;Prima versione di un core per SA&#10;TO-DO:&#10;&gt;Sistemare la grafica che mette a paragone le soluzioni">
+    <list default="true" id="83930c55-9d0e-4f0e-acec-0dc30d0ae4d2" name="Changes" comment="Done:&#10;&gt;Correzione della grafica per mostrare entrambi gli agenti&#10;&gt;Introdotti button show/hide per mostrare i dati associati alle generazioni&#10;&gt;rimossa la text area&#10;TO-DO:&#10;&gt;Introdurre le metriche di valutazione&#10;&gt;Introdurre grafici che mettono a paragono i due algoritmi sulla base delle metriche usate">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grafica/ResultDeckController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grafica/ResultDeckController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ResultDeckView.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ResultDeckView.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ResultDeckView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ResultDeckView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/SA_core.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/SA_core.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +95,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771173962254</updated>
-      <workItem from="1771173963356" duration="26126000" />
+      <workItem from="1771173963356" duration="26880000" />
     </task>
     <task id="LOCAL-00001" summary="Done:&#10;&gt;Definizione del modello di transizione nel SA&#10;TO-DO:&#10;&gt;Aggiungere vista nella grafica dove si mostra l'output del secondo agente&#10;&gt;Definire funzione di utilità">
       <option name="closed" value="true" />
@@ -123,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771217836194</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Done:&#10;&gt;Correzione della grafica per mostrare entrambi gli agenti&#10;&gt;Introdotti button show/hide per mostrare i dati associati alle generazioni&#10;&gt;rimossa la text area&#10;TO-DO:&#10;&gt;Introdurre le metriche di valutazione&#10;&gt;Introdurre grafici che mettono a paragono i due algoritmi sulla base delle metriche usate">
+      <option name="closed" value="true" />
+      <created>1771222569203</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1771222569203</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +139,7 @@
     <MESSAGE value="Done:&#10;&gt;Definizione del modello di transizione nel SA&#10;TO-DO:&#10;&gt;Aggiungere vista nella grafica dove si mostra l'output del secondo agente&#10;&gt;Definire funzione di utilità" />
     <MESSAGE value="Done:&#10;&gt;Definizione della funzione_utilità&#10;&gt;Aggiunta grafica per il SA&#10;&gt;Prima versione di un core per SA&#10;TO-DO:&#10;&gt;Finire il core di SA" />
     <MESSAGE value="Done:&#10;&gt;Finito Core per la funzione di utilità&#10;&gt;Prima versione di un core per SA&#10;TO-DO:&#10;&gt;Sistemare la grafica che mette a paragone le soluzioni" />
-    <option name="LAST_COMMIT_MESSAGE" value="Done:&#10;&gt;Finito Core per la funzione di utilità&#10;&gt;Prima versione di un core per SA&#10;TO-DO:&#10;&gt;Sistemare la grafica che mette a paragone le soluzioni" />
+    <MESSAGE value="Done:&#10;&gt;Correzione della grafica per mostrare entrambi gli agenti&#10;&gt;Introdotti button show/hide per mostrare i dati associati alle generazioni&#10;&gt;rimossa la text area&#10;TO-DO:&#10;&gt;Introdurre le metriche di valutazione&#10;&gt;Introdurre grafici che mettono a paragono i due algoritmi sulla base delle metriche usate" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done:&#10;&gt;Correzione della grafica per mostrare entrambi gli agenti&#10;&gt;Introdotti button show/hide per mostrare i dati associati alle generazioni&#10;&gt;rimossa la text area&#10;TO-DO:&#10;&gt;Introdurre le metriche di valutazione&#10;&gt;Introdurre grafici che mettono a paragono i due algoritmi sulla base delle metriche usate" />
   </component>
 </project>

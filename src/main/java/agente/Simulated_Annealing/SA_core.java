@@ -20,7 +20,7 @@ public class SA_core {
     ) {
         public static Params defaults(){
             return new Params(
-                    60,
+                    500,
                     101,
                     10000,
                     1,
