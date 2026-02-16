@@ -18,6 +18,9 @@ module org.progettofia.royalgenerator {
     exports grafica;
     exports model;
     exports service;
+    exports metriche;
+    exports agente.Genetic_Algoritm;
+    exports agente.Simulated_Annealing;
 
     // (facoltativi) esporta anche il core GA se lo vuoi usare da fuori modulo
     exports agente.Genetic_Algoritm.individuals;
