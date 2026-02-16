@@ -48,7 +48,7 @@ public class Stato implements Comparable<Stato> {
             throw new IllegalArgumentException("Un deck deve contenere esattamente " + SIZE_STATO + " carte.");
         }
 
-        // 2. Validazione Duplicati (opzionale ma consigliata)
+        // 2. Validazione Duplicati
         // In Clash Royale non puoi avere due carte uguali
         long distinctCount = newCards.stream().map(Card::getId).distinct().count();
         if (distinctCount != SIZE_STATO) {

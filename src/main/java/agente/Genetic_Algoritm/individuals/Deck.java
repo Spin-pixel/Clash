@@ -43,7 +43,7 @@ public class Deck implements Comparable<Object> {
             throw new IllegalArgumentException("Un deck deve contenere esattamente " + DECK_SIZE + " carte.");
         }
 
-        // 2. Validazione Duplicati (opzionale ma consigliata)
+        // 2. Validazione Duplicati
         // In Clash Royale non puoi avere due carte uguali
         long distinctCount = newCards.stream().map(Card::getId).distinct().count();
         if (distinctCount != DECK_SIZE) {

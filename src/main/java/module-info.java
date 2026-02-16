@@ -22,10 +22,13 @@ module org.progettofia.royalgenerator {
     exports agente.Genetic_Algoritm;
     exports agente.Simulated_Annealing;
 
-    // (facoltativi) esporta anche il core GA se lo vuoi usare da fuori modulo
+    // esporta anche il core GA se lo vuoi usare da fuori modulo
     exports agente.Genetic_Algoritm.individuals;
     exports agente.Genetic_Algoritm.initializer;
     exports agente.Genetic_Algoritm.operatori_genetici;
     exports grafica.storeData;
+
+    exports agente.Simulated_Annealing.Stato_corrente;
+
     opens grafica.storeData to javafx.fxml;
 }
