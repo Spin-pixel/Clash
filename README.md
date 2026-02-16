@@ -53,6 +53,8 @@ src/
 
 ---
 
+```
+
 ## Dataset (JSON interno)
 
 Non vengono utilizzati dataset esterni: il sistema usa un dataset “artificiale” interno, descritto in un file JSON incluso nel repository.
