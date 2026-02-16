@@ -1,6 +1,6 @@
-package agente.GA.operatori_genetici;
+package agente.Genetic_Algoritm.operatori_genetici;
 
-import agente.GA.individuals.*;
+import agente.Genetic_Algoritm.individuals.*;
 import model.Card.*;
 import model.*;
 
