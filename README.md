@@ -1,57 +1,114 @@
 # Royal Configurator
 
-Royal Configurator è un software che ha l’obiettivo di supportare i giocatori di **Clash Royale** nella creazione di mazzi efficaci.
+Repository: https://github.com/<TUO-UTENTE-O-ORG>/<NOME-REPO>
 
-L’idea è offrire uno strumento soprattutto ai **giocatori novizi**, così da ottenere **deck solidi** anche in assenza di esperienza, tramite tecniche di ottimizzazione basate su strategie euristiche e meta-euristiche.
+Royal Configurator è un software che supporta i giocatori di **Clash Royale** nella creazione di mazzi efficaci.
+L’obiettivo è fornire uno strumento soprattutto ai **giocatori novizi**, così da ottenere deck solidi anche con poca esperienza, tramite strategie di ottimizzazione basate su euristiche e meta-euristiche.
 
 ---
 
-## Obiettivi
+## Team
 
-- Supportare la costruzione di un mazzo a partire da un pool di carte disponibile.
-- Generare soluzioni tramite strategie di ricerca/ottimizzazione.
-- Mostrare i risultati in modo chiaro attraverso una **GUI JavaFX**.
+| Membro | Contributo |
+|---|---|
+| Francesco Maggio | Euristiche matematiche, definizione della classe **Fitness** |
+| Marcello Lettieri | Sviluppo dell’**Algoritmo Genetico (GA)** |
+| Igino Alessandro Iannotta | **GUI JavaFX** e **Simulated Annealing (SA)** |
+
+---
+
+## Obiettivo del progetto
+
+- Generare mazzi (deck) a partire da un pool di carte.
+- Confrontare strategie diverse di ottimizzazione:
+    - **Genetic Algorithm (GA)**
+    - **Simulated Annealing (SA)**
+- Mostrare i risultati tramite una **GUI JavaFX**.
 
 ---
 
 ## Struttura del progetto
 
-Il progetto è organizzato in **2 macromoduli**:
+Il progetto è organizzato in 2 macromoduli principali:
 
-### 1) `JAVA`
-Contiene la logica applicativa e l’implementazione delle strategie.
+### `JAVA`
+Contiene la logica applicativa:
 
 - `agente/`  
-  Contiene le strategie utilizzate per risolvere il problema:
+  Strategie per risolvere il problema:
     - `Genetic_Algoritm/` — Algoritmo Genetico (GA)
     - `Simulated_Annealing/` — Simulated Annealing (SA)
 
 - `grafica/`  
-  Controller e classi di supporto per la GUI **JavaFX**.
+  Controller e classi della GUI JavaFX.  
+  Entry point: `src/main/java/grafica/MainApp.java`
 
 - `model/`  
-  Classi che modellano le entità del dominio (carte, deck, vincoli, ecc.) e gli oggetti usati per rappresentare gli individui.
+  Classi che modellano il dominio (carte, deck, vincoli, ecc.).
 
 - `service/`  
-  Classi per il caricamento/mapping dei dati (es. parsing del JSON) verso le classi definite nel `model`.
+  Classi di supporto per parsing/mapping (es. JSON → classi del `model`).
 
-### 2) `resources`
-Contiene le risorse che definiscono l’aspetto del sistema e alimentano l’interfaccia grafica.
+### `resources`
+Contiene le risorse statiche/dinamiche utilizzate dall’interfaccia:
 
-- Risorse **statiche e dinamiche** (es. CSS, immagini, file FXML, ecc.) utilizzate dalla GUI.
+- File **FXML** (layout JavaFX)
+- File **CSS** (stili)
+- Immagini (es. carte)
+
+> Nota: CSS/FXML sono in `resources` (come da convenzioni Java/JavaFX).
 
 ---
 
-## Divisione dei compiti
+## Dataset (JSON interno)
 
-Si ringrazia:
+Non vengono utilizzati dataset esterni: il sistema usa un dataset “artificiale” interno, descritto in un file JSON incluso nel repository.
 
-- **Francesco Maggio** — euristiche matematiche e definizione della classe **Fitness**
-- **Marcello Lettieri** — sviluppo dell’**Algoritmo Genetico**
-- **Igino Alessandro Iannotta** — **grafica JavaFX** e **Simulated Annealing**
+- File JSON: `src/main/java/cardList.json`
+
+> Nota tecnica: questo path non è quello tipico (`src/main/resources`).  
+> Il progetto funziona comunque se il caricamento è fatto dal filesystem/relativo, ma per replicare fedelmente è importante **non spostare** il file e mantenere la stessa struttura.
+
+---
+
+## Come replicare il progetto (IntelliJ + Maven + JavaFX)
+
+### Requisiti
+- **IntelliJ IDEA**
+- **Java SDK 23** configurato come Project SDK
+- **Maven** (gestito da IntelliJ o da CLI)
+- Modulo **JavaFX** (il progetto è sviluppato come applicazione JavaFX)
+
+### Branch consigliato
+⚠️ **Usare il branch `Integrated`**.
+
+Durante lo sviluppo sono emersi problemi legati alla gestione dei moduli; per questo motivo si è reso necessario **ricopiare tutte le classi in un nuovo progetto IntelliJ**, pubblicato nel branch `Integrated`.  
+È quindi **sconsigliato** scaricare/aprire altri branch perché potrebbero non essere coerenti o non eseguibili.
+
+### Istruzioni (da IntelliJ)
+1. Clona il repository e fai checkout del branch:
+    - `Integrated`
+2. Apri il progetto in IntelliJ (**Open** sulla root del repository).
+3. Imposta **Project SDK = Java 23**:
+    - `File > Project Structure > Project > SDK`
+4. Assicurati che Maven sia correttamente importato (pom.xml rilevato).
+5. Esegui la GUI avviando la classe:
+    - `src/main/java/grafica/MainApp.java`
+
+---
+
+## Avvio rapido
+
+- **GUI**: avvia `MainApp`  
+  Percorso: `src/main/java/grafica/MainApp.java`
 
 ---
 
 ## Note
 
-Le soluzioni generate dipendono dai vincoli impostati, dal pool/dataset di carte disponibile e dalle euristiche adottate.
+- Per una replica fedele, mantenere invariati:
+    - struttura cartelle
+    - file JSON interno (`src/main/java/cardList.json`)
+    - risorse in `src/main/resources` (FXML/CSS)
+    - immagini in `src/main/resources/img` (PNG)
+
