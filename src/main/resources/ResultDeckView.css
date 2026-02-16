@@ -82,3 +82,27 @@
     -fx-background-radius: 10;
     -fx-padding: 10;
 }
+
+.metrics-chart .chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.metrics-chart .chart-horizontal-grid-lines,
+.metrics-chart .chart-vertical-grid-lines {
+    -fx-stroke: rgba(255,255,255,0.12);
+}
+
+.metrics-chart .axis {
+    -fx-tick-label-fill: rgba(255,255,255,0.85);
+}
+
+.metrics-chart .axis-label {
+    -fx-text-fill: rgba(255,255,255,0.85);
+}
+
+.metrics-chart .chart-legend {
+    -fx-background-color: transparent;
+}
+.metrics-chart .chart-legend-item {
+    -fx-text-fill: rgba(255,255,255,0.85);
+}

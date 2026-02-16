@@ -2,18 +2,18 @@
 
 Repository: https://github.com/Spin-pixel/Clash
 
-Royal Configurator è un software che supporta i giocatori di **Clash Royale** nella creazione di mazzi efficaci.
-L’obiettivo è fornire uno strumento soprattutto ai **giocatori novizi**, così da ottenere deck solidi anche con poca esperienza, tramite strategie di ottimizzazione basate su euristiche e meta-euristiche.
+Royal Configurator è un software che supporta i giocatori di **Clash Royale** nella creazione di mazzi efficaci.  
+L’obiettivo è fornire uno strumento soprattutto ai **giocatori novizi**, così da ottenere deck solidi anche con poca esperienza, tramite strategie di ottimizzazione basate su **euristiche** e **meta-euristiche**.
 
 ---
 
 ## Team
 
-| Membro | Contributo                                                                                |
-|---|-------------------------------------------------------------------------------------------|
+| Membro | Contributo |
+|---|---|
 | Francesco Maggio | Euristiche matematiche, definizione della classe **Fitness** e definizione delle metriche |
-| Marcello Lettieri | Sviluppo dell’**Algoritmo Genetico (GA)**, lavoro di **Data understanding**               |
-| Igino Alessandro Iannotta | **GUI JavaFX** e **Simulated Annealing (SA)**                                             |
+| Marcello Lettieri | Sviluppo dell’**Algoritmo Genetico (GA)**, lavoro di **Data Understanding** |
+| Igino Alessandro Iannotta | **GUI JavaFX** e **Simulated Annealing (SA)** |
 
 ---
 
@@ -30,41 +30,26 @@ L’obiettivo è fornire uno strumento soprattutto ai **giocatori novizi**, cos�
 
 ## Struttura del progetto
 
-Il progetto è organizzato in 2 macromoduli principali:
+Il progetto segue una struttura **Maven standard**, con `main` e `test` separati (nota: `test` è fuori da `main`).
 
-### `JAVA`
-Contiene la logica applicativa:
+```text
+src/
+ ├─ main/
+ │   ├─ java/
+ │   │   ├─ agente/
+ │   │   │   ├─ Genetic_Algoritm/        (Algoritmo Genetico - GA)
+ │   │   │   └─ Simulated_Annealing/     (Simulated Annealing - SA)
+ │   │   ├─ grafica/                     (GUI JavaFX)
+ │   │   ├─ model/                       (dominio: carte, deck, vincoli, ecc.)
+ │   │   ├─ service/                     (supporto: parsing/mapping)
+ │   │   └─ metriche/                    (metriche di valutazione)
+ │   └─ resources/
+ │       ├─ *.fxml                       (layout JavaFX)
+ │       ├─ *.css                        (stili)
+ │       └─ img/                         (immagini, es. carte)
+ └─ test/
+     └─ java/                            (test e sperimentazioni locali)
 
-- `agente/`  
-  Strategie per risolvere il problema:
-  - `Genetic_Algoritm/` — Algoritmo Genetico (GA)
-  - `Simulated_Annealing/` — Simulated Annealing (SA)
-
-- `grafica/`  
-  Controller e classi della GUI JavaFX.  
-  Entry point: `src/main/java/grafica/MainApp.java`
-
-- `model/`  
-  Classi che modellano il dominio (carte, deck, vincoli, ecc.).
-
-- `service/`  
-  Classi di supporto per parsing/mapping (es. JSON → classi del `model`).
-
-- `metriche/`  
-  Contiene le classi dedicate al calcolo delle **metriche di valutazione** (qualità del deck, vincoli, convergenza/tempo, ecc.) utili a studiare e confrontare GA e SA.
-
-### `resources`
-Contiene le risorse statiche/dinamiche utilizzate dall’interfaccia:
-
-- File **FXML** (layout JavaFX)
-- File **CSS** (stili)
-- Immagini (es. carte)
-
-> Nota: CSS/FXML sono in `resources` (come da convenzioni Java/JavaFX).
-
-### `test`
-Contiene classi di esempio per testare gli algoritmi in scenari specifici (vincoli diversi).
-Serve come supporto per verifiche funzionali e sperimentazioni locali.
 
 ---
 

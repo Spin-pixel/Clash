@@ -4,6 +4,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import javafx.scene.chart.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -155,6 +156,33 @@
                         <!-- Pannello Dettagli SA -->
                         <VBox fx:id="saDetailsBox" styleClass="details-box">
                             <Label fx:id="SAdetailsLabel" wrapText="true" styleClass="details-text"/>
+                        </VBox>
+
+                        <!-- ====== METRICHE (GA vs SA) ====== -->
+                        <Label text="METRICHE:" styleClass="deck-title"/>
+
+                        <VBox fx:id="metricsBox" spacing="14" styleClass="details-box">
+                            <Label text="Convergenza (g*)" styleClass="res-section-title"/>
+
+                            <BarChart fx:id="convChart" prefHeight="220" animated="false" legendVisible="true" styleClass="metrics-chart">
+                                <xAxis>
+                                    <CategoryAxis />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Generazione / Step"/>
+                                </yAxis>
+                            </BarChart>
+
+                            <Label text="Card Usage CV" styleClass="res-section-title"/>
+
+                            <BarChart fx:id="cvChart" prefHeight="220" animated="false" legendVisible="true" styleClass="metrics-chart">
+                                <xAxis>
+                                    <CategoryAxis />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="CV"/>
+                                </yAxis>
+                            </BarChart>
                         </VBox>
 
 

@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GA_core {
+
     public record Params(
             int populationSize,
             int generations,
@@ -25,88 +26,124 @@ public class GA_core {
     ) {
         public static Params defaults() {
             return new Params(
-                    40,   // population
-                    100,   // generations
-                    0.25, // mutationRate
-                    2,    // genesToMutate
-                    12 ,    // parentsToSelect (>=10 per evitare il limite di coppie uniche nel crossover)
-                    10  //elitarism
+                    40,
+                    100,
+                    0.25,
+                    2,
+                    12,
+                    10
             );
         }
     }
 
-    public record Output(Deck bestDeck, String details, String log) {
+    /** Output originale: NON lo rompo */
+    public record Output(Deck bestDeck, String details, String log) {}
+
+    /** Output esteso per metriche */
+    public record OutputTrace(
+            Deck bestDeck,
+            String details,
+            String log,
+            List<Double> bestFitnessPerGen,   // per convergenceGeneration()
+            List<Deck> finalPopulation        // per cardUsageCV()
+    ) {}
+
+    /** Run originale: compatibile con tutto il resto */
+    public static Output run(List<Card> pool,
+                             DeckConstraints constraints,
+                             double delta,
+                             double desiredAvgElixir) {
+        OutputTrace tr = runWithTrace(pool, constraints, delta, desiredAvgElixir);
+        return new Output(tr.bestDeck(), tr.details(), tr.log());
     }
 
-    public static Output run(List<Card> pool,
-                                        DeckConstraints constraints,
-                                        double delta,
-                                        double desiredAvgElixir
-    ) {
+    /** Run con tracce per metriche */
+    public static OutputTrace runWithTrace(List<Card> pool,
+                                           DeckConstraints constraints,
+                                           double delta,
+                                           double desiredAvgElixir) {
 
         Objects.requireNonNull(pool, "pool");
         Objects.requireNonNull(constraints, "constraints");
 
         StringBuilder log = new StringBuilder();
+        List<Double> bestFitnessPerGen = new ArrayList<>();
 
         if (pool.size() < Deck.DECK_SIZE) {
             String msg = "Pool carte troppo piccolo: servono almeno 8 carte, ne hai " + pool.size();
-            return new Output(null, msg, msg);
+            return new OutputTrace(null, msg, msg, List.of(), List.of());
         }
-
 
         Initializer initializer = new Initializer();
         Selection selection = new Selection();
-        Crossover crossover = new Crossover();
+        Crossover crossover = new Crossover(pool);   // se nel tuo progetto è new Crossover() cambia qui
         Mutation mutation = new Mutation(pool);
-        Fitness fitness=new Fitness();
+        Fitness fitness = new Fitness();
 
-        List<Deck> elitarism =new ArrayList<>();
+        List<Deck> elitarism = new ArrayList<>();
 
+        List<Deck> population = initializer.createPopulation(pool, Params.defaults().populationSize(), constraints);
 
-        Crossover.setLogging(false);
-
-        List<Deck> population = initializer.createPopulation(pool, Params.defaults().populationSize,constraints);
-        for(Deck d : population) {
-            d.setFitness(fitness.FinalFitness(d,delta,desiredAvgElixir));
+        for (Deck d : population) {
+            d.setFitness(fitness.FinalFitness(d, delta, desiredAvgElixir));
         }
+
         Collections.sort(population);
-        population =population.reversed();
+        population = population.reversed();
+
+        // gen 0 (inizializzazione)
+        bestFitnessPerGen.add(population.getFirst().getFitness());
         log.append("Init bestFitness=")
                 .append(fmt(population.getFirst().getFitness()))
                 .append('\n');
 
-        for(int round=0,size=0;round<Params.defaults().generations();round++) {
-            while(size<Params.defaults().elitarism()) {
+        for (int round = 0, size = 0; round < Params.defaults().generations(); round++) {
+
+            while (size < Params.defaults().elitarism()) {
                 elitarism.add(population.get(size));
                 size++;
             }
-            List<Deck> selected =selection.select(population,Params.defaults().parentsToSelect);
-            List<Deck> newGen = crossover.newGeneration(selected,Params.defaults().populationSize()-Params.defaults().elitarism(),constraints);
-            mutation.mutateGeneration(newGen,Params.defaults().mutationRate(), Params.defaults().genesToMutate(), constraints);
-            for(Deck d : newGen) {
-                d.setFitness(fitness.FinalFitness(d,delta,desiredAvgElixir));
+
+            List<Deck> selected = selection.select(population, Params.defaults().parentsToSelect());
+            List<Deck> newGen = crossover.newGeneration(
+                    selected,
+                    Params.defaults().populationSize() - Params.defaults().elitarism(),
+                    constraints
+            );
+
+            mutation.mutateGeneration(newGen, Params.defaults().mutationRate(), Params.defaults().genesToMutate(), constraints);
+
+            for (Deck d : newGen) {
+                d.setFitness(fitness.FinalFitness(d, delta, desiredAvgElixir));
             }
+
             population.clear();
-            population= Stream.concat(elitarism.stream(),newGen.stream()).collect(Collectors.toList());
+            population = Stream.concat(elitarism.stream(), newGen.stream()).collect(Collectors.toList());
+
             Collections.sort(population);
-            population= population.reversed();
+            population = population.reversed();
+
+            // best della generazione (round+1)
+            bestFitnessPerGen.add(population.getFirst().getFitness());
+
             elitarism.clear();
             newGen.clear();
-            size=0;
+            size = 0;
         }
 
-        return new Output(population.getFirst(),formatDetails(population.getFirst(),constraints,delta),log.toString());
+        Deck best = population.getFirst();
+        String details = formatDetails(best, constraints, delta);
+
+        return new OutputTrace(
+                best,
+                details,
+                log.toString(),
+                List.copyOf(bestFitnessPerGen),
+                List.copyOf(population)
+        );
     }
 
-
-    /**
-     * Metodo per formattare i dati del deck vincente
-     * */
-    private static String formatDetails(Deck best,
-                                        DeckConstraints c,
-                                        double delta
-    ) {
+    private static String formatDetails(Deck best, DeckConstraints c, double delta) {
         if (best == null) return "Nessun deck generato.";
 
         List<Card> cards = best.getCards();
@@ -124,9 +161,6 @@ public class GA_core {
         StringBuilder sb = new StringBuilder();
         sb.append("Fitness: ").append(fmt(best.getFitness())).append("\n");
         sb.append("Delta: ").append(fmt(delta)).append("\n");
-        /**
-         * si può aggiungere il valore dell'euristica
-         * */
 
         sb.append("Vincoli (minimi):\n");
         sb.append("- Air >= ").append(c.nFlyingTroop).append("\n");
@@ -158,5 +192,3 @@ public class GA_core {
         return String.format(Locale.ROOT, "%.3f", v);
     }
 }
-
-

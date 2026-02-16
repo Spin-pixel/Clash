@@ -5,11 +5,14 @@ import agente.Genetic_Algoritm.individuals.Deck;
 import agente.Genetic_Algoritm.individuals.DeckConstraints;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import metriche.EvaluationMetrics;
 import model.Card;
 
 import java.lang.reflect.Field;
@@ -71,6 +74,14 @@ public class ResultDeckController {
     @FXML private TextArea notesArea;
     @FXML private Label statusLabel;
 
+    // ===== METRICHE (NUOVO) =====
+    @FXML private VBox metricsBox;
+    @FXML private BarChart<String, Number> convChart; // Convergenza g*
+    @FXML private BarChart<String, Number> cvChart;   // CardUsageCV
+
+    private static final double METRICS_ALPHA = 0.95;
+    private static final int METRICS_PATIENCE = 5;
+
     private Runnable onBack;
 
     private boolean gaDetailsVisible = true;
@@ -92,17 +103,22 @@ public class ResultDeckController {
             Map.entry("tesla", "/img/c10.png")
     );
 
-    // --- SA (reflection): cambia SOLO se i tuoi nomi sono diversi
+    // --- SA (reflection)
     private static final String SA_CORE_CLASS = "agente.Simulated_Annealing.SA_core";
     private static final String SA_VINCOLI_CLASS = "agente.Simulated_Annealing.Stato_corrente.Vincoli";
 
     private record Both(Object gaOut, Object saOut, String saError) {}
 
-    // ✅ MODIFICA: appena la view viene caricata, i dettagli sono collassati (così non “lampeggiano” visibili)
     @FXML
     private void initialize() {
         applyGADetailsVisibility(false);
         applySADetailsVisibility(false);
+
+        // NUOVO: nascondo metriche finché non ho i risultati
+        if (metricsBox != null) {
+            metricsBox.setVisible(false);
+            metricsBox.setManaged(false);
+        }
     }
 
     public void init(List<Card> pool,
@@ -113,26 +129,35 @@ public class ResultDeckController {
 
         this.onBack = onBack;
 
-        // stato iniziale UI
         if (detailsLabel != null) detailsLabel.setText("Genero GA...");
         if (SAdetailsLabel != null) SAdetailsLabel.setText("In attesa del SA...");
         if (statusLabel != null) statusLabel.setText("Avvio...");
 
-        // ✅ MODIFICA: quando clicchi “genera” (cioè quando chiami init), i dettagli partono HIDDEN
         applyGADetailsVisibility(false);
         applySADetailsVisibility(false);
+
+        if (metricsBox != null) {
+            metricsBox.setVisible(false);
+            metricsBox.setManaged(false);
+        }
 
         Task<Both> task = new Task<>() {
             @Override
             protected Both call() {
-                // 1) GA
+                // 1) GA (con trace per metriche)
                 updateMessage("Genero GA...");
-                GA_core.Output gaOut = GA_core.run(pool, constraints, delta, desiredAvgElixir);
+                Object gaOut;
+                try {
+                    gaOut = GA_core.runWithTrace(pool, constraints, delta, desiredAvgElixir);
+                } catch (Throwable t) {
+                    // fallback: se non esiste runWithTrace
+                    gaOut = GA_core.run(pool, constraints, delta, desiredAvgElixir);
+                }
 
-                // 2) SA
+                // 2) SA (provo runWithTrace, altrimenti run)
                 updateMessage("Genero SA...");
                 try {
-                    Object saOut = runSA(pool, constraints, delta, desiredAvgElixir);
+                    Object saOut = runSAWithOptionalTrace(pool, constraints, delta, desiredAvgElixir);
                     return new Both(gaOut, saOut, null);
                 } catch (Exception ex) {
                     return new Both(gaOut, null, ex.getMessage());
@@ -148,15 +173,24 @@ public class ResultDeckController {
             Both both = task.getValue();
 
             // --- render GA
-            GA_core.Output gaOut = (both != null && both.gaOut instanceof GA_core.Output)
-                    ? (GA_core.Output) both.gaOut
-                    : null;
+            Deck gaBestDeck = null;
+            String gaDetails = null;
 
-            if (gaOut == null || gaOut.bestDeck() == null) {
-                if (detailsLabel != null) detailsLabel.setText(gaOut != null ? safeText(gaOut.details()) : "Errore: output GA nullo");
+            if (both != null && both.gaOut != null) {
+                try {
+                    Object bd = tryInvoke(both.gaOut, "bestDeck");
+                    if (bd instanceof Deck d) gaBestDeck = d;
+
+                    Object det = tryInvoke(both.gaOut, "details");
+                    gaDetails = (det != null) ? String.valueOf(det) : null;
+                } catch (Exception ignored) {}
+            }
+
+            if (gaBestDeck == null) {
+                if (detailsLabel != null) detailsLabel.setText(gaDetails != null ? safeText(gaDetails) : "Errore: output GA nullo");
             } else {
-                renderDeckGA(gaOut.bestDeck());
-                if (detailsLabel != null) detailsLabel.setText(safeText(gaOut.details()));
+                renderDeckGA(gaBestDeck);
+                if (detailsLabel != null) detailsLabel.setText(safeText(gaDetails));
             }
 
             // --- render SA
@@ -189,6 +223,9 @@ public class ResultDeckController {
                     ex.printStackTrace();
                 }
             }
+
+            // ===== METRICHE (NUOVO) =====
+            tryRenderMetrics(both, pool);
 
             if (statusLabel != null) statusLabel.setText("Pronto");
         });
@@ -224,14 +261,10 @@ public class ResultDeckController {
     // =========================
 
     @FXML
-    private void toggleGADetails() {
-        applyGADetailsVisibility(!gaDetailsVisible);
-    }
+    private void toggleGADetails() { applyGADetailsVisibility(!gaDetailsVisible); }
 
     @FXML
-    private void toggleSADetails() {
-        applySADetailsVisibility(!saDetailsVisible);
-    }
+    private void toggleSADetails() { applySADetailsVisibility(!saDetailsVisible); }
 
     private void applyGADetailsVisibility(boolean show) {
         gaDetailsVisible = show;
@@ -239,9 +272,7 @@ public class ResultDeckController {
             gaDetailsBox.setVisible(show);
             gaDetailsBox.setManaged(show);
         }
-        if (gaDetailsArrow != null) {
-            gaDetailsArrow.setText(show ? "▲" : "▼");
-        }
+        if (gaDetailsArrow != null) gaDetailsArrow.setText(show ? "▲" : "▼");
     }
 
     private void applySADetailsVisibility(boolean show) {
@@ -250,9 +281,7 @@ public class ResultDeckController {
             saDetailsBox.setVisible(show);
             saDetailsBox.setManaged(show);
         }
-        if (saDetailsArrow != null) {
-            saDetailsArrow.setText(show ? "▲" : "▼");
-        }
+        if (saDetailsArrow != null) saDetailsArrow.setText(show ? "▲" : "▼");
     }
 
     // -------------------
@@ -314,19 +343,83 @@ public class ResultDeckController {
     }
 
     // -------------------
+    // METRICHE (NUOVO)
+    // -------------------
+
+    private void tryRenderMetrics(Both both, List<Card> universe) {
+        if (metricsBox == null || convChart == null || cvChart == null) return;
+        if (both == null || both.gaOut == null || both.saOut == null) return;
+
+        try {
+            // GA: curve + decks
+            @SuppressWarnings("unchecked")
+            List<Double> gaCurve = (List<Double>) tryInvoke(both.gaOut, "bestFitnessPerGen");
+            @SuppressWarnings("unchecked")
+            List<Deck> gaDecks = (List<Deck>) tryInvoke(both.gaOut, "finalPopulation");
+
+            // SA: curve + decks
+            @SuppressWarnings("unchecked")
+            List<Double> saCurve = (List<Double>) tryInvoke(both.saOut, "bestUtilityPerStep");
+            @SuppressWarnings("unchecked")
+            List<Deck> saDecks = (List<Deck>) tryInvoke(both.saOut, "bestDeckPerStep");
+
+            if (gaCurve == null || saCurve == null || gaDecks == null || saDecks == null) {
+                // se non avete implementato runWithTrace nei core, qui non arrivano le info
+                return;
+            }
+
+            int gStarGA = EvaluationMetrics.convergenceGeneration(gaCurve, METRICS_ALPHA, METRICS_PATIENCE);
+            int gStarSA = EvaluationMetrics.convergenceGeneration(saCurve, METRICS_ALPHA, METRICS_PATIENCE);
+
+            double cvGA = EvaluationMetrics.cardUsageCV(gaDecks, universe);
+            double cvSA = EvaluationMetrics.cardUsageCV(saDecks, universe);
+
+            fillCompareChart(convChart, "g*", gStarGA, gStarSA);
+            fillCompareChart(cvChart, "CV", cvGA, cvSA);
+
+            metricsBox.setVisible(true);
+            metricsBox.setManaged(true);
+
+        } catch (Exception ignored) {
+            // se qualcosa va storto, semplicemente non mostro le metriche
+        }
+    }
+
+    private void fillCompareChart(BarChart<String, Number> chart, String category, double gaValue, double saValue) {
+        chart.getData().clear();
+
+        XYChart.Series<String, Number> sGA = new XYChart.Series<>();
+        sGA.setName("GA");
+        sGA.getData().add(new XYChart.Data<>(category, gaValue));
+
+        XYChart.Series<String, Number> sSA = new XYChart.Series<>();
+        sSA.setName("SA");
+        sSA.getData().add(new XYChart.Data<>(category, saValue));
+
+        chart.getData().addAll(sGA, sSA);
+    }
+
+    // -------------------
     // SA CALL (reflection)
     // -------------------
 
-    private Object runSA(List<Card> pool, DeckConstraints constraints, double delta, double desiredAvgElixir) throws Exception {
+    private Object runSAWithOptionalTrace(List<Card> pool, DeckConstraints constraints, double delta, double desiredAvgElixir) throws Exception {
         Class<?> saCore = Class.forName(SA_CORE_CLASS);
 
-        // 1) Provo firma: run(List<Card>, DeckConstraints, double, double)
+        // 0) Provo runWithTrace(List<Card>, Vincoli, double, double)
+        try {
+            Object vincoli = buildVincoliFromDeckConstraints(constraints);
+            Method m0 = saCore.getMethod("runWithTrace", List.class, vincoli.getClass(), double.class, double.class);
+            return m0.invoke(null, pool, vincoli, delta, desiredAvgElixir);
+        } catch (NoSuchMethodException ignored) {}
+
+        // 1) Provo run(List<Card>, DeckConstraints, double, double)
         try {
             Method m = saCore.getMethod("run", List.class, constraints.getClass(), double.class, double.class);
             return m.invoke(null, pool, constraints, delta, desiredAvgElixir);
         } catch (NoSuchMethodException ignored) {}
 
-        // 2) Provo firma: run(List<Card>, Vincoli, double, double)
+        // 2) Provo run(List<Card>, Vincoli, double, double)
         Object vincoli = buildVincoliFromDeckConstraints(constraints);
         Method m2 = saCore.getMethod("run", List.class, vincoli.getClass(), double.class, double.class);
         return m2.invoke(null, pool, vincoli, delta, desiredAvgElixir);
@@ -354,7 +447,7 @@ public class ResultDeckController {
     }
 
     private List<Card> extractCardsFromSAOutput(Object saOut) throws Exception {
-        Object best = tryInvoke(saOut, "bestState", "bestStato", "best", "bestSolution");
+        Object best = tryInvoke(saOut, "bestState", "bestStato", "best", "bestSolution", "bestDeck");
         if (best == null) return null;
 
         Object cards = tryInvoke(best, "getCards", "cards");
