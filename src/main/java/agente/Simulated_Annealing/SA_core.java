@@ -1,8 +1,6 @@
 package agente.Simulated_Annealing;
 
-import agente.Genetic_Algoritm.GA_core;
-import agente.Genetic_Algoritm.individuals.Deck;
-import agente.Genetic_Algoritm.individuals.DeckConstraints;
+
 import agente.Simulated_Annealing.Modello_di_transizione.Azione;
 import agente.Simulated_Annealing.Stato_corrente.Stato;
 import agente.Simulated_Annealing.Stato_corrente.Vincoli;
@@ -22,7 +20,7 @@ public class SA_core {
     ) {
         public static Params defaults(){
             return new Params(
-                    30,
+                    60,
                     101,
                     10000,
                     1,
@@ -69,17 +67,35 @@ public class SA_core {
 
         //ciclo di raffreddamento
         while (time>Params.defaults().tempFin) {
+            //genero l'insieme delle soluzioni vicine
             cards=movment.findNeighborhood(pool,best,vincoli,Params.defaults().numCarte,Params.defaults().numeroTry,delta,desiredAvgElixir);
             Collections.sort(cards);
+
+            //scelgo la soluzione più conveniente
             cards =cards.reversed();
-            best=cards.get(0);
+            Stato newbest=cards.get(0);
+
+            //scalgo se accettare la soluzione
+            if(acceptanceProbability(newbest.getUtility(),best.getUtility(),time)>Math.random())
+                best=newbest;
+
+            //raffreddamento
             time*=(1- Params.defaults().raff);
         }
 
         return new Output(best,formatDetails(best,vincoli,delta),"");
     }
 
-
+    /**
+     * Metodo che calcola la probabilità di accettazione
+     * */
+    private static double acceptanceProbability(double currentEnergy, double neighborEnergy, double temp) {
+        if (neighborEnergy < currentEnergy) {
+            return 1.0; // Accetta sempre se migliore
+        }
+        // Accetta se peggiore con probabilità basata sulla temperatura
+        return Math.exp((currentEnergy - neighborEnergy) / temp);
+    }
 
 
 
