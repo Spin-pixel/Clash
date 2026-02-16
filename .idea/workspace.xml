@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1727b34d-e671-405f-a54a-7c1ffea6fb50" name="Changes" comment="Done:&#10;&gt;Correzioni post-merge&#10;&gt;Riorganizzazione cartella test&#10;&gt;Introdotto l'uso delle metriche nelle classi GA-core e SA-core&#10;&gt;Introdotti istogrammi per mettere a paragone gli algoritmi&#10;TO-DO:&#10;&gt;Aggiungi note sotto gli istogrammi" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "Integrated__Francesco",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
@@ -12,5 +31,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Done:&#10;&gt;Correzioni post-merge&#10;&gt;Riorganizzazione cartella test&#10;&gt;Introdotto l'uso delle metriche nelle classi GA-core e SA-core&#10;&gt;Introdotti istogrammi per mettere a paragone gli algoritmi&#10;TO-DO:&#10;&gt;Aggiungi note sotto gli istogrammi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done:&#10;&gt;Correzioni post-merge&#10;&gt;Riorganizzazione cartella test&#10;&gt;Introdotto l'uso delle metriche nelle classi GA-core e SA-core&#10;&gt;Introdotti istogrammi per mettere a paragone gli algoritmi&#10;TO-DO:&#10;&gt;Aggiungi note sotto gli istogrammi" />
   </component>
 </project>
