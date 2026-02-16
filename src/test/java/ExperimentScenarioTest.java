@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test "di scenario" ispirati al Capitolo 3 (Valutazione) del PDF:
+ * Test "di scenario":
  * - Scenario A: pool completo (baseline) + tracciamento curve fitness
  * - Scenario B: preferenze utente (vincoli rigidi)
  * - Scenario C: pool ridotto / collezione limitata + caso limite pool < 8
@@ -26,6 +26,7 @@ public class ExperimentScenarioTest {
     private static final double ALPHA = 0.95;
     private static final int PATIENCE = 5;
 
+    // Scenario A: verifica che, con pool completo e senza vincoli extra, la run produca trace coerenti, bestFitness monotona (elitismo) e metriche calcolabili (g*, CV).
     @Test
     void scenarioA_poolCompleto_baseline_producesTraceAndMonotoneBest() {
         List<Card> pool = makePool();
@@ -57,6 +58,7 @@ public class ExperimentScenarioTest {
         assertTrue(cv >= 0.0);
     }
 
+    // Scenario B: verifica che, con vincoli rigidi (spell/building/flying/wincon + carta obbligatoria), il best deck prodotto li rispetti tutti.
     @Test
     void scenarioB_preferenzeUtente_vincoliRigidi_bestDeckRespectsConstraints() {
         List<Card> pool = makePool();
@@ -81,6 +83,7 @@ public class ExperimentScenarioTest {
         assertEquals(1, countBuildingTargetTroops(best));
     }
 
+    // Scenario C (pool ridotto ma valido): verifica che il best deck usi esclusivamente carte presenti nel pool ridotto (nessuna “carta inventata” fuori collezione).
     @Test
     void scenarioC_poolRidotto_returnsDeckUsingOnlyAvailableCards() {
         List<Card> pool = makePool();
@@ -98,6 +101,7 @@ public class ExperimentScenarioTest {
         }
     }
 
+    // Scenario C (pool troppo piccolo): verifica che con meno di 8 carte l'algoritmo segnali impossibilità (bestDeck null e trace/pop finali vuote).
     @Test
     void scenarioC_poolTroppoPiccolo_returnsNullBestDeckAndEmptyTraces() {
         List<Card> tiny = makePool().subList(0, 7); // < 8
@@ -140,10 +144,6 @@ public class ExperimentScenarioTest {
         return k;
     }
 
-    /**
-     * Pool "sintetico" ma stabile: abbastanza ricco per generare popolazioni valide
-     * anche con vincoli rigidi (Scenario B).
-     */
     private static List<Card> makePool() {
         List<Card> pool = new ArrayList<>();
 

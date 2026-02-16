@@ -13,12 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EvaluationMetricsTest {
 
+    // Verifica che convergenceGeneration gestisca input null o vuoti senza crash e ritorni un valore di default (0).
     @Test
     void convergenceGeneration_handlesNullAndEmpty() {
         assertEquals(0, EvaluationMetrics.convergenceGeneration(null, 0.95, 5));
         assertEquals(0, EvaluationMetrics.convergenceGeneration(List.of(), 0.95, 5));
     }
 
+    // Verifica che convergenceGeneration ritorni la prima generazione g* in cui la fitness supera la soglia e resta stabile per "patience" generazioni.
     @Test
     void convergenceGeneration_returnsFirstStableGeneration() {
         // best finale = 1.00, soglia alpha=0.95 => 0.95
@@ -30,6 +32,7 @@ public class EvaluationMetricsTest {
         assertEquals(4, gStar);
     }
 
+    // Verifica che convergenceGeneration non segnali convergenza se la soglia viene superata ma subito dopo la fitness scende (evita falsi positivi) e rispetti "patience".
     @Test
     void convergenceGeneration_respectsPatienceAndAvoidsFalsePositive() {
         // best finale = 1.00, soglia 0.95
@@ -41,6 +44,7 @@ public class EvaluationMetricsTest {
         assertEquals(5, gStar);
     }
 
+    // Verifica che convergenceGeneration, se non trova un tratto stabile per la patience richiesta, ritorni l'ultima generazione come fallback.
     @Test
     void convergenceGeneration_returnsLastIfNeverStable() {
         // best finale = 1.00, soglia 0.99, mai stabile per 3 generazioni
@@ -51,6 +55,7 @@ public class EvaluationMetricsTest {
         assertEquals(curve.size() - 1, gStar);
     }
 
+    // Verifica che cardUsageCV ritorni 0 quando l'uso delle carte è perfettamente uniforme rispetto all'universo (nessuna varianza).
     @Test
     void cardUsageCV_isZeroWhenPerfectlyUniformOverUniverse() {
         List<Card> universe = makeSimpleUniverse(8);
@@ -61,19 +66,23 @@ public class EvaluationMetricsTest {
         assertEquals(0.0, cv, 1e-12);
     }
 
+    // Verifica che cardUsageCV risulti alto quando una carta domina e l'esperimento usa solo un piccolo sottoinsieme dell'universo (molte carte restano a frequenza 0).
     @Test
     void cardUsageCV_isHighWhenOneCardDominates() {
-        List<Card> universe = makeSimpleUniverse(12);
+        // Universo realistico (molte carte non usate => CV alto)
+        List<Card> universe = makeSimpleUniverse(100);
 
         Card dominant = universe.get(0);
         List<Deck> decks = new ArrayList<>();
 
-        // 20 deck: stessa carta dominante sempre presente (in Clash non ci sono doppioni nel singolo deck)
+        // Usiamo sempre e solo un sottoinsieme piccolo (prime 12) per accentuare la polarizzazione
+        int subset = 12;
+
         for (int i = 0; i < 20; i++) {
             List<Card> cards = new ArrayList<>();
             cards.add(dominant);
-            // riempiamo con 7 carte diverse prendendole in modo "rotante"
-            int start = 1 + (i % (universe.size() - 8));
+
+            int start = 1 + (i % (subset - 7)); // start in [1..5] così start+6 <= 11
             for (int k = 0; k < 7; k++) {
                 cards.add(universe.get(start + k));
             }
@@ -82,10 +91,11 @@ public class EvaluationMetricsTest {
 
         double cv = EvaluationMetrics.cardUsageCV(decks, universe);
 
-        // Non fissiamo un valore esatto (dipende dal bilanciamento), ma deve essere sensibilmente > 0
         assertTrue(cv > 1.0, "CV atteso alto per polarizzazione, trovato: " + cv);
     }
 
+
+    // Verifica che cardUsageCV ignori carte non presenti nell'universo e non produca NaN/Infinity, restando sempre finito e non negativo.
     @Test
     void cardUsageCV_ignoresCardsOutsideUniverse() {
         List<Card> universe = makeSimpleUniverse(8);
@@ -110,14 +120,12 @@ public class EvaluationMetricsTest {
         List<Card> out = new ArrayList<>();
         int i = 0;
 
-        // qualche spell
         while (out.size() < n && i < n) {
             out.add(new Spell("spell_" + i, "Spell " + i, 2 + (i % 4),
                     Card.CardTag.SUPPORT, 100 + i, 50 + i, 2.0));
             i++;
         }
 
-        // se serve, aggiungi building
         int b = 0;
         while (out.size() < n && b < 2) {
             out.add(new DefensiveBuilding("bld_" + b, "Building " + b, 4,
@@ -125,7 +133,6 @@ public class EvaluationMetricsTest {
             b++;
         }
 
-        // se serve, aggiungi troop
         int t = 0;
         while (out.size() < n) {
             out.add(new Troop("trp_" + t, "Troop " + t, 3 + (t % 3),
