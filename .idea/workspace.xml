@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83930c55-9d0e-4f0e-acec-0dc30d0ae4d2" name="Changes" comment="Done:&#10;&gt;Correzione README.md, introduzione del package testing e del package metriche">
+    <list default="true" id="83930c55-9d0e-4f0e-acec-0dc30d0ae4d2" name="Changes" comment="Done:&#10;&gt;Correzioni post-merge&#10;&gt;Riorganizzazione cartella test&#10;&gt;Introdotto l'uso delle metriche nelle classi GA-core e SA-core&#10;&gt;Introdotti istogrammi per mettere a paragone gli algoritmi&#10;TO-DO:&#10;&gt;Aggiungi note sotto gli istogrammi">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/GA_core.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/GA_core.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/initializer/Initializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/initializer/Initializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/operatori_genetici/Crossover.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/operatori_genetici/Crossover.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/operatori_genetici/Mutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/operatori_genetici/Mutation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grafica/ResultDeck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grafica/ResultDeck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/SA_core.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/SA_core.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grafica/ResultDeckController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grafica/ResultDeckController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ResultDeckView.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ResultDeckView.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ResultDeckView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ResultDeckView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/EvaluationMetricsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/EvaluationMetricsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +59,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.MainApp.executor": "Run",
+    "JUnit.EvaluationMetricsTest.convergenceGeneration_shouldReturnGenBeforeLastOnPlateauCurve.executor": "Run",
     "Maven.Royal-Generator [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging Integrated",
+    "git-widget-placeholder": "Integrated",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/igioi/Desktop/università/TSW/lezione_2",
     "node.js.detected.package.eslint": "true",
@@ -69,7 +73,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\igioi\Documents\Clash\src\test\java" />
+      <recent name="C:\Users\igioi\Documents\Clash\src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.MainApp">
     <configuration name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="grafica.MainApp" />
       <module name="Royal-Generator" />
@@ -83,9 +93,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EvaluationMetricsTest.convergenceGeneration_shouldReturnGenBeforeLastOnPlateauCurve" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Royal-Generator" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="EvaluationMetricsTest" />
+      <option name="METHOD_NAME" value="convergenceGeneration_shouldReturnGenBeforeLastOnPlateauCurve" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainApp" />
+        <item itemvalue="JUnit.EvaluationMetricsTest.convergenceGeneration_shouldReturnGenBeforeLastOnPlateauCurve" />
       </list>
     </recent_temporary>
   </component>
@@ -107,7 +128,7 @@
       <updated>1771173962254</updated>
       <workItem from="1771173963356" duration="30345000" />
       <workItem from="1771230891035" duration="4313000" />
-      <workItem from="1771238639582" duration="4835000" />
+      <workItem from="1771238639582" duration="8634000" />
     </task>
     <task id="LOCAL-00001" summary="Done:&#10;&gt;Definizione del modello di transizione nel SA&#10;TO-DO:&#10;&gt;Aggiungere vista nella grafica dove si mostra l'output del secondo agente&#10;&gt;Definire funzione di utilità">
       <option name="closed" value="true" />
@@ -189,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771257012406</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Done:&#10;&gt;Correzioni post-merge">
+      <option name="closed" value="true" />
+      <created>1771257551551</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1771257551551</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +233,8 @@
     <MESSAGE value="Done:&#10;&gt;Scrittura del README.md" />
     <MESSAGE value="Done:&#10;&gt;Riscrittura del README.md" />
     <MESSAGE value="Done:&#10;&gt;Correzione README.md, introduzione del package testing e del package metriche" />
-    <option name="LAST_COMMIT_MESSAGE" value="Done:&#10;&gt;Correzione README.md, introduzione del package testing e del package metriche" />
+    <MESSAGE value="Done:&#10;&gt;Correzioni post-merge" />
+    <MESSAGE value="Done:&#10;&gt;Correzioni post-merge&#10;&gt;Riorganizzazione cartella test&#10;&gt;Introdotto l'uso delle metriche nelle classi GA-core e SA-core&#10;&gt;Introdotti istogrammi per mettere a paragone gli algoritmi&#10;TO-DO:&#10;&gt;Aggiungi note sotto gli istogrammi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done:&#10;&gt;Correzioni post-merge&#10;&gt;Riorganizzazione cartella test&#10;&gt;Introdotto l'uso delle metriche nelle classi GA-core e SA-core&#10;&gt;Introdotti istogrammi per mettere a paragone gli algoritmi&#10;TO-DO:&#10;&gt;Aggiungi note sotto gli istogrammi" />
   </component>
 </project>

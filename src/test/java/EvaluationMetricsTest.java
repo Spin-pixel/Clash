@@ -1,6 +1,5 @@
-package agente.Genetic_Algoritm.metrics;
-
 import agente.Genetic_Algoritm.individuals.Deck;
+import metriche.EvaluationMetrics;
 import model.Card;
 import org.junit.jupiter.api.Test;
 
