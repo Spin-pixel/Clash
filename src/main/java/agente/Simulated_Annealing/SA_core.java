@@ -121,7 +121,7 @@ public class SA_core {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Fitness: ").append(fmt(best.getUtility())).append("\n");
+        sb.append("Funzione di Utilità: ").append(fmt(best.getUtility())).append("\n");
         sb.append("Delta: ").append(fmt(delta)).append("\n");
         /**
          * si può aggiungere il valore dell'euristica

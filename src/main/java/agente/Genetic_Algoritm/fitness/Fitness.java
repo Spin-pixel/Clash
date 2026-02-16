@@ -12,8 +12,8 @@ public class Fitness {
     private static  double T = 3.6;
 
     // Idea: scegliere valori che rappresentano "copertura buona" (es. percentile 75/85 su deck casuali)
-    private static final double TAU_AOE = 1200; // soglia per AoE power
-    private static final double TAU_DPS = 900;  // soglia per top1+top2 DPS
+    private static final double TAU_AOE = 1500; // soglia per AoE power
+    private static final double TAU_DPS = 1100;  // soglia per top1+top2 DPS
     private static final double TAU_HP = 3000;
 
     public double FinalFitness(Deck deck,double Delta,double T) {

@@ -9,11 +9,11 @@ L’obiettivo è fornire uno strumento soprattutto ai **giocatori novizi**, cos�
 
 ## Team
 
-| Membro | Contributo |
-|---|---|
-| Francesco Maggio | Euristiche matematiche, definizione della classe **Fitness** |
-| Marcello Lettieri | Sviluppo dell’**Algoritmo Genetico (GA)** |
-| Igino Alessandro Iannotta | **GUI JavaFX** e **Simulated Annealing (SA)** |
+| Membro | Contributo                                                                                |
+|---|-------------------------------------------------------------------------------------------|
+| Francesco Maggio | Euristiche matematiche, definizione della classe **Fitness** e definizione delle metriche |
+| Marcello Lettieri | Sviluppo dell’**Algoritmo Genetico (GA)**, lavoro di **Data understanding**               |
+| Igino Alessandro Iannotta | **GUI JavaFX** e **Simulated Annealing (SA)**                                             |
 
 ---
 
@@ -21,9 +21,10 @@ L’obiettivo è fornire uno strumento soprattutto ai **giocatori novizi**, cos�
 
 - Generare mazzi (deck) a partire da un pool di carte.
 - Confrontare strategie diverse di ottimizzazione:
-    - **Genetic Algorithm (GA)**
-    - **Simulated Annealing (SA)**
+  - **Genetic Algorithm (GA)**
+  - **Simulated Annealing (SA)**
 - Mostrare i risultati tramite una **GUI JavaFX**.
+- Valutare e confrontare gli algoritmi tramite **metriche di analisi**.
 
 ---
 
@@ -36,8 +37,8 @@ Contiene la logica applicativa:
 
 - `agente/`  
   Strategie per risolvere il problema:
-    - `Genetic_Algoritm/` — Algoritmo Genetico (GA)
-    - `Simulated_Annealing/` — Simulated Annealing (SA)
+  - `Genetic_Algoritm/` — Algoritmo Genetico (GA)
+  - `Simulated_Annealing/` — Simulated Annealing (SA)
 
 - `grafica/`  
   Controller e classi della GUI JavaFX.  
@@ -49,6 +50,9 @@ Contiene la logica applicativa:
 - `service/`  
   Classi di supporto per parsing/mapping (es. JSON → classi del `model`).
 
+- `metriche/`  
+  Contiene le classi dedicate al calcolo delle **metriche di valutazione** (qualità del deck, vincoli, convergenza/tempo, ecc.) utili a studiare e confrontare GA e SA.
+
 ### `resources`
 Contiene le risorse statiche/dinamiche utilizzate dall’interfaccia:
 
@@ -57,6 +61,10 @@ Contiene le risorse statiche/dinamiche utilizzate dall’interfaccia:
 - Immagini (es. carte)
 
 > Nota: CSS/FXML sono in `resources` (come da convenzioni Java/JavaFX).
+
+### `test`
+Contiene classi di esempio per testare gli algoritmi in scenari specifici (vincoli diversi).
+Serve come supporto per verifiche funzionali e sperimentazioni locali.
 
 ---
 
@@ -87,13 +95,13 @@ Durante lo sviluppo sono emersi problemi legati alla gestione dei moduli; per qu
 
 ### Istruzioni (da IntelliJ)
 1. Clona il repository e fai checkout del branch:
-    - `Integrated`
+  - `Integrated`
 2. Apri il progetto in IntelliJ (**Open** sulla root del repository).
 3. Imposta **Project SDK = Java 23**:
-    - `File > Project Structure > Project > SDK`
+  - `File > Project Structure > Project > SDK`
 4. Assicurati che Maven sia correttamente importato (pom.xml rilevato).
 5. Esegui la GUI avviando la classe:
-    - `src/main/java/grafica/MainApp.java`
+  - `src/main/java/grafica/MainApp.java`
 
 ---
 
@@ -107,8 +115,7 @@ Durante lo sviluppo sono emersi problemi legati alla gestione dei moduli; per qu
 ## Note
 
 - Per una replica fedele, mantenere invariati:
-    - struttura cartelle
-    - file JSON interno (`src/main/java/cardList.json`)
-    - risorse in `src/main/resources` (FXML/CSS)
-    - immagini in `src/main/resources/img` (PNG)
-
+  - struttura cartelle
+  - file JSON interno (`src/main/java/cardList.json`)
+  - risorse in `src/main/resources` (FXML/CSS)
+  - immagini in `src/main/resources/img` (PNG)
