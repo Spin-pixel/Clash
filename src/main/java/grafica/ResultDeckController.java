@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import model.Card;
 
 import java.lang.reflect.Field;
@@ -57,12 +58,23 @@ public class ResultDeckController {
     @FXML private Label SAcard6Label;
     @FXML private Label SAcard7Label;
 
-    @FXML private TextArea detailsArea;    // GA details
-    @FXML private TextArea SAdetailsArea;  // SA details
+    // --- Dettagli su pannello (Label)
+    @FXML private Label detailsLabel;     // GA details
+    @FXML private Label SAdetailsLabel;   // SA details
+
+    // --- Toggle state + frecce + box da collassare
+    @FXML private Label gaDetailsArrow;
+    @FXML private Label saDetailsArrow;
+    @FXML private VBox gaDetailsBox;
+    @FXML private VBox saDetailsBox;
+
     @FXML private TextArea notesArea;
     @FXML private Label statusLabel;
 
     private Runnable onBack;
+
+    private boolean gaDetailsVisible = true;
+    private boolean saDetailsVisible = true;
 
     private final Map<String, Image> imageCache = new HashMap<>();
 
@@ -84,8 +96,14 @@ public class ResultDeckController {
     private static final String SA_CORE_CLASS = "agente.Simulated_Annealing.SA_core";
     private static final String SA_VINCOLI_CLASS = "agente.Simulated_Annealing.Stato_corrente.Vincoli";
 
-    // piccolo contenitore per passare entrambi i risultati al thread UI
     private record Both(Object gaOut, Object saOut, String saError) {}
+
+    // ✅ MODIFICA: appena la view viene caricata, i dettagli sono collassati (così non “lampeggiano” visibili)
+    @FXML
+    private void initialize() {
+        applyGADetailsVisibility(false);
+        applySADetailsVisibility(false);
+    }
 
     public void init(List<Card> pool,
                      DeckConstraints constraints,
@@ -95,7 +113,14 @@ public class ResultDeckController {
 
         this.onBack = onBack;
 
-        if (statusLabel != null) statusLabel.setText("Genero GA...");
+        // stato iniziale UI
+        if (detailsLabel != null) detailsLabel.setText("Genero GA...");
+        if (SAdetailsLabel != null) SAdetailsLabel.setText("In attesa del SA...");
+        if (statusLabel != null) statusLabel.setText("Avvio...");
+
+        // ✅ MODIFICA: quando clicchi “genera” (cioè quando chiami init), i dettagli partono HIDDEN
+        applyGADetailsVisibility(false);
+        applySADetailsVisibility(false);
 
         Task<Both> task = new Task<>() {
             @Override
@@ -115,7 +140,6 @@ public class ResultDeckController {
             }
         };
 
-        // statusLabel segue lo stato del task
         if (statusLabel != null) statusLabel.textProperty().bind(task.messageProperty());
 
         task.setOnSucceeded(ev -> {
@@ -124,22 +148,26 @@ public class ResultDeckController {
             Both both = task.getValue();
 
             // --- render GA
-            GA_core.Output gaOut = (both != null && both.gaOut instanceof GA_core.Output) ? (GA_core.Output) both.gaOut : null;
+            GA_core.Output gaOut = (both != null && both.gaOut instanceof GA_core.Output)
+                    ? (GA_core.Output) both.gaOut
+                    : null;
+
             if (gaOut == null || gaOut.bestDeck() == null) {
-                if (detailsArea != null) detailsArea.setText(gaOut != null ? gaOut.details() : "Errore: output GA nullo");
+                if (detailsLabel != null) detailsLabel.setText(gaOut != null ? safeText(gaOut.details()) : "Errore: output GA nullo");
             } else {
                 renderDeckGA(gaOut.bestDeck());
-                if (detailsArea != null) detailsArea.setText(gaOut.details());
+                if (detailsLabel != null) detailsLabel.setText(safeText(gaOut.details()));
             }
 
             // --- render SA
             if (both == null) {
-                if (SAdetailsArea != null) SAdetailsArea.setText("Errore: output SA nullo");
+                if (SAdetailsLabel != null) SAdetailsLabel.setText("Errore: output SA nullo");
             } else if (both.saOut == null) {
-                if (SAdetailsArea != null) SAdetailsArea.setText("Errore durante SA:\n" + (both.saError != null ? both.saError : "(sconosciuto)"));
+                if (SAdetailsLabel != null) {
+                    SAdetailsLabel.setText("Errore durante SA:\n" + (both.saError != null ? both.saError : "(sconosciuto)"));
+                }
             } else {
                 try {
-                    // estraggo cards e details dal risultato SA
                     List<Card> saCards = extractCardsFromSAOutput(both.saOut);
                     String saDetails = extractDetailsFromSAOutput(both.saOut);
 
@@ -149,13 +177,15 @@ public class ResultDeckController {
                                 new Label[]{SAcard0Label, SAcard1Label, SAcard2Label, SAcard3Label, SAcard4Label, SAcard5Label, SAcard6Label, SAcard7Label}
                         );
                     } else {
-                        if (SAdetailsArea != null) SAdetailsArea.setText("SA: impossibile estrarre 8 carte dallo stato.");
+                        if (SAdetailsLabel != null) SAdetailsLabel.setText("SA: impossibile estrarre 8 carte dallo stato.");
                     }
 
-                    if (SAdetailsArea != null && saDetails != null) SAdetailsArea.setText(saDetails);
+                    if (SAdetailsLabel != null && saDetails != null) {
+                        SAdetailsLabel.setText(safeText(saDetails));
+                    }
 
                 } catch (Exception ex) {
-                    if (SAdetailsArea != null) SAdetailsArea.setText("Errore render SA:\n" + ex.getMessage());
+                    if (SAdetailsLabel != null) SAdetailsLabel.setText("Errore render SA:\n" + ex.getMessage());
                     ex.printStackTrace();
                 }
             }
@@ -168,8 +198,8 @@ public class ResultDeckController {
             Throwable ex = task.getException();
 
             String msg = "Errore:\n" + (ex != null ? ex.getMessage() : "(sconosciuto)");
-            if (detailsArea != null) detailsArea.setText(msg);
-            if (SAdetailsArea != null) SAdetailsArea.setText(msg);
+            if (detailsLabel != null) detailsLabel.setText(msg);
+            if (SAdetailsLabel != null) SAdetailsLabel.setText(msg);
             if (statusLabel != null) statusLabel.setText("Errore");
             if (ex != null) ex.printStackTrace();
         });
@@ -179,9 +209,50 @@ public class ResultDeckController {
         t.start();
     }
 
+    private String safeText(String s) {
+        if (s == null) return "";
+        return s.replace("\t", "    ");
+    }
+
     @FXML
     private void back() {
         if (onBack != null) onBack.run();
+    }
+
+    // =========================
+    // TOGGLE DETTAGLI (GA / SA)
+    // =========================
+
+    @FXML
+    private void toggleGADetails() {
+        applyGADetailsVisibility(!gaDetailsVisible);
+    }
+
+    @FXML
+    private void toggleSADetails() {
+        applySADetailsVisibility(!saDetailsVisible);
+    }
+
+    private void applyGADetailsVisibility(boolean show) {
+        gaDetailsVisible = show;
+        if (gaDetailsBox != null) {
+            gaDetailsBox.setVisible(show);
+            gaDetailsBox.setManaged(show);
+        }
+        if (gaDetailsArrow != null) {
+            gaDetailsArrow.setText(show ? "▲" : "▼");
+        }
+    }
+
+    private void applySADetailsVisibility(boolean show) {
+        saDetailsVisible = show;
+        if (saDetailsBox != null) {
+            saDetailsBox.setVisible(show);
+            saDetailsBox.setManaged(show);
+        }
+        if (saDetailsArrow != null) {
+            saDetailsArrow.setText(show ? "▲" : "▼");
+        }
     }
 
     // -------------------
@@ -283,7 +354,6 @@ public class ResultDeckController {
     }
 
     private List<Card> extractCardsFromSAOutput(Object saOut) throws Exception {
-        // provo a ottenere uno “stato migliore” da output
         Object best = tryInvoke(saOut, "bestState", "bestStato", "best", "bestSolution");
         if (best == null) return null;
 

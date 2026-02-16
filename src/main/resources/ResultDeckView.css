@@ -1,3 +1,4 @@
+/* Back button */
 .res-back-btn {
     -fx-background-color: transparent;
     -fx-text-fill: white;
@@ -7,19 +8,76 @@
     -fx-cursor: hand;
 }
 
+/* Titoli sezione */
 .res-section-title {
     -fx-text-fill: rgba(255,255,255,0.95);
     -fx-font-weight: 900;
     -fx-font-size: 16px;
 }
 
-/* TextArea: mantiene lo stile base, ma rende bene il contenuto */
-.text-area.res-area {
-    -fx-background-insets: 0;
+/* Titolo blocco deck (GA / SA) */
+.deck-title {
+    -fx-text-fill: rgba(255,255,255,0.95);
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
+    -fx-padding: 2 0 0 0;
+}
+
+/* Scroll globale (pagina) */
+.res-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
     -fx-padding: 0;
 }
 
-.text-area.res-area .content {
+.res-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.res-scroll .scroll-bar:vertical,
+.res-scroll .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+/* Toggle "Dettagli" cliccabile */
+.details-toggle {
+    -fx-cursor: hand;
+    -fx-padding: 2 0 0 0;
+}
+
+.details-toggle:hover .res-section-title {
+    -fx-text-fill: white;
+}
+
+/* Freccetta */
+.details-arrow {
+    -fx-text-fill: rgba(255,255,255,0.90);
+    -fx-font-weight: 900;
+    -fx-font-size: 14px;
+}
+
+/* Pannello dettagli sul “blu” ma leggibile */
+.details-box {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-background-radius: 14;
+    -fx-padding: 12;
+    -fx-border-color: rgba(255,255,255,0.14);
+    -fx-border-radius: 14;
+}
+
+/* Testo dettagli */
+.details-text {
+    -fx-text-fill: rgba(255,255,255,0.92);
+    -fx-font-size: 13px;
+    -fx-line-spacing: 1.2;
+}
+
+/* Notes area: più coerente */
+.text-area.res-notes {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.text-area.res-notes .content {
     -fx-background-color: rgba(255,255,255,0.95);
     -fx-background-radius: 10;
     -fx-padding: 10;
