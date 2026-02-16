@@ -54,16 +54,6 @@ public class Deck implements Comparable<Object> {
         this.cards.clear();          // Svuota le vecchie carte
         this.cards.addAll(newCards); // Inserisce le nuove carte
 
-
-        /**
-         * Per ora lo ignoro, ma questo andrebbe rimosso perché
-         * 1) non lo usiamo
-         * 2) si vede che l'ha fatto chat
-         *
-         * */
-        // 4. (Opzionale) Se hai variabili calcolate (es. costo medio elisir),
-        // dovresti ricalcolarle qui.
-        // this.averageElixir = calculateAverageElixir();
     }
 
 

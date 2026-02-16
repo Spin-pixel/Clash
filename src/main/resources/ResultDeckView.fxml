@@ -163,6 +163,9 @@
 
                         <VBox fx:id="metricsBox" spacing="14" styleClass="details-box">
                             <Label text="Convergenza (g*)" styleClass="res-section-title"/>
+                            <Label wrapText="true" styleClass="metrics-caption"
+                                   text="Questa metrica indica quando l’algoritmo raggiunge stabilmente una soluzione vicina alla migliore finale. Un valore di g* più basso significa convergenza più rapida; un valore più alto indica che l’algoritmo continua a migliorare più a lungo prima di stabilizzarsi. Il confronto GA vs SA mostra quale metodo arriva prima a risultati stabili." />
+
 
                             <BarChart fx:id="convChart" prefHeight="220" animated="false" legendVisible="true" styleClass="metrics-chart">
                                 <xAxis>
@@ -174,6 +177,9 @@
                             </BarChart>
 
                             <Label text="Card Usage CV" styleClass="res-section-title"/>
+                            <Label wrapText="true" styleClass="metrics-caption"
+                                   text="Il coefficiente di variazione (CV) misura quanto l’uso delle carte è sbilanciato rispetto al pool: valori alti indicano che l’algoritmo tende a riutilizzare spesso le stesse carte (soluzioni più polarizzate), mentre valori più bassi indicano una selezione più uniforme e diversificata. Il confronto GA vs SA evidenzia quale algoritmo produce soluzioni più varie o più concentrate su poche carte." />
+
 
                             <BarChart fx:id="cvChart" prefHeight="220" animated="false" legendVisible="true" styleClass="metrics-chart">
                                 <xAxis>
@@ -183,6 +189,7 @@
                                     <NumberAxis label="CV"/>
                                 </yAxis>
                             </BarChart>
+
                         </VBox>
 
 

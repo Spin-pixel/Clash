@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="83930c55-9d0e-4f0e-acec-0dc30d0ae4d2" name="Changes" comment="Done:&#10;&gt;Correzioni post-merge&#10;&gt;Riorganizzazione cartella test&#10;&gt;Introdotto l'uso delle metriche nelle classi GA-core e SA-core&#10;&gt;Introdotti istogrammi per mettere a paragone gli algoritmi&#10;TO-DO:&#10;&gt;Aggiungi note sotto gli istogrammi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/GA_core.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/GA_core.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/SA_core.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/SA_core.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grafica/ResultDeckController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grafica/ResultDeckController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ResultDeckView.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ResultDeckView.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/individuals/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/individuals/Deck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ResultDeckView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ResultDeckView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/test/EvaluationMetricsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/EvaluationMetricsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +123,7 @@
       <updated>1771173962254</updated>
       <workItem from="1771173963356" duration="30345000" />
       <workItem from="1771230891035" duration="4313000" />
-      <workItem from="1771238639582" duration="8634000" />
+      <workItem from="1771238639582" duration="9406000" />
     </task>
     <task id="LOCAL-00001" summary="Done:&#10;&gt;Definizione del modello di transizione nel SA&#10;TO-DO:&#10;&gt;Aggiungere vista nella grafica dove si mostra l'output del secondo agente&#10;&gt;Definire funzione di utilità">
       <option name="closed" value="true" />
@@ -218,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771257551551</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Done:&#10;&gt;Correzioni post-merge&#10;&gt;Riorganizzazione cartella test&#10;&gt;Introdotto l'uso delle metriche nelle classi GA-core e SA-core&#10;&gt;Introdotti istogrammi per mettere a paragone gli algoritmi&#10;TO-DO:&#10;&gt;Aggiungi note sotto gli istogrammi">
+      <option name="closed" value="true" />
+      <created>1771261140523</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1771261140523</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
