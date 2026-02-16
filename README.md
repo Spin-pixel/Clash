@@ -1,6 +1,6 @@
 # Royal Configurator
 
-Repository: https://github.com/<TUO-UTENTE-O-ORG>/<NOME-REPO>
+Repository: https://github.com/Spin-pixel/Clash
 
 Royal Configurator è un software che supporta i giocatori di **Clash Royale** nella creazione di mazzi efficaci.
 L’obiettivo è fornire uno strumento soprattutto ai **giocatori novizi**, così da ottenere deck solidi anche con poca esperienza, tramite strategie di ottimizzazione basate su euristiche e meta-euristiche.
