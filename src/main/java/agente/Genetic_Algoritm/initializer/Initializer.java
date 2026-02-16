@@ -48,7 +48,7 @@ public class Initializer {
         List<Card> selectedCards = new ArrayList<>();
 
         // Usiamo un Set di Stringhe per tracciare gli ID presi
-        java.util.Set<String> takenIds = new java.util.HashSet<>();
+        List<String> takenIds = new ArrayList<>();
 
         // 1. Gestione Carte Obbligatorie
         // Assumo che constraints.mandatoryCardsId sia List<String>
