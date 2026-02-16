@@ -3,6 +3,7 @@ package agente.Simulated_Annealing.Stato_corrente;
 
 
 import agente.Genetic_Algoritm.individuals.Deck;
+import agente.Simulated_Annealing.Funzione_Utilità.funzione_utilità;
 import model.Card;
 import model.Troop;
 
@@ -20,10 +21,12 @@ public class stato_iniziale {
 
     private Random random = new Random();
 
+    private funzione_utilità funz =new funzione_utilità();
+
     //mi permette di evitare loop infiniti
     private int flag = 0;
 
-    public Stato createDeck(List<Card> pool,Vincoli vincoli) {
+    public Stato createStato(List<Card> pool,Vincoli vincoli, int numeroTry) {
         List<Card> cards = new ArrayList<Card>();
         // Usiamo un Set di Stringhe per tracciare gli ID presi
         java.util.Set<String> takenIds = new java.util.HashSet<>();
@@ -65,15 +68,16 @@ public class stato_iniziale {
         Stato stato = new Stato(cards);
         if(isValid(stato,vincoli)) {
             flag=0;
+            stato.setUtility(funz.Totale_FU(stato));
             return stato;
         }
         else {
-            if(flag == 5) {
+            if(flag == numeroTry) {
                 flag=0;
                 return null;
             }
             flag++;
-            return createDeck(pool, vincoli);
+            return createStato(pool, vincoli,numeroTry);
         }
     }
 
