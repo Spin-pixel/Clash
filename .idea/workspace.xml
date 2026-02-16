@@ -4,17 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83930c55-9d0e-4f0e-acec-0dc30d0ae4d2" name="Changes" comment="Done:&#10;&gt;Riscrittura del README.md">
+    <list default="true" id="83930c55-9d0e-4f0e-acec-0dc30d0ae4d2" name="Changes" comment="Done:&#10;&gt;Correzione README.md, introduzione del package testing e del package metriche">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/fitness/Fitness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Genetic_Algoritm/fitness/Fitness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/Funzione_Utilità/funzione_utilità.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/Funzione_Utilità/funzione_utilità.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/SA_core.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agente/Simulated_Annealing/SA_core.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -100,6 +103,7 @@
       <updated>1771173962254</updated>
       <workItem from="1771173963356" duration="30345000" />
       <workItem from="1771230891035" duration="4313000" />
+      <workItem from="1771238639582" duration="4515000" />
     </task>
     <task id="LOCAL-00001" summary="Done:&#10;&gt;Definizione del modello di transizione nel SA&#10;TO-DO:&#10;&gt;Aggiungere vista nella grafica dove si mostra l'output del secondo agente&#10;&gt;Definire funzione di utilità">
       <option name="closed" value="true" />
@@ -165,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771225504558</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Done:&#10;&gt;Correzione README.md, introduzione del package testing e del package metriche">
+      <option name="closed" value="true" />
+      <created>1771239614699</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1771239614699</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,6 +191,7 @@
     <MESSAGE value="Done:&#10;&gt;Aumentata tolleranza del SA&#10;TO-DO:&#10;&gt;Introdurre le metriche di valutazione&#10;&gt;Introdurre grafici che mettono a paragono i due algoritmi sulla base delle metriche usate" />
     <MESSAGE value="Done:&#10;&gt;Scrittura del README.md" />
     <MESSAGE value="Done:&#10;&gt;Riscrittura del README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Done:&#10;&gt;Riscrittura del README.md" />
+    <MESSAGE value="Done:&#10;&gt;Correzione README.md, introduzione del package testing e del package metriche" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done:&#10;&gt;Correzione README.md, introduzione del package testing e del package metriche" />
   </component>
 </project>
